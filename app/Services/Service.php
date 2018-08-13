@@ -13,8 +13,6 @@ use Illuminate\Support\Facades\Log;
 use SplSubject;
 use SplObserver;
 use SplObjectStorage;
-use App\Services\ServicesObserver;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Collection;
 use Illuminate\Contracts\Validation\Validator;

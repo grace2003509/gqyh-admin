@@ -1,0 +1,24 @@
+.remain_sms {
+    height: 50px;
+    padding: 5px;
+    font-weight: bolder;
+}
+
+#statistics {width:100%;}
+.statis-item {width:12%;float:left; background:#fff; color:#00a65a; border:1px #00a65a solid; border-radius:3%; text-align:center; margin: 1% 0.2%;}
+.statis-item :hover{background:#00a65a; border-radius:3%; color:#fff; height:100px; margin: 1% 0.2%;}
+#statistics .statis-item p{width:100%; line-height:30px; text-align:center; margin:0 auto; height:100px; padding-top:25px;}
+#statistics .statis-item p .statis-name{font-size:18px;}
+#statistics .statis-item p .statis-num{font-size:25px;}
+
+.baobiao_x{ background:#f6fbfa; height:50px; margin-bottom:10px;}
+.tt-select{ margin-left:5px;}
+.xx-select{ height:35px; line-height:35px; width:120px;    margin: 8px; font-size:14px;}
+.scbg_x{background:#00a65a; color:#fff; padding:5px 15px; font-size:16px; margin-left:15px;}
+.scbg_x {color:#fff; }
+.scbg_x:hover{color:#fff; }
+.time_xx{margin: 2% 2%; display:inline-block;}
+.labx_x{font-size:14px; line-height:50px; margin-left:15px; font-weight:normal;}
+.ddzj_x{ background:#f6fbfa; width:49%; margin:0.5%; overflow:hidden; float:left; text-align:center; font-size:18px; line-height:35px; padding-top:10px;}
+.ddzj_x div img{ width:96%;}
+.ddzj_x span img{margin-right:10px;}

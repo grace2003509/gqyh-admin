@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="/vendor/admin-lte/dist/css/skins/skin-green-light.min.css">
 <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap-daterangepicker/2.1.24/daterangepicker.min.css">
 <link rel="stylesheet" href="/vendor/bootstrap-treeview/dist/bootstrap-treeview.min.css">
-<link rel="stylesheet" href="/admin/css/admin.css">
+<link rel="stylesheet" href="/css/admin.css">
 <style type="text/css">
     header { font-family: "Microsoft Yahei"}
     .box-body { min-height: 120px; }
