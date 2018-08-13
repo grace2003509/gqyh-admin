@@ -11,37 +11,37 @@
 |
 */
 
-Route::group(['prefix' => 'system', 'middleware' => ['auth', 'role:administrator']], function () {
+Route::group(['prefix' => 'admin/system', 'middleware' => ['auth', 'role:administrator']], function () {
 
     //用户管理
-    Route::resource('/user', 'System\UserController');
+    Route::resource('/user', 'Admin\System\UserController');
 
     //角色管理
-    Route::resource('/role', 'System\RoleController');
+    Route::resource('/role', 'Admin\System\RoleController');
 
     //角色分配
-    Route::resource('/assignrole', 'System\AssignroleController');
+    Route::resource('/assignrole', 'Admin\System\AssignroleController');
 
     //权限分配
-    Route::resource('/assignpermission', 'System\AssignpermissionController');
+    Route::resource('/assignpermission', 'Admin\System\AssignpermissionController');
 });
 
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
 
-    Route::get('/', 'HomeController@index')->name('home');
+    Route::get('/home', 'Admin\HomeController@index')->name('admin.home');
 
     //个人资料修改
-    Route::resource('/system/profile', 'System\ProfileController');
+    Route::resource('/system/profile', 'Admin\System\ProfileController');
 
 });
 
 //登入登出
-Route::get('/login', 'Auth\LoginController@showLoginForm')->name('user.login');
-Route::post('/login', 'Auth\LoginController@login')->name('login');
-Route::get('/logout', 'Auth\LoginController@logout')->name('user.logout');
+Route::get('/admin/login', 'Admin\Auth\LoginController@showLoginForm')->name('admin.user.login');
+Route::post('/admin/login', 'Admin\Auth\LoginController@login')->name('admin.login');
+Route::get('/admin/logout', 'Admin\Auth\LoginController@logout')->name('admin.user.logout');
 
 //忘记密码重置
-Route::get('/password/email', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.email');
-Route::post('/password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail');
-Route::get('/password/reset/{token}', 'Auth\ResetPasswordController@showResetForm');
-Route::post('/password/reset', 'Auth\ResetPasswordController@reset')->name('password.reset');
+Route::get('/admin/password/email', 'Admin\Auth\ForgotPasswordController@showLinkRequestForm')->name('admin.password.email');
+Route::post('/admin/password/email', 'Admin\Auth\ForgotPasswordController@sendResetLinkEmail');
+Route::get('/admin/password/reset/{token}', 'Admin\Auth\ResetPasswordController@showResetForm');
+Route::post('/admin/password/reset', 'Admin\Auth\ResetPasswordController@reset')->name('admin.password.reset');

@@ -18,6 +18,8 @@
 | loading any of our classes later on. It feels great to relax.
 |
 */
+DEFINE('USERSID', '9nj50igwex');
+
 
 require __DIR__.'/../bootstrap/autoload.php';
 

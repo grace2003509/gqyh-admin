@@ -8,12 +8,12 @@ return json_encode([                                    // modules
         'items' => [
             [
                 'name' => '商城管理',
-                'route' => 'home',
+                'route' => 'admin.home',
                 'description' => '设置商城基本信息',
                 'items' => [
                     [
                         'name' => '首页设置',
-                        'route' => 'home',
+                        'route' => 'admin.index',
                         'description' => '设置商城首页信息',
                         'items' => null,
                     ],

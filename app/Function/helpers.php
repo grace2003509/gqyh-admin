@@ -30,13 +30,6 @@ function date_between($range, $delimiter=' - ') {
     return null;
 }
 
-function current_store() {
-    static $store;
-    if (! isset($store)) {
-        $store = auth()->user()->store_code;
-    }
-    return $store;
-}
 
 function route_matches($menu) {
     $list = [ $menu ];
@@ -80,4 +73,34 @@ function perm_match($menu)
         return true;
     }
     return false;
+}
+
+
+if ( ! function_exists('round_pad_zero'))
+{
+    /**
+     * 浮点数四舍五入补零函数
+     *
+     * @param float $num
+     *        	待处理的浮点数
+     * @param int $precision
+     *        	小数点后需要保留的位数
+     * @return float $result 处理后的浮点数
+     */
+    function round_pad_zero($num, $precision) {
+        if ($precision < 1) {
+            return round($num, $precision);
+        }
+
+        $r_num = round($num, $precision);
+        $num_arr = explode('.', "$r_num");
+        if (count($num_arr) == 1) {
+            return "$r_num" . '.' . str_repeat('0', $precision);
+        }
+        $point_str = "$num_arr[1]";
+        if (strlen($point_str) < $precision) {
+            $point_str = str_pad($point_str, $precision, '0');
+        }
+        return $num_arr[0] . '.' . $point_str;
+    }
 }

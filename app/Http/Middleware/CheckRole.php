@@ -21,7 +21,7 @@ class CheckRole
     {
         if ($this->auth->guest() || !$request->user()->hasRole(explode('|', $roles))) {
 //            abort(403);
-            return redirect()->route('home')->withErrors('您没有权限访问!!!');
+            return redirect()->route('admin.home')->withErrors('您没有权限访问!!!');
         }
         return $next($request);
     }
