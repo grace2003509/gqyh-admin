@@ -53,11 +53,14 @@
                 </tr>
             </table>
         </div>
+        <div class="clearfix"></div>
         <!--// day report -->
 
         <!-- download -->
         @if(count($data2))
-        <button id="down" class="report_down_button">点击下载</button>
+            <a href="{{route('admin.statistics.download', ['type'=> $default_data['type'],'time' => $default_data['time']])}}">
+                <button id="down" class="report_down_button">点击下载</button>
+            </a>
         @endif
         <!--// download -->
 
@@ -71,14 +74,6 @@
 
             $("#type").val('{{$default_data['type']}}');
             $("input:radio[value='{{$default_data['time']}}']").attr('checked','true');
-
-            $("#down").click(function() {
-                var url = location.href;
-                if (url.indexOf("?") == -1) {
-                    url = url + '?';
-                }
-                location.href = url + '&act=download';
-            })
 
         })
     </script>

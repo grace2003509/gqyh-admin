@@ -10,16 +10,7 @@ var domain={
 var session_id;
 
 var Browser = new Object();
-$.ajax({
-	type : "post",
-	url : "/third_party/uploadify/check-exists.php",
-	data : "action=getSession",
-	async : false,
-	dataType: "json",
-	success : function(data){
-		session_id=data.session_id;
-	}
-});
+
 
 var global_obj={
 	file_upload:function(file_input_obj, filepath_input_obj, img_detail_obj, size){

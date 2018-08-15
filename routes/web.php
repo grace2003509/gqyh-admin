@@ -37,7 +37,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
 
         //生成报告
         Route::get('/index', 'Admin\Statistics\CreateReportController@index')->name('admin.statistics.index');
-        Route::get('/download', 'Admin\Statistics\CreateReportController@index')->name('admin.statistics.download');
+        Route::get('/download', 'Admin\Statistics\CreateReportController@download')->name('admin.statistics.download');
 
     });
 
