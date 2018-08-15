@@ -1,3 +1,12 @@
+body{background:#F1F2F7;}
+.red{color:red;}
+.sky-blue{color:#38A0E7}
+.golden{color:#F39800}
+.fz-16{font-size:16px; line-height: 40px; padding:0 5px;}
+.fz-18{font-size:18px;}
+.fz-20{font-size:20px;}
+
+
 .remain_sms {
     height: 50px;
     padding: 5px;
@@ -22,3 +31,15 @@
 .ddzj_x{ background:#f6fbfa; width:49%; margin:0.5%; overflow:hidden; float:left; text-align:center; font-size:18px; line-height:35px; padding-top:10px;}
 .ddzj_x div img{ width:96%;}
 .ddzj_x span img{margin-right:10px;}
+
+
+text.highcharts-credits{
+    display: none;
+}
+
+#sale-chart-panel {width:100%;}
+#sale-chart-panel .panel-heading {font-size:15px;}
+#sale-chart-panel .panel-heading .fa{margin-right:5px;}
+
+#finacial_detail {margin-top:10px;}
+#reportrange{width:240px;}

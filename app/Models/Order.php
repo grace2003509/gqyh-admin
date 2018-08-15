@@ -188,4 +188,24 @@ class Order extends Model {
 
 		return $builder;
 	}
+
+
+    //生成进账记录信息
+    public function order_input_record($Users_ID,$Begin_Time,$End_Time){
+
+        $fields = array('Order_ID','Order_CreateTime','Order_TotalAmount','Order_Status','Order_IsVirtual');
+
+        $input_record_builder = $this->ordersBetween($Users_ID,$Begin_Time,$End_Time,4);
+        $paginate_obj = $input_record_builder->paginate(5,$fields);
+
+        $res = array(
+            'sum'=>$input_record_builder->sum('Order_TotalAmount'),
+            'input_paginate'=>$paginate_obj,
+            'total_pages'=>$paginate_obj->lastPage()
+        );
+
+        return $res;
+
+    }
+
 }

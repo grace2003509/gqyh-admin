@@ -52,7 +52,7 @@ class ServiceSMS
     private function dconvert($str, $from = 'utf-8', $to = 'gb2312') {
         $from = str_replace('utf-8', 'utf8', $from);
         $to = str_replace('utf-8', 'utf8', $to);
-        $tmp = file($_SERVER["DOCUMENT_ROOT"].'/Framework/Ext/gb-unicode.table');
+        $tmp = file($_SERVER["DOCUMENT_ROOT"].'/static/gb-unicode.table');
         if(!$tmp) return $str;
         $table = array();
         while(list($key, $value) = each($tmp)) {

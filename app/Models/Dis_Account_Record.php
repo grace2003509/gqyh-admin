@@ -180,4 +180,23 @@ class Dis_Account_Record extends Model {
 		}
 		return $flag;
     }
+
+
+    //生成出账记录信息
+    function output_record($Users_ID,$Begin_Time,$End_Time){
+        $fields = array('Record_ID','Record_Sn','Record_CreateTime','Record_Money','Record_Status','User_ID');
+        $output_record_builder = $this->recordBetween($Users_ID,$Begin_Time,$End_Time,2)
+            ->where('Record_Type',0);
+
+        $paginate_obj = $output_record_builder->paginate(5,$fields);
+
+        $res = array(
+            'sum'=>$output_record_builder->sum('Record_Money'),
+            'output_paginate'=>$paginate_obj,
+            'total_pages'=>$paginate_obj->lastPage()
+        );
+
+        return $res;
+
+    }
 }

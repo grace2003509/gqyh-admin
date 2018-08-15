@@ -33,6 +33,14 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     //个人资料修改
     Route::resource('/system/profile', 'Admin\System\ProfileController');
 
+    Route::group(['prefix' => 'admin/statistics', 'middleware' => 'auth'], function () {
+
+        //生成报告
+        Route::get('/index', 'Admin\Statistics\CreateReportController@index')->name('admin.statistics.index');
+        Route::get('/download', 'Admin\Statistics\CreateReportController@index')->name('admin.statistics.download');
+
+    });
+
 });
 
 //登入登出

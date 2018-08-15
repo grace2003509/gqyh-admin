@@ -1,9 +1,13 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php
 /**
  * 分销账户Model
  */
+
+namespace App\Models;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-class Dis_Record extends Illuminate\Database\Eloquent\Model
+
+class Dis_Record extends Model
 {
 	use SoftDeletes;
 	protected $dates = ['deleted_at'];
