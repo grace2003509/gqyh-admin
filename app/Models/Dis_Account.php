@@ -98,7 +98,7 @@ class Dis_Account extends Model {
             'Users_ID' => $users_id,
             'User_ID' => $owner_id,
         ];
-        $user = User::select('Users_ID','Owner_Id', 'User_ID', 'User_Level')->where($where)->first();
+        $user = Member::select('Users_ID','Owner_Id', 'User_ID', 'User_Level')->where($where)->first();
         //只识别vip会员和总代
         if(@$user->disAccount->status == 1 && @$user->disAccount->Level_ID >= 2){
             $ids .= $user['User_ID'].',';
@@ -163,9 +163,8 @@ class Dis_Account extends Model {
 	 * @param  string  $End_Time  结束时间
 	 * @return int     $num     分销商数量
 	 */
-	public function accountCount($Users_ID, $Begin_Time, $End_Time) {
-		$num = $this->where('Users_ID', $Users_ID)
-			->whereBetween('Account_CreateTime', [$Begin_Time, $End_Time])
+	public function accountCount($Begin_Time, $End_Time) {
+		$num = $this->whereBetween('Account_CreateTime', [$Begin_Time, $End_Time])
 			->count();
 
 		return $num;
@@ -193,20 +192,6 @@ class Dis_Account extends Model {
 				->Dis_Path;
 			$ids = explode(',', trim($inviterDisPath, ',,'));
 			$num = count($ids);
-
-			//去掉九级限制
-			/*if ($num == 9) {
-				array_shift($ids);
-				array_push($ids, $userOwnerID);
-				$Dis_Path = ',' . implode(',', $ids) . ',';
-				//如果小于九
-			} else if ($num < 9) {
-
-				$pre = strlen($inviterDisPath) ? '' : ',';
-				$Dis_Path = $pre . $inviterDisPath . $userOwnerID . ',';
-			}*/
-
-			//去掉九级限制,如果要增加限制,删掉下面两行,把上面的注释去掉
 			$pre = strlen($inviterDisPath) ? '' : ',';
 			$Dis_Path = $pre . $inviterDisPath . $userOwnerID . ',';
 
@@ -348,12 +333,7 @@ class Dis_Account extends Model {
 	public function getFullDisPath(){
 		if(!empty($this->Dis_Path)){
 			$fullDisPath = trim($this->Dis_Path,',,');
-			$Users_ID = $this->Users_ID;
-			$disCollection  = $this->where('Users_ID',$Users_ID)
-			                    ->get(array('User_ID','Dis_Path'));
-								
-			
-				
+			$disCollection  = $this->get(array('User_ID','Dis_Path'));
 			$disDictionary = get_dropdown_collection($disCollection,'User_ID');
 			
 			$Dis_Path = trim($this->Dis_Path,',,');

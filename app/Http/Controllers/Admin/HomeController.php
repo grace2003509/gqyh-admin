@@ -21,8 +21,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $Users_ID = USERSID;
-
         $sms_obj = new ServiceSMS();
         $remain_count = $sms_obj->get_remain_sms();
 
@@ -38,30 +36,29 @@ class HomeController extends Controller
         $account_record = new Dis_Account_Record();
         $account = new Dis_Account();
         //今日订单总数目
-        $today_all_order_num = $order->statistics($Users_ID,'num',$today,$now);
+        $today_all_order_num = $order->statistics('num',$today,$now);
         //今日已付款订单
-        $today_payed_order_num = $order->statistics($Users_ID,'num',$today,$now,2);
+        $today_payed_order_num = $order->statistics('num',$today,$now,2);
         //今日销售额
-        $today_order_sales = $order->statistics($Users_ID,'sales',$today,$now,2);
+        $today_order_sales = $order->statistics('sales',$today,$now,2);
         //本月销售额
-        $month_order_sales = $order->statistics($Users_ID,'sales',$month_start,$month_end,2);
+        $month_order_sales = $order->statistics('sales',$month_start,$month_end,2);
         //今日支出佣金
-        $today_output_money = $account_record->recordMoneySum($Users_ID,$today,$now,1);
+        $today_output_money = $account_record->recordMoneySum($today,$now,1);
         $today_output_money = round_pad_zero($today_output_money,2);
         //本月支出佣金
-        $month_output_money = $account_record->recordMoneySum($Users_ID,$month_start,$month_end,1);
+        $month_output_money = $account_record->recordMoneySum($month_start,$month_end,1);
         $month_output_money = round_pad_zero($month_output_money, 2);
         //今日加入分销商
-        $today_new__account_num = $account->accountCount($Users_ID,$today,$now);
+        $today_new__account_num = $account->accountCount($today,$now);
         //本月加入分销商
-        $month_new_account_num =  $account->accountCount($Users_ID,$month_start,$month_end);
+        $month_new_account_num =  $account->accountCount($month_start,$month_end);
 
         //七天内订单统计
         $endDayTime = time();
         $startDayTime = strtotime(date('Y-m-d', $endDayTime - 86400 * 6));
         //获取七天内所有订单列表
-        $week_order_list = Order::where('Users_ID',$Users_ID)
-            ->whereBetween('Order_CreateTime', array($startDayTime, $endDayTime))
+        $week_order_list = Order::whereBetween('Order_CreateTime', array($startDayTime, $endDayTime))
             ->where('Order_Status',4)
             ->get(array('Order_ID','Order_TotalAmount','Order_CreateTime'))->toArray();
 
@@ -151,8 +148,7 @@ class HomeController extends Controller
         }
         $mon_end = $carbon->endOfMonth()->timestamp;
         //获取本月内所有订单列表
-        $month_order_list = Order::where('Users_ID',$Users_ID)
-            ->whereBetween('Order_CreateTime', array($mon_start,$mon_end))
+        $month_order_list = Order::whereBetween('Order_CreateTime', array($mon_start,$mon_end))
             ->where('Order_Status',4)
             ->get(array('Order_ID','Order_TotalAmount','Order_CreateTime'));
         //统计每日销量
@@ -176,7 +172,7 @@ class HomeController extends Controller
             if (count($order_array) > 0) {
                 foreach ($order_array as $key => $value) {
                     $day = date('Y-m-d', $value['Order_CreateTime']);
-                    $order_id_arr[$day] = $this->get_day_summary($Users_ID, $value['Order_ID']);
+                    $order_id_arr[$day] = $this->get_day_summary($value['Order_ID']);
                 }
 
                 foreach ($month_days_range as $key => $value) {
@@ -216,17 +212,15 @@ class HomeController extends Controller
 
 
 
-    private function get_day_summary($Users_ID, $Order_ID) {
+    private function get_day_summary($Order_ID) {
         $money = $money1 = $money2 = 0;
         $row = Dis_Record::select('Record_ID')
-            ->where('Users_ID', $Users_ID)
             ->where('Order_ID', intval($Order_ID))
             ->first();
 
         //统计出所有分销信息
         if ($row) {
             $row = Dis_Account_Record::where('Record_Status',2)
-                ->where('Users_ID', $Users_ID)
                 ->where('Ds_Record_ID', $row['Record_ID'])
                 ->first(
                     array(

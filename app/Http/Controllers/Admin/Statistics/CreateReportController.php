@@ -11,8 +11,6 @@ class CreateReportController extends Controller
 {
     public function index(Request $request)
     {
-        $Users_ID = USERSID;
-
         //计算时间点
         $get_data = $request->only(['type','time']);
         $type = isset($get_data['type']) ? $get_data['type'] : 'week';
@@ -46,8 +44,7 @@ class CreateReportController extends Controller
         $order = new Order();
 
         $Order_Status = 2;
-        $order_list = $order->where('Users_ID', $Users_ID)
-            ->whereBetween('Order_CreateTime', [$begin_time, $end_time])
+        $order_list = $order->whereBetween('Order_CreateTime', [$begin_time, $end_time])
             ->where('Order_Status', '>=', $Order_Status)
             ->orderBy('Order_ID', 'DESC')
             ->get(['Order_ID', 'User_ID', 'Order_TotalAmount', 'Order_CreateTime'])
@@ -91,74 +88,26 @@ class CreateReportController extends Controller
                 }
             }
         }
-//按日期索引排序
-        krsort($data2);
 
-        return view('admin.statistics.create_report');
+        $totalAmount = $totalOrder = 0;
+        foreach($data2 as $k=>$v){
+            $totalOrder += $v['OrderTotal'];
+            $totalAmount += $v['OrderTotalAmount'];
+        }
+        $default_data['time'] = $time;
+        $default_data['type'] = $type;
+
+        return view('admin.statistics.create_report',
+            compact('data2', 'default_data', 'totalAmount', 'totalOrder'));
     }
-
 
 
     /**
      * 下载统计结果
-     * @param array $data
-     * @return attach
      */
-    private function getExcel($fileName, $headArr, $data){
-        if(empty($data) || !is_array($data)){
-            die("data must be a array");
-        }
-        if(empty($fileName)){
-            exit;
-        }
-        $date = date("Y_m_d",time());
-        $fileName .= "_{$date}.xls";
-
-        //创建新的PHPExcel对象
-        $objPHPExcel = new PHPExcel();
-        $objProps = $objPHPExcel->getProperties()->setCreator("wangzhongwang");;
-
-        //设置表头
-        $key = ord("A");
-        foreach($headArr as $v){
-            $colum = chr($key);
-            $objPHPExcel->setActiveSheetIndex(0) ->setCellValue($colum.'1', $v);
-            $key += 1;
-        }
-
-        $column = 2;
-        $objActSheet = $objPHPExcel->getActiveSheet();
-        foreach($data as $key => $rows){ //行写入
-            $span = ord("A");
-            foreach($rows as $keyName=>$value){// 列写入
-                $j = chr($span);
-                $objActSheet->setCellValue($j.$column, $value);
-                $span++;
-            }
-            $column++;
-        }
-
-        $fileName = iconv("utf-8", "gb2312", $fileName);
-        //重命名表
-        $objPHPExcel->getActiveSheet()->setTitle('Simple');
-
-        //设置活动单指数到第一个表,所以Excel打开这是第一个表
-        $objPHPExcel->setActiveSheetIndex(0);
-
-
-        //清除缓存
-        ob_clean();
-
-
-        //将输出重定向到一个客户端web浏览器(Excel2007)
-        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header("Content-Disposition: attachment; filename=\"$fileName\"");
-        header('Cache-Control: max-age=0');
-
-        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
-        $objWriter->save('php://output'); //文件通过浏览器下载
-
-        die();
+    public function download()
+    {
 
     }
+
 }

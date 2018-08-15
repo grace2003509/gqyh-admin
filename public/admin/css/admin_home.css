@@ -43,3 +43,35 @@ text.highcharts-credits{
 
 #finacial_detail {margin-top:10px;}
 #reportrange{width:240px;}
+
+.report_table {
+    background-color: #ffffff;
+}
+.report_table table{width:70%;margin-left:10px;}
+.report_table table th{background: #00a65a; color: #fff; line-height: 25px; text-align: center}
+.report_table th,td{padding:5px; text-align: center}
+.report_table td span{font-weight:bold; padding:2px 5px; color:red}
+
+.report_down_button {
+    clear:both;
+    margin-top:20px;
+    width:70%;
+    margin-left:10px;
+    background-color:#00a65a;
+    border:none;height:30px;
+    color:#fff;
+    font-weight:bold;
+    border-radius:4px;
+    margin-bottom: 30px;
+}
+
+.center {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#wrap{
+    width:100%;
+    height:auto;
+    margin:0 auto;
+}
