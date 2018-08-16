@@ -1,14 +1,15 @@
 @extends('admin.layouts.main')
-
+@section('ancestors')
+    <li>财务统计</li>
+@endsection
+@section('page', '生成报告')
 @section('subcontent')
     <!-- statistics start -->
+    <script src="/static/js/plugins/jQuery/jQuery-2.2.0.min.js"></script>
     <link href='/static/css/bootstrap.min.css' rel='stylesheet' type='text/css' />
     <link href='/admin/css/admin_home.css' rel='stylesheet' type='text/css' />
 
-    <script src="/static/js/jquery-1.9.1.min.js"></script>
-    <script src="/static/js/plugins/bootstrap/bootstrap.min.js"></script>
-
-    <div class="box" style="margin-top: -20px;">
+    <div class="box" >
         <div id="wrap" class="center">
             <div class="baobiao_x">
                 <form method="get" action="?" id="form1">

@@ -33,12 +33,19 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     //个人资料修改
     Route::resource('/system/profile', 'Admin\System\ProfileController');
 
-    Route::group(['prefix' => 'admin/statistics', 'middleware' => 'auth'], function () {
-
+    Route::group(['prefix' => 'statistics', 'middleware' => 'auth'], function () {
         //生成报告
         Route::get('/index', 'Admin\Statistics\CreateReportController@index')->name('admin.statistics.index');
         Route::get('/download', 'Admin\Statistics\CreateReportController@download')->name('admin.statistics.download');
 
+    });
+
+    Route::group(['prefix' => 'base', 'middleware' => 'auth'], function () {
+        //基础设置
+        Route::get('/index', 'Admin\Base\ThirdSettingController@index')->name('admin.base.index');
+        Route::post('/edit', 'Admin\Base\ThirdSettingController@edit')->name('admin.base.edit');
+        Route::post('/upload_json', 'Admin\Base\ThirdSettingController@upload_json')->name('admin.base.upload_json');
+        Route::get('/file_manager_json', 'Admin\Base\ThirdSettingController@file_manager_json')->name('admin.base.file_manager_json');
     });
 
 });

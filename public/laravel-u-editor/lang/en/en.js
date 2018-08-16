@@ -16,7 +16,7 @@ UE.I18N['en'] = {
         'deleterow':'DeleteRow', 'deletecol':'DeleteCol', 'splittorows':'SplitToRows','insertcode':'insert code',
         'splittocols':'SplitToCols', 'splittocells':'SplitToCells','deletecaption':'DeleteCaption','inserttitle':'InsertTitle',
         'mergecells':'MergeCells', 'deletetable':'DeleteTable', 'cleardoc':'Clear', 'insertparagraphbeforetable':"InsertParagraphBeforeTable",
-        'fontfamily':'FontFamily', 'fontsize':'FontSize', 'paragraph':'Paragraph','simpleupload':'Single Image','insertimage':'Multi Image','edittable':'Edit Table', 'edittd':'Edit Td','link':'Link',
+        'fontfamily':'FontFamily', 'fontsize':'FontSize', 'paragraph':'Paragraph','simpleupload':'Single ImageThum','insertimage':'Multi ImageThum','edittable':'Edit Table', 'edittd':'Edit Td','link':'Link',
         'emotion':'Emotion', 'spechars':'Spechars', 'searchreplace':'SearchReplace', 'map':'BaiduMap', 'gmap':'GoogleMap',
         'insertvideo':'Video', 'help':'Help', 'justifyleft':'JustifyLeft', 'justifyright':'JustifyRight', 'justifycenter':'JustifyCenter',
         'justifyjustify':'Justify', 'forecolor':'FontColor', 'backcolor':'BackColor', 'insertorderedlist':'OL',
@@ -225,7 +225,7 @@ UE.I18N['en'] = {
         'removeFormat':"Remove format",
         'indent':"Indent",
         'alignment':"Alignment",
-        'imageFloat':"Image float",
+        'imageFloat':"ImageThum float",
         'removeFontsize':"Remove font size",
         'removeFontFamily':"Remove fontFamily",
         'removeHtml':"Remove redundant HTML code",
@@ -244,13 +244,13 @@ UE.I18N['en'] = {
             'lang_background_none':'No Background',
             'lang_background_colored':'Colored Background',
             'lang_background_color':'Color Set',
-            'lang_background_netimg':'Net-Image',
+            'lang_background_netimg':'Net-ImageThum',
             'lang_background_align':'Align Type',
             'lang_background_position':'Position',
             'repeatType':{'options':["Center", "Repeat-x", "Repeat-y", "Tile","Custom"]}
         },
         'noUploadImage':"No pictures has been uploaded！",
-        'toggleSelect':'Change the active state by click!\n Image Size: '
+        'toggleSelect':'Change the active state by click!\n ImageThum Size: '
     },
     //===============dialog i18N=======================
     'insertimage':{
@@ -266,7 +266,7 @@ UE.I18N['en'] = {
             'lang_input_border':"Border:",
             'lang_input_vhspace':"Margins:",
             'lang_input_title':"Title:",
-            'lang_input_align':'Image Float Style:',
+            'lang_input_align':'ImageThum Float Style:',
             'lang_imgLoading':"Loading...",
             'lang_start_upload':"Start Upload",
             'lock':{'title':"Lock rate"},
@@ -307,7 +307,7 @@ UE.I18N['en'] = {
         'imageUrlError':"The image format may be wrong!",
         'imageLoadError':"Error,please check the network or URL！",
         'searchRemind':"Enter the search keyword!",
-        'searchLoading':"Image is loading,please wait...",
+        'searchLoading':"ImageThum is loading,please wait...",
         'searchRetry':" Sorry,can't find the image,please try again!"
     },
     'attachment':{
@@ -455,10 +455,10 @@ UE.I18N['en'] = {
             'J_imgTxt':{title:'Add background image'}
         },
         'noScarwl':"No paint, a white paper...",
-        'scrawlUpLoading':"Image is uploading, please wait...",
+        'scrawlUpLoading':"ImageThum is uploading, please wait...",
         'continueBtn':"Try again",
-        'imageError':"Image failed to load!",
-        'backgroundUploading':'Image is uploading,please wait...'
+        'imageError':"ImageThum failed to load!",
+        'backgroundUploading':'ImageThum is uploading,please wait...'
     },
     'music':{
         'static':{

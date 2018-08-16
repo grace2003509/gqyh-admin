@@ -33,7 +33,7 @@
                     <span class="icon-bar"></span>
                 </button>
 
-                <!-- Branding Image -->
+                <!-- Branding ImageThum -->
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
                 </a>

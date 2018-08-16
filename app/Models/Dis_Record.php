@@ -13,7 +13,7 @@ class Dis_Record extends Model
 	protected $dates = ['deleted_at'];
 	
 	protected  $primaryKey = "Record_ID";
-	protected  $table = "distribute_record";
+    protected  $table = "distribute_record";
 	public $timestamps = false;
 	
 

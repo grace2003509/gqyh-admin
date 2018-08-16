@@ -1834,7 +1834,7 @@
         });
     });
     /**
-     * @fileOverview Image
+     * @fileOverview ImageThum
      */
     define('lib/image',[
         'base',
@@ -5762,7 +5762,7 @@
         };
     });
     /**
-     * @fileOverview Image
+     * @fileOverview ImageThum
      */
     define('runtime/html5/image',[
         'base',
@@ -6551,7 +6551,7 @@
             // init: function( options ) {
             //     var owner = this.owner;
     
-            //     this.flashExec( 'Image', 'init', options );
+            //     this.flashExec( 'ImageThum', 'init', options );
             //     owner.on( 'load', function() {
             //         debugger;
             //     });

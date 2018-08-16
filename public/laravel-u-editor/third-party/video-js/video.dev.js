@@ -4764,7 +4764,7 @@ vjs.VolumeMenuButton.prototype.createEl = function(){
   });
 };
 vjs.VolumeMenuButton.prototype.update = vjs.MuteToggle.prototype.update;
-/* Poster Image
+/* Poster ImageThum
 ================================================================================ */
 /**
  * The component that handles showing the poster image.

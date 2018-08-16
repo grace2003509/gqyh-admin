@@ -5,8 +5,7 @@
     <link href='/static/css/bootstrap.min.css' rel='stylesheet' type='text/css' />
     <link href='/admin/css/admin_home.css' rel='stylesheet' type='text/css' />
 
-    <script src="/static/js/jquery-1.9.1.min.js"></script>
-    <script src="/static/js/plugins/bootstrap/bootstrap.min.js"></script>
+    <script src="/static/js/plugins/jQuery/jQuery-2.2.0.min.js"></script>
     <script src="http://cdn.hcharts.cn/highcharts/highcharts.js"></script>
     <script src="http://cdn.hcharts.cn/highcharts/modules/exporting.js"></script>
 

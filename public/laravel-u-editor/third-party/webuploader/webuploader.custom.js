@@ -1640,7 +1640,7 @@
         });
     });
     /**
-     * @fileOverview Image
+     * @fileOverview ImageThum
      */
     define('lib/image',[
         'base',
@@ -4286,7 +4286,7 @@
         return EXIF;
     });
     /**
-     * @fileOverview Image
+     * @fileOverview ImageThum
      */
     define('runtime/html5/image',[
         'base',

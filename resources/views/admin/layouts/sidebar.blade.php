@@ -5,7 +5,7 @@
 
             <li class="treeview">
                 <a href="{{route('admin.home')}}">
-                    <i class="fa fa-inbox"></i> <span>后台首页</span>
+                    <i class="fa fa-home"></i> <span>后台首页</span>
                 </a>
             </li>
 
@@ -26,11 +26,12 @@
             @endrole
 
             @foreach (json_decode(config('menus')) as $module)
+
                 @if(perm_matches($module))
                     <li class="treeview @if(route_matches($module)) active @endif">
                         <a href="#">
-                            <i class="fa fa-{{ $module->icon }}"></i> <span>{{ $module->name }}</span><i
-                                    class="fa fa-angle-right pull-right"></i>
+                            <i class="fa fa-{{ $module->icon }}"></i> <span>{{ $module->name }}</span>
+                            <i class="fa fa-angle-right pull-right"></i>
                         </a>
                         <ul class="treeview-menu">
                             @foreach ($module->items as $menu)
