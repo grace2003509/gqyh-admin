@@ -15,14 +15,14 @@
 @section('head')
 <header class="main-header">
     <!-- Logo -->
-    <a href="{{ route('admin.home') }}" class="logo">
+    <a href="{{ route('admin.home') }}" class="logo" style="text-align: left">
         <span class="logo-mini"><b>GQYH</b></span>
         <span class="logo-lg"><b>观前一号后台管理</b></span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
         <!-- Sidebar toggle button-->
-        <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+        <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button" >
             <span class="sr-only">菜单</span>
         </a>
         <div class="navbar-custom-menu">

@@ -7,7 +7,6 @@
 
     <script src="/static/js/jquery-1.9.1.min.js"></script>
     <script src="/static/js/plugins/bootstrap/bootstrap.min.js"></script>
-    <script type='text/javascript' src='/admin/js/global.js'></script>
 
     <div class="box" style="margin-top: -20px;">
         <div id="wrap" class="center">

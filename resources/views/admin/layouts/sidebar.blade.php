@@ -2,7 +2,12 @@
 <aside class="main-sidebar">
     <section class="sidebar">
         <ul class="sidebar-menu">
-            {{--<li class="header">主菜单</li>--}}
+
+            <li class="treeview">
+                <a href="{{route('admin.home')}}">
+                    <i class="fa fa-inbox"></i> <span>后台首页</span>
+                </a>
+            </li>
 
             @role(('administrator'))
                 <li class="treeview  @if(Route::is('user.*') or Route::is('role.*') or Route::is('assignrole.*') or Route::is('assignpermission.*')) active @endif" >

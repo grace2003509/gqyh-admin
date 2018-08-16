@@ -9,8 +9,6 @@
     <script src="/static/js/plugins/bootstrap/bootstrap.min.js"></script>
     <script src="http://cdn.hcharts.cn/highcharts/highcharts.js"></script>
     <script src="http://cdn.hcharts.cn/highcharts/modules/exporting.js"></script>
-    <script type='text/javascript' src='/admin/js/global.js'></script>
-    <script type='text/javascript' src='/admin/js/account.js'></script>
 
     <div class="box" style="margin-top: -20px;">
         <div class="remain_sms">
@@ -235,19 +233,19 @@
             "count": [ {
                 "name": "本月销售曲线图",
                 "data": [{{$saleline['month_sales_value']}}],
-                "type": "line",
+                "type": "column",
                 'color': '#1584D5'
             },{
                 "name": "本月支出曲线图",
                 "data": [{{$saleline['month_summary_value']}}],
-                "type": "line",
+                "type": "column",
                 'color': '#ff5646'
             }],
             "date": [{{$saleline['month_sales_keys']}}]
         };
         var saleline_options = {
             chart: {
-                type: 'line',                         //指定图表的类型，默认是折线图（line）
+                type: 'column',                         //指定图表的类型，默认是折线图（line）
                 backgroundColor: '#f6fbfa'
             },
             title: {
