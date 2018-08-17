@@ -1,0 +1,52 @@
+.kftable_first{
+    width: 100%;
+}
+.kftable_first .lefttd {
+    border-right: 1px #dddddd solid;
+    border-bottom:  1px #dddddd solid;
+    width: 20%;
+    height: 50px;
+}
+.kftable_first .righttd {
+    border-right: 0px #dddddd solid;
+    border-bottom:  1px #dddddd solid;
+    text-align: left;
+    padding-left: 20px;
+    width: 80%;
+    height: 50px;
+}
+
+.kftable_first .righttd textarea {
+    width:90%;
+    height:87px;
+    margin: 15px;
+}
+
+.kftable_first .righttd input[type=text] {
+    width:90%;
+    height:30px;
+    margin: 15px;
+}
+
+.kftable_first .sonlefttd {
+    text-align: left;
+    width: 10%;
+    height: 50px;
+}
+.kftable_first .sonrighttd {
+    text-align: left;
+    width: 90%;
+    height: 50px;
+}
+
+
+.submit_btn {
+    display:block;
+    height:30px;
+    line-height:30px;
+    background:#3AA0EB;
+    border:none;
+    color:#FFF;
+    width:145px;
+    border-radius:3px;
+}

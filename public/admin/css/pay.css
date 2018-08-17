@@ -1,0 +1,57 @@
+.r_con_table{border-collapse:collapse; width:100%;}
+.r_con_table td{
+    padding:10px 5px;
+    border-bottom:1px solid #ddd;
+    text-align:center;
+    empty-cells:show;
+    border-right:1px solid #ddd;
+    font-size:14px;
+}
+
+.r_con_table td a{color:#4D88D3;}
+.r_con_table thead{background:#f1f1f1; font-weight:bold;}
+.r_con_table tbody tr:hover{background:#E4F1FC;}
+.r_con_table tbody td, .r_con_table tbody td *{font-size:12px;}
+
+h4{height:35px;line-height:35px; border-bottom: 1px #dddddd solid}
+ul li {
+    list-style:none;
+}
+
+dl dd {
+    height: auto; line-height: 35px;
+}
+
+#shopping dl dd input[type=text]{
+    width: 40%;
+    height: 30px;
+    border-radius: 5px;
+    border: 1px #dddddd solid;
+}
+
+#shopping input[type=button] {
+    height: 35px;
+    width: 145px;
+    background:#3AA0EB;
+    border: 0;
+    color: #ffffff;
+    line-height: 35px;
+    border-radius: 5px;
+}
+
+input[type=submit]{
+    display:block;
+    height:35px;
+    line-height:35px;
+    background:#1584D5;
+    border:none;
+    color:#fff;
+    width:160px;
+    border-radius:5px;
+    text-align:center;
+    text-decoration:none;
+    margin-right:auto;
+    margin-left: auto;
+    float: none;
+
+}

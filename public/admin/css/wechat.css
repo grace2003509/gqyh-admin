@@ -1,0 +1,54 @@
+.well span {
+ color: red;
+}
+
+.fc_red{color:#ff0000;}
+
+
+.r_con_form{
+    border-top:0px solid #ddd;
+    margin: 20px;
+}
+.r_con_form .rows{clear:both; border-bottom:1px solid #ddd; height: auto}
+.r_con_form .rows:hover{background:#E4F1FC;}
+.r_con_form .rows label{width:15%; padding:8px 0; overflow:hidden; float:left; height:28px; line-height:25px; text-align:center;}
+.r_con_form .rows .input{width:80%; padding:8px 0; overflow:hidden; float:left; min-height:28px; padding-left:10px; display:block; border-left:1px solid #ddd;}
+.r_con_form .rows .input .form_input{height:28px; line-height:28px; border:1px solid #ddd; background:#fff; border-radius:5px; padding:0 5px;}
+.r_con_form .rows .input .disable{cursor: not-allowed;background:#e3e3e3}
+.r_con_form .rows .input .form_input_disable{height:28px; line-height:28px; border:1px solid #ddd; background:#e3e3e3; border-radius:5px; padding:0 5px;cursor: not-allowed}
+.r_con_form .rows .input .form_inputgray{height:28px; color:#383838; line-height:28px; border:1px solid #ddd; background:#A1A1A1; border-radius:5px; padding:0 5px;}
+.r_con_form .rows .input .form_textgray{color:#383838; background:#A1A1A1;}
+.r_con_form .rows .input select{height:32px; border:1px solid #ddd; padding:5px; vertical-align:middle; border-radius:5px;}
+.tiledis {height:32px; border:1px solid #ddd; padding:5px; vertical-align:middle; border-radius:5px;}
+
+.r_con_form .rows .inputdisable textarea{width:350px; height:70px; padding:5px; line-height:150%; border:1px solid #ddd; background:#e3e3e3; border-radius:5px; vertical-align:top;cursor: not-allowed;}
+.r_con_form .rows .input .tips{height:28px; line-height:28px; color:#888; font-size:12px;}
+.r_con_form .rows .input .tips *{font-size:12px;}
+.r_con_form .rows .input .tips a{color:#ff6600; text-decoration:underline;}
+.r_con_form .rows .input .upload_file .up_input{float:left;}
+.r_con_form .rows .input .upload_file .tips{float:left; margin-left:10px;}
+.r_con_form .rows .input .upload_file .img img{background:#ccc; border:1px solid #ddd; max-height:200px; max-width:600px;}
+.r_con_form .rows .opt{padding-top:5px;}
+.r_con_form .rows .primary{background:#1584D5; color:#fff; margin-left:5px; border-radius:5px; padding:4px 15px;}
+.r_con_form #map{width:600px; height:300px;}
+
+.r_con_form .rows .input #attrTable input{height:28px; line-height:28px; border:1px solid #ddd; background:#fff; border-radius:5px; padding:0 5px;}
+.r_con_form .rows .input #attrTabledit input{height:28px; line-height:28px; color:#383838; border:1px solid #ddd; background:#A1A1A1; border-radius:5px; padding:0 5px;}
+
+#wechat_info .oauth_tips *{font-size:12px;}
+#wechat_info .oauth_tips h4{color:#555;}
+
+.r_con_form .rows .btn_green{
+    display:block;
+    height:30px;
+    line-height:30px;
+    background:#1584D5;
+    border:none;
+    color:#fff;
+    width:145px;
+    border-radius:5px;
+    text-align:center;
+    text-decoration:none;
+    float:left;
+    margin-right:10px;
+}

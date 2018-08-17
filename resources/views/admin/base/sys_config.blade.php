@@ -4,7 +4,7 @@
 @endsection
 @section('page', '系统设置')
 @section('subcontent')
-    <!-- statistics start -->
+
     <link href='/static/css/bootstrap.min.css' rel='stylesheet' type='text/css' />
     <link href="/admin/css/main.css" rel="stylesheet" type="text/css">
     <link href="/admin/css/global.css" rel="stylesheet" type="text/css">
@@ -16,8 +16,8 @@
     <script>
         KindEditor.ready(function(K) {
             var editor = K.editor({
-                uploadJson : '{{route('admin.base.upload_json')}}',
-                fileManagerJson : '{{route('admin.base.file_manager_json')}}',
+                uploadJson : '{{route('admin.upload_json')}}',
+                fileManagerJson : '{{route('admin.file_manager_json')}}',
                 showRemote : true,
                 allowFileManager : true,
             });
@@ -37,7 +37,7 @@
     </script>
     <div class="box">
         <div class="r_con_wrap">
-            <form class="r_con_form" method="post" action="{{route('admin.base.edit')}}">
+            <form class="r_con_form" method="post" action="{{route('admin.base.sys_edit')}}">
                 {{csrf_field()}}
                 <div class="rows">
                     <label>系统名称</label>

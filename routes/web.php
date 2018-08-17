@@ -40,18 +40,30 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
 
     });
 
+    //基础设置
     Route::group(['prefix' => 'base', 'middleware' => 'auth'], function () {
-        //基础设置
-        Route::get('/index', 'Admin\Base\ThirdSettingController@index')->name('admin.base.index');
-        Route::post('/edit', 'Admin\Base\ThirdSettingController@edit')->name('admin.base.edit');
-        Route::post('/upload_json', 'Admin\Base\ThirdSettingController@upload_json')->name('admin.base.upload_json');
-        Route::get('/file_manager_json', 'Admin\Base\ThirdSettingController@file_manager_json')->name('admin.base.file_manager_json');
+        //系统设置
+        Route::get('/sys_index', 'Admin\Base\SysConfigController@index')->name('admin.base.sys_index');
+        Route::post('/sys_edit', 'Admin\Base\SysConfigController@edit')->name('admin.base.sys_edit');
+        //客服设置
+        Route::get('/kf_index', 'Admin\Base\KfConfigController@index')->name('admin.base.kf_index');
+        Route::post('/kf_edit', 'Admin\Base\KfConfigController@edit')->name('admin.base.kf_edit');
+        //支付设置
+        Route::get('/pay_index', 'Admin\Base\PayConfigController@index')->name('admin.base.pay_index');
+        Route::post('/pay_edit', 'Admin\Base\PayConfigController@edit')->name('admin.base.pay_edit');
+        Route::get('/wechat_set', 'Admin\Base\PayConfigController@wechat_set')->name('admin.base.wechat_set');
+        Route::post('/wechat_edit', 'Admin\Base\PayConfigController@wechat_edit')->name('admin.base.wechat_edit');
+
     });
+
+    //上传文件
+    Route::post('/upload_json', 'Admin\UploadController@upload_json')->name('admin.upload_json');
+    Route::get('/file_manager_json', 'Admin\UploadController@file_manager_json')->name('admin.file_manager_json');
 
 });
 
 //登入登出
-Route::get('/admin/login', 'Admin\Auth\LoginController@showLoginForm')->name('admin.user.login');
+Route::get('/admin/login', 'Admin\Auth\LoginController@showLoginForm')->name('login');
 Route::post('/admin/login', 'Admin\Auth\LoginController@login')->name('admin.login');
 Route::get('/admin/logout', 'Admin\Auth\LoginController@logout')->name('admin.user.logout');
 

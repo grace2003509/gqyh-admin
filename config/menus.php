@@ -8,18 +8,29 @@ return json_encode([                                    // modules
         'items' => [
             [
                 'name' => '系统设置',
-                'route' => 'admin.base.index',
-                'description' => '基本第三方接口设置',
+                'route' => 'admin.base.sys_index',
+                'description' => null,
+                'items' => []
+            ],
+            [
+                'name' => '在线客服设置',
+                'route' => 'admin.base.kf_index',
+                'description' => null,
+                'items' => []
+            ],
+            [
+                'name' => '支付设置',
+                'route' => 'admin.base.pay_index',
+                'description' => null,
                 'items' => [
                     [
-                        'name' => '保存设置',
-                        'route' => 'admin.base.edit',
+                        'name' => '微信授权设置',
+                        'route' => 'admin.base.wechat_set',
                         'description' => '',
                         'items' => null,
-                    ],
+                    ]
                 ]
             ],
-
         ],
     ],
     [
@@ -33,7 +44,7 @@ return json_encode([                                    // modules
                 'description' => '生成订单统计报表',
                 'items' => [
                     [
-                        'name' => '下载报表',
+                        'name' => '下载报告',
                         'route' => 'admin.statistics.download',
                         'description' => '下载统计报表',
                         'items' => null,
