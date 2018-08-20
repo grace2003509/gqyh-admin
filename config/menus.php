@@ -40,6 +40,31 @@ return json_encode([                                    // modules
         ],
     ],
     [
+        'name' => '我的微信',
+        'icon' => 'comments-o',
+        'route' => null,
+        'items' => [
+            [
+                'name' => '微信接口配置',
+                'route' => 'admin.wechat.api_index',
+                'description' => null,
+                'items' => null,
+            ],
+            [
+                'name' => '首次关注设置',
+                'route' => 'admin.wechat.reply_index',
+                'description' => null,
+                'items' => null,
+            ],
+            [
+                'name' => '自定义菜单设置',
+                'route' => 'admin.wechat.menu_index',
+                'description' => null,
+                'items' => null,
+            ],
+        ],
+    ],
+    [
         'name' => '财务统计',
         'icon' => 'bar-chart',
         'route' => null,

@@ -33,15 +33,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
     //个人资料修改
     Route::resource('/system/profile', 'System\ProfileController');
 
-    Route::group(['prefix' => 'statistics', 'middleware' => 'auth', 'namespace' => 'Statistics'], function () {
-        //生成报告
-        Route::get('/index', 'CreateReportController@index')->name('admin.statistics.index');
-        Route::get('/download', 'CreateReportController@download')->name('admin.statistics.download');
-
-    });
-
     //基础设置
-    Route::group(['prefix' => 'base', 'middleware' => 'auth', 'namespace' => 'Base'], function ($route) {
+    Route::group(['prefix' => 'base', 'namespace' => 'Base'], function ($route) {
         //系统设置
         $route->get('/sys_index', 'SysConfigController@index')->name('admin.base.sys_index');
         $route->post('/sys_edit', 'SysConfigController@edit')->name('admin.base.sys_edit');
@@ -59,6 +52,30 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
         $route->post('/shipping_update/{id}', 'ShippingController@update')->name('admin.base.shipping_update');
         $route->get('/shipping_del/{id}', 'ShippingController@destroy')->name('admin.base.shipping_del');
         $route->post('/shipping_recovered', 'ShippingController@destroy')->name('admin.base.shipping_recovered');
+
+    });
+
+    //我的微信
+    Route::group(['perfix' => 'wechat', 'namespace' => 'Wechat'], function ($route) {
+
+        $route->get('/api_index', 'ApiConfigController@index')->name('admin.wechat.api_index');
+        $route->post('/api_edit', 'ApiConfigController@edit')->name('admin.wechat.api_edit');
+        $route->get('/reply_index', 'ReplyConfigController@index')->name('admin.wechat.reply_index');
+        $route->post('/reply_edit', 'ReplyConfigController@edit')->name('admin.wechat.reply_edit');
+        $route->get('/menu_index', 'DiyMenuConfigController@index')->name('admin.wechat.menu_index');
+        $route->get('/menu_edit/{id}', 'DiyMenuConfigController@edit')->name('admin.wechat.menu_edit');
+        $route->post('/menu_update/{id}', 'DiyMenuConfigController@update')->name('admin.wechat.menu_update');
+        $route->get('/menu_add', 'DiyMenuConfigController@add')->name('admin.wechat.menu_add');
+        $route->post('/menu_store', 'DiyMenuConfigController@store')->name('admin.wechat.menu_store');
+        $route->get('/menu_del', 'DiyMenuConfigController@del')->name('admin.wechat.menu_del');
+        $route->get('/menu_push', 'DiyMenuConfigController@push')->name('admin.wechat.menu_push');
+    });
+
+    //财务统计
+    Route::group(['prefix' => 'statistics', 'namespace' => 'Statistics'], function ($route) {
+        //生成报告
+        $route->get('/index', 'CreateReportController@index')->name('admin.statistics.index');
+        $route->get('/download', 'CreateReportController@download')->name('admin.statistics.download');
 
     });
 
