@@ -26,49 +26,60 @@ Route::group(['prefix' => 'admin/system', 'middleware' => ['auth', 'role:adminis
     Route::resource('/assignpermission', 'Admin\System\AssignpermissionController');
 });
 
-Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
+Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin'], function () {
 
-    Route::get('/home', 'Admin\HomeController@index')->name('admin.home');
+    Route::get('/home', 'HomeController@index')->name('admin.home');
 
     //个人资料修改
-    Route::resource('/system/profile', 'Admin\System\ProfileController');
+    Route::resource('/system/profile', 'System\ProfileController');
 
-    Route::group(['prefix' => 'statistics', 'middleware' => 'auth'], function () {
+    Route::group(['prefix' => 'statistics', 'middleware' => 'auth', 'namespace' => 'Statistics'], function () {
         //生成报告
-        Route::get('/index', 'Admin\Statistics\CreateReportController@index')->name('admin.statistics.index');
-        Route::get('/download', 'Admin\Statistics\CreateReportController@download')->name('admin.statistics.download');
+        Route::get('/index', 'CreateReportController@index')->name('admin.statistics.index');
+        Route::get('/download', 'CreateReportController@download')->name('admin.statistics.download');
 
     });
 
     //基础设置
-    Route::group(['prefix' => 'base', 'middleware' => 'auth'], function () {
+    Route::group(['prefix' => 'base', 'middleware' => 'auth', 'namespace' => 'Base'], function ($route) {
         //系统设置
-        Route::get('/sys_index', 'Admin\Base\SysConfigController@index')->name('admin.base.sys_index');
-        Route::post('/sys_edit', 'Admin\Base\SysConfigController@edit')->name('admin.base.sys_edit');
+        $route->get('/sys_index', 'SysConfigController@index')->name('admin.base.sys_index');
+        $route->post('/sys_edit', 'SysConfigController@edit')->name('admin.base.sys_edit');
         //客服设置
-        Route::get('/kf_index', 'Admin\Base\KfConfigController@index')->name('admin.base.kf_index');
-        Route::post('/kf_edit', 'Admin\Base\KfConfigController@edit')->name('admin.base.kf_edit');
+        $route->get('/kf_index', 'KfConfigController@index')->name('admin.base.kf_index');
+        $route->post('/kf_edit', 'KfConfigController@edit')->name('admin.base.kf_edit');
         //支付设置
-        Route::get('/pay_index', 'Admin\Base\PayConfigController@index')->name('admin.base.pay_index');
-        Route::post('/pay_edit', 'Admin\Base\PayConfigController@edit')->name('admin.base.pay_edit');
-        Route::get('/wechat_set', 'Admin\Base\PayConfigController@wechat_set')->name('admin.base.wechat_set');
-        Route::post('/wechat_edit', 'Admin\Base\PayConfigController@wechat_edit')->name('admin.base.wechat_edit');
+        $route->get('/pay_index', 'PayConfigController@index')->name('admin.base.pay_index');
+        $route->post('/pay_edit', 'PayConfigController@edit')->name('admin.base.pay_edit');
+        $route->get('/wechat_set', 'PayConfigController@wechat_set')->name('admin.base.wechat_set');
+        $route->post('/wechat_edit', 'PayConfigController@wechat_edit')->name('admin.base.wechat_edit');
+        //快递公司管理
+        $route->get('/shipping', 'ShippingController@index')->name('admin.base.shipping');
+        $route->post('/shipping_store', 'ShippingController@store')->name('admin.base.shipping_store');
+        $route->post('/shipping_update/{id}', 'ShippingController@update')->name('admin.base.shipping_update');
+        $route->get('/shipping_del/{id}', 'ShippingController@destroy')->name('admin.base.shipping_del');
+        $route->post('/shipping_recovered', 'ShippingController@destroy')->name('admin.base.shipping_recovered');
 
     });
 
     //上传文件
-    Route::post('/upload_json', 'Admin\UploadController@upload_json')->name('admin.upload_json');
-    Route::get('/file_manager_json', 'Admin\UploadController@file_manager_json')->name('admin.file_manager_json');
+    Route::post('/upload_json', 'UploadController@upload_json')->name('admin.upload_json');
+    Route::get('/file_manager_json', 'UploadController@file_manager_json')->name('admin.file_manager_json');
 
 });
 
-//登入登出
-Route::get('/admin/login', 'Admin\Auth\LoginController@showLoginForm')->name('login');
-Route::post('/admin/login', 'Admin\Auth\LoginController@login')->name('admin.login');
-Route::get('/admin/logout', 'Admin\Auth\LoginController@logout')->name('admin.user.logout');
+
+Route::group(['prefix' => 'admin', 'namespace' => 'Admin\Auth'], function (){
+    //登入登出
+    Route::get('/login', 'LoginController@showLoginForm')->name('login');
+    Route::post('/login', 'LoginController@login')->name('admin.login');
+    Route::get('/logout', 'LoginController@logout')->name('admin.user.logout');
 
 //忘记密码重置
-Route::get('/admin/password/email', 'Admin\Auth\ForgotPasswordController@showLinkRequestForm')->name('admin.password.email');
-Route::post('/admin/password/email', 'Admin\Auth\ForgotPasswordController@sendResetLinkEmail');
-Route::get('/admin/password/reset/{token}', 'Admin\Auth\ResetPasswordController@showResetForm');
-Route::post('/admin/password/reset', 'Admin\Auth\ResetPasswordController@reset')->name('admin.password.reset');
+    Route::get('/password/email', 'ForgotPasswordController@showLinkRequestForm')->name('admin.password.email');
+    Route::post('/password/email', 'ForgotPasswordController@sendResetLinkEmail');
+    Route::get('/password/reset/{token}', 'ResetPasswordController@showResetForm');
+    Route::post('/password/reset', 'ResetPasswordController@reset')->name('admin.password.reset');
+});
+
+

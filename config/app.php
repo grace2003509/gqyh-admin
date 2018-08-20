@@ -179,6 +179,7 @@ return [
 
         Zizaco\Entrust\EntrustServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
+        Overtrue\LaravelPinyin\ServiceProvider::class,
 
     ],
 
@@ -231,6 +232,7 @@ return [
 
         'Entrust'   => Zizaco\Entrust\EntrustFacade::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+        'Pinyin' => Overtrue\LaravelPinyin\Facades\Pinyin::class,
 
     ],
 

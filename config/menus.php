@@ -31,6 +31,12 @@ return json_encode([                                    // modules
                     ]
                 ]
             ],
+            [
+                'name' => '快递公司管理',
+                'route' => 'admin.base.shipping',
+                'description' => null,
+                'items' => null,
+            ],
         ],
     ],
     [
