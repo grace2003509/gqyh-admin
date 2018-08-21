@@ -67,8 +67,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
         $route->post('/menu_update/{id}', 'DiyMenuConfigController@update')->name('admin.wechat.menu_update');
         $route->get('/menu_add', 'DiyMenuConfigController@add')->name('admin.wechat.menu_add');
         $route->post('/menu_store', 'DiyMenuConfigController@store')->name('admin.wechat.menu_store');
-        $route->get('/menu_del', 'DiyMenuConfigController@del')->name('admin.wechat.menu_del');
+        $route->get('/menu_del/{id}', 'DiyMenuConfigController@del')->name('admin.wechat.menu_del');
         $route->get('/menu_push', 'DiyMenuConfigController@push')->name('admin.wechat.menu_push');
+        $route->get('/menu_cancel', 'DiyMenuConfigController@cancel')->name('admin.wechat.menu_cancel');
     });
 
     //财务统计

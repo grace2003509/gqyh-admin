@@ -125,18 +125,44 @@ a.link{
 #wechat_menu .m_menu .m_lefter ul li .title{height:24px; line-height:24px; float:left; overflow:hidden; white-space:nowrap; width:100px; text-overflow:ellipsis; cursor:move; font-size:12px;}
 #wechat_menu .m_menu .m_lefter ul li .opt{float:right; padding-top:3px; padding-right:10px; display:none; cursor:move;}
 #wechat_menu .m_menu .m_lefter .publish{padding:10px 0;}
-#wechat_menu .m_menu .m_righter{float:left; width:450px; margin-left:10px;}
+#wechat_menu .m_menu .m_righter{float:left; width:50%; margin-left:10px;}
 #wechat_menu .m_menu .m_righter form{padding:10px; border:1px solid #ddd; background:#f7f7f7; zoom:1;}
 #wechat_menu .m_menu .m_righter .mod_form{border:1px dotted red;}
-#wechat_menu .m_menu .m_righter h1{font-weight:bold; padding-bottom:5px;}
-#wechat_menu .m_menu .m_righter .opt_item{padding:5px 0;}
-#wechat_menu .m_menu .m_righter .opt_item label{float:left; width:70px; height:28px; line-height:28px;}
-#wechat_menu .m_menu .m_righter .opt_item .input{float:left; width:350px; display:block; line-height:28px;}
-#wechat_menu .m_menu .m_righter .opt_item .input .form_input{border:1px solid #ddd; border-radius:5px; height:28px; line-height:28px; text-indent:2px;}
-#wechat_menu .m_menu .m_righter .opt_item .input textarea{width:95%; height:80px; border-radius:5px; padding:5px;}
-#wechat_menu .m_menu .m_righter .opt_item .input select{height:32px; border:1px solid #ddd; border-radius:5px; padding:5px; width:220px; overflow:hidden;}
-#wechat_menu .m_menu .m_righter .opt_item .input .submit{height:32px; line-height:32px; background:#1584D5; border:none; color:#fff; width:120px; border-radius:5px;}
-#wechat_menu .m_menu .m_righter .opt_item .input a{font-size:12px; margin-left:15px; text-decoration:underline; color:#ff6600;}
+#wechat_menu .m_menu .m_righter h1{font-weight:bold; padding-bottom:5px; font-size: 20px; text-indent: 8px}
+#wechat_menu .m_menu .m_righter td {
+    text-align: left;
+}
+#wechat_menu .m_menu .m_righter input{
+    float:left;
+    width:300px;
+    display:block;
+    line-height:28px;
+    border:1px solid #ddd;
+    border-radius:5px;
+    text-indent: 10px;
+}
+#wechat_menu .m_menu .m_righter select{
+    height:32px;
+    border:1px solid #ddd;
+    border-radius:5px;
+    padding:5px;
+    width:220px;
+    overflow:hidden;
+}
+#wechat_menu .m_menu .m_righter textarea{
+    width:70%;
+    height:80px;
+    border-radius:5px;
+    padding:5px;
+    border:1px solid #ddd;
+}
+#wechat_menu .m_menu .m_righter img{
+    width:20px;
+    height:20px;
+    margin:7px 0px 0px 5px;
+    vertical-align:middle;
+    cursor:pointer;
+}
 
 .mytable {
     -moz-border-bottom-colors: none;

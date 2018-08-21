@@ -39,26 +39,23 @@
                                   <select name='ReplyMaterialID'>
                                       <option value=''>--请选择--</option>
                                       <optgroup label='--------------系统业务模块-------------'></optgroup>
-                                      @foreach($rsMaterial as $key => $value)
+                                      @foreach($sys_material as $key => $value)
                                           <option value="{{$value['Material_ID']}}" @if($rsReply["Reply_MaterialID"]==$value['Material_ID']) selected @endif>
-                                              {{$value['Material_Json']['Title']}}
+                                              {{$value['Title']}}
                                           </option>
                                       @endforeach
-
                                       <optgroup label="-------------自定义图文消息------------"></optgroup>
-                                      @foreach($rsMaterial1 as $key => $value)
+                                      @foreach($diy_material as $key => $value)
                                           <option value="{{$value['Material_ID']}}" @if($rsReply["Reply_MaterialID"]==$value['Material_ID']) selected @endif>
                                               @if($value['Material_Type'])
                                                   【多图文】
                                               @else
                                                   【单图文】
                                               @endif
-                                              {{$value['Material_Json']['Title']}}
+                                              {{$value['Title']}}
                                           </option>
                                       @endforeach
-
                                   </select>
-                                  <a href="#" class="material">素材管理</a>
                             </span>
                             <div class="clear"></div>
                         </div>

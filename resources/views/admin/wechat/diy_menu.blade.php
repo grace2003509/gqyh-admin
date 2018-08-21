@@ -2,7 +2,7 @@
 @section('ancestors')
     <li>我的微信</li>
 @endsection
-@section('page', '微信接口设置')
+@section('page', '自定义菜单设置')
 @section('subcontent')
 
     <link href='/admin/css/main.css' rel='stylesheet' type='text/css' />
@@ -26,7 +26,7 @@
                         <div class="control_btn">
                             <a href="{{route('admin.wechat.menu_add')}}" class="btn_green btn_w_120">添加菜单</a>
                             <a href="{{route('admin.wechat.menu_push')}}" class="btn_green btn_w_120">发布菜单</a>
-                            <input type="button" class="btn_green btn_w_120" name="del_btn" value="取消发布的菜单" onClick="location.href='{{route('admin.wechat.menu_del')}}" />
+                            <input type="button" class="btn_green btn_w_120" name="del_btn" value="取消发布的菜单" onClick="location.href='{{route('admin.wechat.menu_cancel')}}'" />
                         </div>
                         <table width="100%" border="0" cellpadding="0" cellspacing="0" class="mytable">
                             <tr>
@@ -37,7 +37,7 @@
                             </tr>
 
                             @foreach($ParentMenu as $key=>$value)
-                            <tr onMouseOver="this.bgColor='#D8EDF4';" onMouseOut="this.bgColor='';" onDblClick="location.href='menu_edit.php?MenuID={{$value["Menu_ID"]}}'">
+                            <tr onMouseOver="this.bgColor='#D8EDF4';" onMouseOut="this.bgColor='';" onDblClick="location.href='{{route('admin.wechat.menu_edit',['id' => $value["Menu_ID"]])}}'">
                                 <td align="center">{{$key+1}}&nbsp;&nbsp;</td>
                                 <td align="center">
                                     @if($value["Menu_TextContents"]=='myqrcode' && $value["Menu_MsgType"]==0)
@@ -48,16 +48,16 @@
                                 </td>
                                 <td style="text-align: left">{{$value["Menu_Name"]}}</td>
                                 <td align="center">
-                                    <a href="menu_edit.php?MenuID={{$value["Menu_ID"]}}" title="修改">
+                                    <a href="{{route('admin.wechat.menu_edit',['id' => $value["Menu_ID"]])}}" title="修改">
                                         <img src="/admin/images/ico/mod.gif" align="absmiddle" />
                                     </a>
-                                    <a href="menu.php?action=del&MenuID={{$value["Menu_ID"]}}" title="删除" onClick="if(!confirm('删除后不可恢复，继续吗？')){return false};">
+                                    <a href="{{route('admin.wechat.menu_del',['id' => $value["Menu_ID"]])}}" title="删除" onClick="if(!confirm('删除后不可恢复，继续吗？')){return false};">
                                         <img src="/admin/images/ico/del.gif" align="absmiddle" />
                                     </a>
                                 </td>
                             </tr>
                                 @foreach($value['rsMenu'] as $k => $v)
-                                <tr onMouseOver="this.bgColor='#D8EDF4';" onMouseOut="this.bgColor='';" onDblClick="location.href='menu_edit.php?MenuID={{$v["Menu_ID"]}}'">
+                                <tr onMouseOver="this.bgColor='#D8EDF4';" onMouseOut="this.bgColor='';" onDblClick="location.href='{{route('admin.wechat.menu_edit',['id' => $v["Menu_ID"]])}}'">
                                     <td align="center">{{$key+1}}.{{$key+1}}</td>
                                     <td align="center">{{$v["Menu_MsgType"]}}</td>
                                     <td style="text-align: left">——{{$v["Menu_Name"]}}</td>

@@ -15,30 +15,10 @@ class ReplyConfigController extends Controller
         $rsReply = $reply_obj->find(1);
 
         $m_obj = new WechatMaterial();
+        $sys_material = $m_obj->get_sys_material(1);//系统图文
+        $diy_material = $m_obj->get_sys_material(0);//自定义图文
 
-        $rsMaterial = $m_obj->select('Material_ID','Material_Table','Material_Json')
-            ->where('Material_Table', '<>', '')
-            ->where('Material_TableID', 0)
-            ->where('Material_Display', 0)
-            ->orderBy('Material_ID', 'desc')
-            ->get();
-        foreach($rsMaterial as $k => $v){
-            $v['Material_Json'] = json_decode($v['Material_Json'], true);
-        }
-
-        $rsMaterial1 = $m_obj->select('Material_ID','Material_Table','Material_Type','Material_Json')
-            ->where('Material_Table', 0)
-            ->where('Material_TableID', 0)
-            ->where('Material_Display', 1)
-            ->orderBy('Material_ID','desc')
-            ->get();
-        foreach($rsMaterial1 as $k => $v){
-            $json = json_decode($v['Material_Json'], true);
-            $json=$v['Material_Type']?$json[0]:$json;
-            $v['Material_Type'] = $json;
-        }
-
-        return view('admin.wechat.reply_config', compact('rsReply', 'rsMaterial', 'rsMaterial1'));
+        return view('admin.wechat.reply_config', compact('rsReply', 'sys_material', 'diy_material'));
     }
 
 
