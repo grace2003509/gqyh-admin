@@ -62,6 +62,12 @@ return json_encode([                                    // modules
                 'description' => null,
                 'items' => null,
             ],
+            [
+                'name' => '关键词回复设置',
+                'route' => 'admin.wechat.keyword_index',
+                'description' => null,
+                'items' => null,
+            ],
         ],
     ],
     [

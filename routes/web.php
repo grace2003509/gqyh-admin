@@ -70,6 +70,14 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
         $route->get('/menu_del/{id}', 'DiyMenuConfigController@del')->name('admin.wechat.menu_del');
         $route->get('/menu_push', 'DiyMenuConfigController@push')->name('admin.wechat.menu_push');
         $route->get('/menu_cancel', 'DiyMenuConfigController@cancel')->name('admin.wechat.menu_cancel');
+        //关键词设置
+        $route->get('/keyword_index', 'KeyWordController@index')->name('admin.wechat.keyword_index');
+        $route->get('/keyword_edit/{id}', 'KeyWordController@edit')->name('admin.wechat.keyword_edit');
+        $route->post('/keyword_update/{id}', 'KeyWordController@update')->name('admin.wechat.keyword_update');
+        $route->get('/keyword_add', 'KeyWordController@add')->name('admin.wechat.keyword_add');
+        $route->post('/keyword_store', 'KeyWordController@store')->name('admin.wechat.keyword_store');
+        $route->get('/keyword_del/{id}', 'KeyWordController@del')->name('admin.wechat.keyword_del');
+
     });
 
     //财务统计

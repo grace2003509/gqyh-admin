@@ -121,6 +121,7 @@
 #iframe_page .btn_ok{display:block; height:30px; line-height:30px; background:url(../images/ok-btn-bg.jpg); border:none; color:#fff; width:145px; border-radius:5px; text-align:center; text-decoration:none; float:left; margin-right:10px;}
 #iframe_page .btn_ok_w_120{width:120px; background:url(../images/ok-btn-120-bg.jpg);}
 #iframe_page .btn_cancel{display:block; height:30px; line-height:30px; background:url(../images/cancel-btn-bg.jpg); border:none; width:88px; border-radius:5px; text-align:center; text-decoration:none; float:left;}
+#iframe_page .btn_gray{display:block; height:30px; line-height:30px; background:url(../images/cancel-btn-bg.jpg); border:none; width:88px; border-radius:5px; text-align:center; text-decoration:none; float:left;}
 
 #attr .search{padding:10px; background:#f7f7f7; border:1px solid #ddd; margin-bottom:8px; font-size:12px; position:relative;}
 .red {color:#F45F58;}
