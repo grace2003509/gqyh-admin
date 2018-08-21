@@ -68,6 +68,12 @@ return json_encode([                                    // modules
                 'description' => null,
                 'items' => null,
             ],
+            /*[
+                'name' => '图文消息管理',
+                'route' => 'admin.wechat.material_index',
+                'description' => null,
+                'items' => null,
+            ],*/
         ],
     ],
     [

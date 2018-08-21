@@ -13,7 +13,7 @@
     <div class="box">
         <div id="iframe_page">
             <div class="iframe_content">
-                <div id="wechat_menu" class="r_con_wrap">
+                <div id="wechat_menu" class="r_con_wrap" style="min-height: 700px">
                     <div class="m_menu">
 
                         <div class="control_btn">

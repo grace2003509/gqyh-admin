@@ -77,7 +77,14 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
         $route->get('/keyword_add', 'KeyWordController@add')->name('admin.wechat.keyword_add');
         $route->post('/keyword_store', 'KeyWordController@store')->name('admin.wechat.keyword_store');
         $route->get('/keyword_del/{id}', 'KeyWordController@del')->name('admin.wechat.keyword_del');
-
+        //图文消息管理
+        $route->get('/material_index', 'MaterialController@index')->name('admin.wechat.material_index');
+        $route->get('/material_edit/{id}', 'MaterialController@edit')->name('admin.wechat.material_edit');
+        $route->post('/material_update/{id}', 'MaterialController@update')->name('admin.wechat.material_update');
+        $route->get('/material_add', 'MaterialController@add')->name('admin.wechat.material_add');
+        $route->get('/material_madd', 'MaterialController@madd')->name('admin.wechat.material_madd');
+        $route->post('/material_store', 'MaterialController@store')->name('admin.wechat.material_store');
+        $route->get('/material_del/{id}', 'MaterialController@del')->name('admin.wechat.material_del');
     });
 
     //财务统计

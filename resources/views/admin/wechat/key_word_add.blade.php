@@ -73,7 +73,7 @@
                                         </option>
                                     @endforeach
                                 </select>
-                                <a href="#" class="material">图文消息管理</a>
+                                {{--<a href="#" class="material">图文消息管理</a>--}}
                             </span>
                             <div class="clear"></div>
                         </div>
