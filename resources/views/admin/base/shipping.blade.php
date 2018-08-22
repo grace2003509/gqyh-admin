@@ -8,7 +8,6 @@
     <link href='/admin/css/main.css' rel='stylesheet' type='text/css' />
 
     <script src="/static/js/plugins/jQuery/jQuery-2.2.0.min.js"></script>
-    <script src="/static/js/plugins/bootstrap/bootstrap.min.js"></script>
 
     <div class="box">
         <div id="iframe_page">

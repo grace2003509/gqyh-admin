@@ -11,19 +11,29 @@
 |
 */
 
-Route::group(['prefix' => 'admin/system', 'middleware' => ['auth', 'role:administrator']], function () {
+//管理后台管理员认证
+Route::group(['prefix' => 'admin', 'namespace' => 'Admin\Auth'], function ($route){
+    //登入登出
+    $route->get('/login', 'LoginController@showLoginForm')->name('login');
+    $route->post('/login', 'LoginController@login')->name('admin.login');
+    $route->get('/logout', 'LoginController@logout')->name('admin.user.logout');
 
+    //忘记密码重置
+    $route->get('/password/email', 'ForgotPasswordController@showLinkRequestForm')->name('admin.password.email');
+    $route->post('/password/email', 'ForgotPasswordController@sendResetLinkEmail');
+    $route->get('/password/reset/{token}', 'ResetPasswordController@showResetForm');
+    $route->post('/password/reset', 'ResetPasswordController@reset')->name('admin.password.reset');
+});
+
+Route::group(['prefix' => 'admin/system', 'middleware' => ['auth', 'role:administrator']], function ($route) {
     //用户管理
-    Route::resource('/user', 'Admin\System\UserController');
-
+    $route->resource('/user', 'Admin\System\UserController');
     //角色管理
-    Route::resource('/role', 'Admin\System\RoleController');
-
+    $route->resource('/role', 'Admin\System\RoleController');
     //角色分配
-    Route::resource('/assignrole', 'Admin\System\AssignroleController');
-
+    $route->resource('/assignrole', 'Admin\System\AssignroleController');
     //权限分配
-    Route::resource('/assignpermission', 'Admin\System\AssignpermissionController');
+    $route->resource('/assignpermission', 'Admin\System\AssignpermissionController');
 });
 
 Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin'], function () {
@@ -52,16 +62,25 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
         $route->post('/shipping_update/{id}', 'ShippingController@update')->name('admin.base.shipping_update');
         $route->get('/shipping_del/{id}', 'ShippingController@destroy')->name('admin.base.shipping_del');
         $route->post('/shipping_recovered', 'ShippingController@destroy')->name('admin.base.shipping_recovered');
+        //自定义URL
+        $route->get('/diy_url', 'DiyUrlController@index')->name('admin.base.diy_url');
+        $route->post('/diy_url_store', 'DiyUrlController@store')->name('admin.base.diy_url_store');
+        $route->post('/diy_url_update/{id}', 'DiyUrlController@update')->name('admin.base.diy_url_update');
+        $route->get('/diy_url_del/{id}', 'DiyUrlController@del')->name('admin.base.diy_url_del');
+        //系统url查询
+        $route->get('/sys_url', 'SysUrlController@index')->name('admin.base.sys_url');
 
     });
 
     //我的微信
     Route::group(['perfix' => 'wechat', 'namespace' => 'Wechat'], function ($route) {
-
+        //微信接口配置
         $route->get('/api_index', 'ApiConfigController@index')->name('admin.wechat.api_index');
         $route->post('/api_edit', 'ApiConfigController@edit')->name('admin.wechat.api_edit');
+        //首次关注设置
         $route->get('/reply_index', 'ReplyConfigController@index')->name('admin.wechat.reply_index');
         $route->post('/reply_edit', 'ReplyConfigController@edit')->name('admin.wechat.reply_edit');
+        //自定义菜单设置
         $route->get('/menu_index', 'DiyMenuConfigController@index')->name('admin.wechat.menu_index');
         $route->get('/menu_edit/{id}', 'DiyMenuConfigController@edit')->name('admin.wechat.menu_edit');
         $route->post('/menu_update/{id}', 'DiyMenuConfigController@update')->name('admin.wechat.menu_update');
@@ -99,20 +118,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
     Route::post('/upload_json', 'UploadController@upload_json')->name('admin.upload_json');
     Route::get('/file_manager_json', 'UploadController@file_manager_json')->name('admin.file_manager_json');
 
-});
-
-
-Route::group(['prefix' => 'admin', 'namespace' => 'Admin\Auth'], function (){
-    //登入登出
-    Route::get('/login', 'LoginController@showLoginForm')->name('login');
-    Route::post('/login', 'LoginController@login')->name('admin.login');
-    Route::get('/logout', 'LoginController@logout')->name('admin.user.logout');
-
-//忘记密码重置
-    Route::get('/password/email', 'ForgotPasswordController@showLinkRequestForm')->name('admin.password.email');
-    Route::post('/password/email', 'ForgotPasswordController@sendResetLinkEmail');
-    Route::get('/password/reset/{token}', 'ResetPasswordController@showResetForm');
-    Route::post('/password/reset', 'ResetPasswordController@reset')->name('admin.password.reset');
 });
 
 

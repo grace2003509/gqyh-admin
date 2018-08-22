@@ -100,7 +100,7 @@
 <script src="/static/js/plugins/jQuery/jquery.serializejson.min.js"></script>
 
 <script type="text/javascript">
-    moment.locale('zh-cn');
+    // moment.locale('zh-cn');
     $.ajaxSetup({
         headers: { 'X-CSRF-TOKEN' : '{{ csrf_token() }}' }
     });
@@ -108,7 +108,7 @@
 
 </script>
 
-<script src="/static/js/app.js?r=201701101"></script>
+
 @endsection
 
 

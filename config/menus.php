@@ -37,6 +37,18 @@ return json_encode([                                    // modules
                 'description' => null,
                 'items' => null,
             ],
+            [
+                'name' => '自定义URL',
+                'route' => 'admin.base.diy_url',
+                'description' => null,
+                'items' => null,
+            ],
+            [
+                'name' => '系统URL查询',
+                'route' => 'admin.base.sys_url',
+                'description' => null,
+                'items' => null,
+            ],
         ],
     ],
     [

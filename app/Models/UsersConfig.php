@@ -36,4 +36,12 @@ class UsersConfig extends Model
     {
         return array();
     }
+
+    //获取系统模块
+    public function get_dominfo()
+    {
+        $dominfo = $this->select('domenable', 'domname')->get();
+
+        return $dominfo;
+    }
 }
