@@ -216,4 +216,22 @@ class Order extends Model
 
     }
 
+
+    //获取订单编号
+    public function getorderno($oid)
+    {
+        $rsOrder = $this->select('Order_Type','Order_CreateTime','Order_Code')
+            ->where('Order_ID',$oid)
+            ->first();
+        if (!$rsOrder) {
+            return false;
+        }
+        if($rsOrder['Order_Type'] == 'pintuan' || $rsOrder['Order_Type'] == 'dangou'){
+            $orderno = $rsOrder['Order_Code'];
+        }else{
+            $orderno = date("Ymd", $rsOrder["Order_CreateTime"]) . $oid;
+        }
+        return $orderno;
+    }
+
 }

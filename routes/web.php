@@ -108,6 +108,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
 
     //财务统计
     Route::group(['prefix' => 'statistics', 'namespace' => 'Statistics'], function ($route) {
+        //销售记录
+        $route->get('/sale_record', 'SaleRecordController@index')->name('admin.statistics.sale_record');
         //生成报告
         $route->get('/index', 'CreateReportController@index')->name('admin.statistics.index');
         $route->get('/download', 'CreateReportController@download')->name('admin.statistics.download');

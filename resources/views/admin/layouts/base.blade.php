@@ -40,7 +40,6 @@
     </div>
 </div>
 
-<script src="/static/js/plugins/jQuery/jQuery-2.2.0.min.js"></script>
 <script src="/static/js/plugins/bootstrap/bootstrap.min.js"></script>
 <script src="/static/js/plugins/AdminLTE/app.min.js"></script>
 <script src="/static/js/plugins/pace/pace.min.js"></script>

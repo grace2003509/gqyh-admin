@@ -94,6 +94,12 @@ return json_encode([                                    // modules
         'route' => null,
         'items' => [
             [
+                'name' => '销售记录',
+                'route' => 'admin.statistics.sale_record',
+                'description' => null,
+                'items' => null,
+            ],
+            [
                 'name' => '生成报告',
                 'route' => 'admin.statistics.index',
                 'description' => '生成订单统计报表',
