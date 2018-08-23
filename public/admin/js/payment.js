@@ -1,19 +1,7 @@
 var payment={
     orders_init:function() {
 
-        //初始化时间间隔插件
-        $("#reportrange").daterangepicker({
-            ranges: ranges,
-            startDate: moment(),
-            endDate: moment()
-        }, function (startDate, endDate) {
-            var range = startDate.format('YYYY/MM/DD') + "-" + endDate.format('YYYY/MM/DD');
-            $("#reportrange #reportrange-inner").html(range);
-            $("#reportrange #reportrange-input").attr('value', range);
-        });
-
-
-        /*var logic = function( currentDateTime ){
+        var logic = function( currentDateTime ){
             if( currentDateTime.getDay()==6 ){
                 this.setOptions({
                     minTime:'11:00'
@@ -43,7 +31,7 @@ var payment={
             if(global_obj.check_form($('*[notnull]'))){return false};
             $('#payment_form input:submit').attr('disabled', true);
             return true;
-        });*/
+        });
 
     }
 }

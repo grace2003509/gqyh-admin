@@ -99,18 +99,17 @@ return json_encode([                                    // modules
                 'description' => null,
                 'items' => null,
             ],
+            /*[
+                'name' => '自动结算配置',
+                'route' => 'admin.statistics.balance_index',
+                'description' => null,
+                'items' => null,
+            ],*/
             [
                 'name' => '生成报告',
-                'route' => 'admin.statistics.index',
+                'route' => 'admin.statistics.report_index',
                 'description' => '生成订单统计报表',
-                'items' => [
-                    [
-                        'name' => '下载报告',
-                        'route' => 'admin.statistics.download',
-                        'description' => '下载统计报表',
-                        'items' => null,
-                    ],
-                ]
+                'items' => null,
             ],
 
         ],

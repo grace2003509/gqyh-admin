@@ -110,9 +110,12 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
     Route::group(['prefix' => 'statistics', 'namespace' => 'Statistics'], function ($route) {
         //销售记录
         $route->get('/sale_record', 'SaleRecordController@index')->name('admin.statistics.sale_record');
+        //自动结算配置
+        $route->get('/balance_index', 'BalanceConfigController@index')->name('admin.statistics.balance_index');
+        $route->post('/balance_update', 'BalanceConfigController@update')->name('admin.statistics.balance_update');
         //生成报告
-        $route->get('/index', 'CreateReportController@index')->name('admin.statistics.index');
-        $route->get('/download', 'CreateReportController@download')->name('admin.statistics.download');
+        $route->get('/report_index', 'CreateReportController@index')->name('admin.statistics.report_index');
+        $route->get('/report_download', 'CreateReportController@download')->name('admin.statistics.report_download');
 
     });
 

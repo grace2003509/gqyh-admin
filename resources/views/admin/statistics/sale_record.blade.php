@@ -118,7 +118,16 @@
             '昨日': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
             '本月': [moment().startOf('month'), moment().endOf('month')]
         };
-        $(document).ready(payment.orders_init);
+        //初始化时间间隔插件
+        $("#reportrange").daterangepicker({
+            ranges: ranges,
+            startDate: moment(),
+            endDate: moment()
+        }, function (startDate, endDate) {
+            var range = startDate.format('YYYY/MM/DD') + "-" + endDate.format('YYYY/MM/DD');
+            $("#reportrange #reportrange-inner").html(range);
+            $("#reportrange #reportrange-input").attr('value', range);
+        });
     </script>
 
 @endsection
