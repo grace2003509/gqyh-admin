@@ -12,14 +12,13 @@
     <link href='/admin/css/shop.css' rel='stylesheet' type='text/css' />
     {{--<link href='/static/css/jquery.datetimepicker.css' rel='stylesheet' type='text/css' />--}}
     <link href='/static/css/daterangepicker.css' rel='stylesheet' type='text/css' />
-    <link href='/static/css/font-awesome.css' rel='stylesheet' type='text/css' />
+    {{--<link href='/static/css/font-awesome.css' rel='stylesheet' type='text/css' />--}}
 
     <script src="/static/js/plugins/jQuery/jQuery-2.2.0.min.js"></script>
-    <script type='text/javascript' src='/admin/js/global.js'></script>
+    {{--<script type='text/javascript' src='/admin/js/global.js'></script>--}}
     {{--<script type='text/javascript' src='/static/js/jquery.datetimepicker.js'></script>--}}
     <script src="/static/js/moment.js"></script>
     <script type='text/javascript' src='/static/js/daterangepicker.js'></script>
-
     <script type='text/javascript' src='/admin/js/payment.js'></script>
 
     <div class="box" >

@@ -64,9 +64,9 @@
 .r_con_table tbody td .upd_txt input{width:80px; height:24px; line-height:24px; text-align:center; border:1px solid #ddd;}
 
 .r_con_config table{width:100%;}
-.r_con_config td{padding-bottom:15px;}
+.r_con_config td{padding-bottom:15px; text-align: left}
 .r_con_config td strong{color:#444;}
-.r_con_config td h1{height:24px; line-height:24px; overflow:hidden;}
+.r_con_config td h1{height:24px; line-height:19px; overflow:hidden;}
 .r_con_config td h1 strong{font-size:14px;}
 .r_con_config td .input{width:280px; height:28px; line-height:28px; border:1px solid #ddd; border-radius:5px; background:#F5F5F5; text-indent:3px; margin-top:5px; font-size:12px;}
 .r_con_config td textarea{width:270px; height:70px; border:1px solid #ddd; padding:5px; line-height:150%; border-radius:5px; background:#F5F5F5; margin-top:5px;}
@@ -82,7 +82,7 @@
 .r_con_config td .reply_msg .m_right .img img{max-width:315px; max-height:177px;}
 .r_con_config input, .r_con_config select, .r_con_config textarea{font-size:12px;}
 .r_con_config .submit{text-align:center;}
-.r_con_config .submit input{height:30px; line-height:30px; background:url(../images/ok-btn-bg.jpg); border:none; border-radius:8px; color:#fff; width:145px; font-size:14px;}
+.r_con_config .submit input{height:30px; line-height:30px; background:#1584D5; border:none; border-radius:8px; color:#fff; width:145px; font-size:14px;}
 
 .reverve_field_table{border:1px solid #ddd; background:#fff; border-left:none; width:90%;}
 .reverve_field_table *{font-size:12px;}

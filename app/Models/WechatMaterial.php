@@ -39,4 +39,71 @@ class WechatMaterial extends Model
 
         return $rst;
     }
+
+
+
+
+    public function get_one($itemid)
+    {
+        $r = $this->find($itemid);
+        return $r;
+    }
+
+    public function get_one_bymodel($model)
+    {
+        $r = $this->where('Material_Table', $model)
+            ->where('Material_TableID', 0)
+            ->where('Material_Display', 0)
+            ->first();
+        return $r;
+    }
+
+    public function edit($data,$itemid)
+    {
+        $flag = $this->where('Material_ID', $itemid)->update($data);
+        return $flag;
+    }
+
+    public function add($data){
+        $r = $this->create($data);
+        return $r['Material_ID'];
+    }
+
+
+    public function get_list($fields = "*")
+    {
+        $lists = $this->select($fields)->orderBy('Material_ID', 'desc')->get();
+        return $lists;
+    }
+
+    public function get_page_list($fields = "*")
+    {
+        $lists = $this->select($fields)
+            ->where('Material_TableID', 0)
+            ->where('Material_TableID', 0)
+            ->where('Material_Display', 1)
+            ->orderBy('Material_ID', 'desc')
+            ->paginate(10);
+        return $lists;
+    }
+
+    public function get_sys_list($materials){
+        $lists = array();
+        foreach($materials as $v){
+            if($v["Material_Table"]<>'0' && $v["Material_TableID"]==0 && $v["Material_Display"]==0){
+                $lists[] = $v;
+            }
+        }
+        return $lists;
+    }
+
+    public function get_diy_list($materials){
+        $lists = array();
+        foreach($materials as $v){
+            if($v["Material_Table"]=='0' && $v["Material_TableID"]==0 && $v["Material_Display"]==1){
+                $lists[] = $v;
+            }
+        }
+        return $lists;
+    }
 }

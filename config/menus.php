@@ -53,7 +53,7 @@ return json_encode([                                    // modules
     ],
     [
         'name' => '我的微信',
-        'icon' => 'comments-o',
+        'icon' => 'weixin',
         'route' => null,
         'items' => [
             [
@@ -86,6 +86,19 @@ return json_encode([                                    // modules
                 'description' => null,
                 'items' => null,
             ],*/
+        ],
+    ],
+    [
+        'name' => '商城设置',
+        'icon' => 'shopping-bag',
+        'route' => null,
+        'items' => [
+            [
+                'name' => '基本配置',
+                'route' => 'admin.shop.base_index',
+                'description' => null,
+                'items' => null,
+            ],
         ],
     ],
     [

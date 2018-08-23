@@ -106,6 +106,12 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
         $route->get('/material_del/{id}', 'MaterialController@del')->name('admin.wechat.material_del');
     });
 
+    Route::group(['prefix' => 'shop', 'namespace' => 'Shop'], function ($route) {
+        //商城基本设置
+        $route->get('/base_index', 'BaseConfigController@index')->name('admin.shop.base_index');
+        $route->post('/base_update', 'BaseConfigController@update')->name('admin.shop.base_update');
+    });
+
     //财务统计
     Route::group(['prefix' => 'statistics', 'namespace' => 'Statistics'], function ($route) {
         //销售记录
