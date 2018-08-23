@@ -105,6 +105,12 @@ return json_encode([                                    // modules
                 'description' => null,
                 'items' => null,
             ],
+            [
+                'name' => '开关设置',
+                'route' => 'admin.shop.on_off_index',
+                'description' => null,
+                'items' => null,
+            ],
         ],
     ],
     [

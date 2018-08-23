@@ -9,7 +9,7 @@
     <link href='/admin/css/material.css' rel='stylesheet' type='text/css' />
 
     <script src="/static/js/plugins/jQuery/jQuery-2.2.0.min.js"></script>
-    <script type='text/javascript' src='/admin/js/global.js'></script>
+{{--    <script type='text/javascript' src='/admin/js/global.js'></script>--}}
     <script type='text/javascript' src='/admin/js/material.js'></script>
 
     <div class="box">
@@ -41,7 +41,10 @@
     </div>
 
     @if($input)
-        <script language="javascript">var parent_input = '{{$input}}'; $(document).ready(material_obj.url_select);</script>
+        <script language="javascript">
+            var parent_input = '{{$input}}';
+            $(document).ready(material_obj.url_select);
+        </script>
     @endif
 
 

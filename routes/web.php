@@ -113,6 +113,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
         //积分设置
         $route->get('/integrate_index','IntegrateConfigController@index')->name('admin.shop.integrate_index');
         $route->post('/integrate_update','IntegrateConfigController@update')->name('admin.shop.integrate_update');
+        //开关设置
+        $route->get('/on_off_index', 'OnOffConfigController@index')->name('admin.shop.on_off_index');
+        $route->post('/on_off_update', 'OnOffConfigController@update')->name('admin.shop.on_off_update');
     });
 
     //财务统计
