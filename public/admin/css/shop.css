@@ -158,7 +158,7 @@
 
 /*其他配置样式*/
 .submit{text-align:center;}
-input[type='submit']{height:30px; line-height:30px; background:url(../images/global/ok-btn-bg.jpg); border:none; border-radius:8px; color:#fff; width:145px; font-size:14px;}
+input[type='submit']{height:30px; line-height:30px; border:none; border-radius:8px; color:#fff; width:145px; font-size:14px;}
 
 
 .category .file{float:left;}

@@ -94,8 +94,14 @@ return json_encode([                                    // modules
         'route' => null,
         'items' => [
             [
-                'name' => '基本配置',
+                'name' => '基本设置',
                 'route' => 'admin.shop.base_index',
+                'description' => null,
+                'items' => null,
+            ],
+            [
+                'name' => '积分设置',
+                'route' => 'admin.shop.integrate_index',
                 'description' => null,
                 'items' => null,
             ],
