@@ -115,7 +115,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
         $route->post('/integrate_update','IntegrateConfigController@update')->name('admin.shop.integrate_update');
         //开关设置
         $route->get('/on_off_index', 'OnOffConfigController@index')->name('admin.shop.on_off_index');
-        $route->post('/on_off_update', 'OnOffConfigController@update')->name('admin.shop.on_off_update');
+        $route->get('/on_off_edit/{id}', 'OnOffConfigController@edit_status')->name('admin.shop.on_off_edit');
+        $route->post('/on_off_store', 'OnOffConfigController@store')->name('admin.shop.on_off_store');
+        $route->post('/on_off_update/{id}', 'OnOffConfigController@update')->name('admin.shop.on_off_update');
+        $route->get('/on_off_del/{id}', 'OnOffConfigController@del')->name('admin.shop.on_off_del');
     });
 
     //财务统计

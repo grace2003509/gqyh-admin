@@ -18,8 +18,65 @@ class OnOffConfigController extends Controller
         return view('admin.shop.on_off_config', compact('perm_config', 'switchplace'));
     }
 
-    public function update(Request $request)
+    public function store(Request $request)
     {
+        $input = $request->input();
 
+        $pc_obj = new PermissionConfig();
+        $Data = array(
+            'Users_ID' => USERSID,
+            'Perm_Name' => $input['name'],
+            'Perm_Picture' => $input['Logo'],
+            'Perm_Url' => $input['http_url'],
+            'Perm_Tyle' => $input['Tyle_IS'],
+        );
+        $flag = $pc_obj->create($Data);
+        if($flag){
+            return redirect()->back()->with('success', '添加成功');
+        }else{
+            return redirect()->back()->with('errors', '添加失败');
+        }
+
+    }
+
+
+    public function update(Request $request, $id)
+    {
+        $input = $request->input();
+
+        $pc_obj = new PermissionConfig();
+        $Data = array(
+            'Perm_Name' => $input['name'],
+            'Perm_Picture' => $input['Logo'],
+            'Perm_Url' => $input['http_url'],
+            'Perm_Tyle' => $input['Tyle_IS'],
+        );
+        $pc_obj->where('Permission_ID', $id)->update($Data);
+
+        return redirect()->back()->with('success', '修改成功');
+    }
+
+    public function edit_status($id)
+    {
+        $pc_obj = new PermissionConfig();
+        $rst = $pc_obj->find($id);
+        $status = ($rst['Perm_On']) == 1 ? 0 : 1;
+        $flag = $rst->update(['Perm_On' => $status]);
+        if($flag){
+            return redirect()->back()->with('success', '修改成功');
+        } else{
+            return redirect()->back()->with('errors', '修改失败');
+        }
+    }
+
+    public function del($id)
+    {
+        $pc_obj = new PermissionConfig();
+        $flag = $pc_obj->destroy($id);
+        if($flag){
+            return redirect()->back()->with('success', '删除成功');
+        } else{
+            return redirect()->back()->with('errors', '删除失败');
+        }
     }
 }

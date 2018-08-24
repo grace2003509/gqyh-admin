@@ -25,6 +25,11 @@
         .LogoDetail img{width:30px;height:30px;}
         .photo_config{width:110px;height:40px; margin:0 auto;}
         .form_select_sun{height:32px;border:1px solid #ddd;padding:5px;vertical-align:middle;border-radius: 5px;}
+
+    　　 td a:link { text-decoration: none;}
+    　　 td a:active { text-decoration:none}
+    　　 td a:hover { text-decoration:none;}
+    　　 td a:visited { text-decoration: none;}
     </style>
 
     <div class="box">
@@ -46,35 +51,42 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                <?php foreach($perm_config as $ky=>$value){?>
-                                <input type="hidden" name="" class="Permission_ID" value="<?=$value['Permission_ID']?>">
-                                <td><?=$value['Perm_Name']?></td>
-                                <td>
-                                    <div class="photo_config">
-                                        <?php if($value['Perm_Field'] == 'withdraw') {?>
-						                <?php } else {?>
-                                        <img src="<?=$value['Perm_Picture']?>" style="width:30px;height:30px;">
-                                        <?php }?>
-                                    </div>
-                                </td>
-                                <td><?=$value['Perm_Url']?></td>
-                                <td><?=$switchplace[$value['Perm_Tyle']]?></td>
-                                <td>
-                                    <?php if($value['Perm_On'] == 1){?>
-                                    <img src="/admin/images/ico/off.gif" class="Withdraw" Perm_On="0"  Status="<?=$value['Permission_ID']?>" />
-                                    <?php }else{?>
-                                    <img src="/admin/images/ico/on.gif" class="Withdraw" Perm_On="1" Status="<?=$value['Permission_ID']?>" />
-                                    <?php }?>
-                                    <img src="/admin/images/ico/xiugai.png" style="width:25px;height:25px;" class="modification" Permission_ID="<?=$value['Permission_ID']?>" />
-                                    <?php if(empty($value['Perm_Field'])){?>
-                                    <img src="/admin/images/ico/del.gif" style="width:25px;height:25px;" class="deleted" Permission_ID="<?=$value['Permission_ID']?>"/>
-                                    <?php }?>
-                                </td>
-                                </tr>
-                                <?php } ?>
+                                @foreach($perm_config as $key=>$value)
+                                    <tr>
+                                        <input type="hidden" name="" class="Permission_ID" value="{{$value['Permission_ID']}}">
+                                        <td>{{$value['Perm_Name']}} </td>
+                                        <td>
+                                            <div class="photo_config">
+                                                @if($value['Perm_Field'] != 'withdraw')
+                                                <img src="{{$value['Perm_Picture']}}" style="width:30px;height:30px;">
+                                                @endif
+                                            </div>
+                                        </td>
+                                        <td>{{$value['Perm_Url']}}</td>
+                                        <td>{{$switchplace[$value['Perm_Tyle']]}}</td>
+                                        <td>
+                                            @if($value['Perm_On'] == 1)
+                                                <a href="{{route('admin.shop.on_off_edit', ['id'=>$value['Permission_ID']])}}">
+                                                    <img src="/admin/images/ico/off.gif" class="Withdraw" Perm_On="0"  Status="{{$value['Permission_ID']}}" />
+                                                </a>
+                                            @else
+                                                <a href="{{route('admin.shop.on_off_edit', ['id'=>$value['Permission_ID']])}}">
+                                                    <img src="/admin/images/ico/on.gif" class="Withdraw" Perm_On="1" Status="{{$value['Permission_ID']}}" />
+                                                </a>
+                                            @endif
+                                            <img src="/admin/images/ico/xiugai.png"  data-target="#edit_url_btn" data-toggle= 'modal' onclick="Values({{$value}})"
+                                                 style="width:25px;height:25px;" class="modification" Permission_ID="{{$value['Permission_ID']}}" />
+{{--                                            @if(empty($value['Perm_Field']))--}}
+                                                <a href="{{route('admin.shop.on_off_del', ['id' => $value['Permission_ID']])}}">
+                                                    <img src="/admin/images/ico/del.gif" style="width:25px;height:25px;" class="deleted" Permission_ID="{{$value['Permission_ID']}}"/>
+                                                </a>
+                                            {{--@endif--}}
+                                        </td>
+                                    </tr>
+                                @endforeach
                                 </tbody>
                             </table>
-                            <form class="r_con_form" action="{{route('admin.shop.on_off_update')}}" style="margin-top:10px" method="post">
+                            <form class="r_con_form" action="{{route('admin.shop.on_off_store')}}" style="margin-top:10px" method="post">
                                 {{csrf_field()}}
                                 <div class="rows">
                                     <label>其他字段</label>
@@ -87,35 +99,35 @@
                                                     <td>图片</td>
                                                     <td>URL</td>
                                                     <td>类型</td>
-                                                    <td>操作</td>
+                                                    {{--<td>操作</td>--}}
                                                 </tr>
                                             </thead>
                                             <tbody class="form_list">
                                                 <tr>
-                                                    <td><input type="text" class="sun_input" name="name[]" value=""></td>
+                                                    <td><input type="text" class="sun_input" name="name" value=""></td>
                                                     <td>
                                                         <div class="photo_config">
-                                                            <input name="LogoUpload[]" class="file_input LogoUpload" type="button"  value="上传图标" />
+                                                            <input name="LogoUpload" class="file_input LogoUpload" type="button"  value="上传图标" />
                                                             <input name="logo_num" type="hidden" value="">
                                                             <div class="img LogoDetail"></div>
-                                                            <input type="hidden" class="Logo" name="Logo[]" value="" />
+                                                            <input type="hidden" class="Logo" name="Logo" value="" />
                                                         </div>
                                                     </td>
                                                     <td>
-                                                        <input type="text" name="http_url[]" value="" class="sun_input menu_url" size="30" maxlength="200"  />
-                                                        <img src="/admin/images/ico/search.png" style="width:22px; height:22px; margin:0px 0px 0px 5px; vertical-align:middle; cursor:pointer" id="btn_select_url" class="http_url_sun" key=""/>
+                                                        <input type="text" name="http_url" value="" class="sun_input menu_url" size="30" maxlength="200"  />
+                                                        {{--<img src="/admin/images/ico/search.png" style="width:22px; height:22px; margin:0px 0px 0px 5px; vertical-align:middle; cursor:pointer" id="btn_select_url" class="http_url_sun" key=""/>--}}
                                                     </td>
                                                     <td>
-                                                        <select name="Tyle_IS[]">
+                                                        <select name="Tyle_IS">
                                                             <option value="1">分销中心</option>
                                                             <option value="2">个人中心</option>
                                                         </select>
                                                     </td>
-                                                    <td>
+                                                    {{--<td>
                                                         <a href="javascript:void(0);" class="form_add">
                                                             <img src="/admin/images/ico/add.gif" />
                                                         </a>
-                                                    </td>
+                                                    </td>--}}
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -126,7 +138,7 @@
                                     <label>&nbsp;</label>
                                     <span class="input">
                                         <input type="submit" class="btn_ok" style="margin-left: 30%;" name="submit_button" value="提交保存" />
-                                        <a href="index.php" class="btn_cancel">返回</a>
+                                        {{--<a href="index.php" class="btn_cancel">返回</a>--}}
                                     </span>
                                     <div class="clear"></div>
                                 </div>
@@ -137,6 +149,83 @@
 
             </div>
         </div>
+    </div>
+
+    {{--//修改路径窗口弹出--}}
+    <div class="modal fade" id="edit_url_btn" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content" style="width: 700px">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        修改路径信息
+                    </h4>
+                </div>
+
+                <form class="r_con_form" id="edit_url_form" action="" style="margin-top:10px" method="post">
+                    {{csrf_field()}}
+                    <div class="rows">
+                        <span class="input" style="width: 95%;float: none">
+                            <table border="0" cellpadding="5" cellspacing="0" style="width: 100%;text-align: center;" class="reverve_field_table">
+                                <thead>
+                                    <tr>
+                                        <td>标题</td>
+                                        <td>图片</td>
+                                        <td>URL</td>
+                                        <td>类型</td>
+                                        {{--<td>操作</td>--}}
+                                    </tr>
+                                </thead>
+                                <tbody class="form_list">
+                                    <tr>
+                                        <td>
+                                            <input type="text" class="sun_input" id="edit_name_default" name="name" value="">
+                                        </td>
+                                        <td>
+                                            <div class="photo_config">
+                                                <input name="LogoUpload" class="file_input LogoUpload" type="button"  value="上传图标" />
+                                                <input name="logo_num" id="edit_logo_num" type="hidden" value="">
+                                                <div class="img LogoDetail">
+                                                    <img id="edit_img_default" src="" style="width:30px;height:30px;">
+                                                </div>
+                                                <input type="hidden" id="edit_logo_default" class="Logo" name="Logo" value="" />
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <input type="text" name="http_url" id="edit_http_url_default" value="" class="sun_input menu_url" size="30" maxlength="200"  />
+                                            {{--<img src="/admin/images/ico/search.png" style="width:22px; height:22px; margin:0px 0px 0px 5px; vertical-align:middle; cursor:pointer" id="btn_select_url" class="http_url_sun" key=""/>--}}
+                                        </td>
+                                        <td>
+                                            <select name="Tyle_IS" id="edit_Tyle_Is_default">
+                                                <option value="1">分销中心</option>
+                                                <option value="2">个人中心</option>
+                                            </select>
+                                        </td>
+                                        {{--<td>
+                                            <a href="javascript:void(0);" class="form_add">
+                                                <img src="/admin/images/ico/add.gif" />
+                                            </a>
+                                        </td>--}}
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </span>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="rows" style="text-align: center">
+                        {{--<label>&nbsp;</label>--}}
+                        <span class="input"  style="width: 95%;margin-left: 40%; border-left: 0px">
+                            <input type="submit" style="display:block; height:30px; line-height:30px; background-color: #1584D5;  border:none; color:#fff; width:145px; border-radius:5px; text-align:center; text-decoration:none; margin-right:10px;"
+                                   name="submit_button" value="提交保存" />
+                            {{--<a href="index.php" class="btn_cancel">返回</a>--}}
+                        </span>
+                        <div class="clear"></div>
+                    </div>
+                </form>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
     </div>
 
 
@@ -205,64 +294,21 @@
             });
         })
 
-
-        $('.form_add').click(function(){
-            var num = $(".form_list tr").length;
-            var TelHtml='<tr><td>' +
-                '<input type="text" class="sun_input" name="name[]" value="">' +
-                '</td>' +
-                '<td>' +
-                '<div class="photo_config">' +
-                '<input name="LogoUpload[]" class="file_input  LogoUpload" type="button"  value="上传图标" />' +
-                '<input name="logo_num" type="hidden" value="'+num+'">' +
-                '<div class="img LogoDetail LogoDetail'+num+'"></div>' +
-                '<input type="hidden" class="Logo Logo'+num+'" name="Logo[]" value="" />' +
-                '</div></td><td>' +
-                '<input type="text" name="http_url[]" value="" class="sun_input menu_url'+num+'" size="30" maxlength="200" />' +
-                '<img src="/admin/images/ico/search.png" style="width:22px; height:22px; margin:0px 0px 0px 5px; vertical-align:middle; cursor:pointer" id="btn_select_url" class="http_url_sun" key="'+num+'"/>' +
-                '</td><td>' +
-                '<select name="Tyle_IS[]">' +
-                '<option value="1">分销中心</option>' +
-                '<option value="2">个人中心</option>' +
-                '</select></td><td>' +
-                '<a href="javascript:void(0);" onclick="TelDel(this)">' +
-                '<img src="/admin/images/ico/del.gif" />' +
-                '</a></td></tr>';
-            $('.form_list tr:last').after(TelHtml);
-        });
-        function TelDel(DelDem){
-            $(DelDem).parent().parent().remove();
-        }
-
-        $(".deleted").click(function(){
-            var Perm_ID = $(this).attr('Permission_ID');
-            if(confirm('您确定要删除吗？')){
-                $.get('?','action=get_delete&Perm_ID='+Perm_ID,function(data){
-                    if(data.status == 1){
-                        alert('删除成功！');
-                        window.location.href= "";
-                    }else{
-                        alert('删除失败！');
-                    }
-                },'json');
-            }
-        });
-        $(".Withdraw").click(function(){
-            var Perm_ID = $(this).attr('Status');
-            var Perm_On = $(this).attr('Perm_On');
-            $.get('?','action=get_Withdraw&Perm_ID='+Perm_ID+'&Perm_On='+Perm_On,function(data){
-                if(data.status == 1){
-                    alert('修改成功！');
-                    window.location.href= "";
-                }else{
-                    alert('修改失败！');
-                }
-            },'json');
-        });
         /*$('.modification').click(function(){
             var Permission_ID = $(this).attr('Permission_ID');
             create_layer('选择链接', '/admin/shop/on_off_edit?dialog=1&Permission_ID='+Permission_ID,1100,600);
         });*/
+        function Values(compay) {
+            var url = '/admin/shop/on_off_update/'+compay['Permission_ID'];
+            $('#edit_name_default').val(compay['Perm_Name']);
+            $('#edit_img_default').attr('src',compay['Perm_Picture']);
+            $('#edit_logo_default').val(compay['Perm_Picture']);
+            $('#edit_http_url_default').val(compay['Perm_Url']);
+            $('#edit_Tyle_Is_default').val(compay['Perm_Tyle']);
+            $("#edit_url_form").attr('action',url);
+        }
+
+
         $(document).on('click', '.http_url_sun', function(){
             var key = $(this).attr('key');
             create_layer('选择链接', '/admin/base/sys_url?dialog=1&input=menu&key=' + key,900,500);
