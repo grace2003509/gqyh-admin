@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin\Wechat;
 
 use App\Models\Member;
-use App\Models\User;
+use App\Models\Admin;
 use App\Models\UsersConfig;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;

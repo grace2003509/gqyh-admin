@@ -17,7 +17,7 @@ class TestController extends Controller
      *
      * @apiParam {Number} id 用户ID
      *
-     * @apiSuccess {String} firstname Firstname of the User.
+     * @apiSuccess {String} firstname Firstname of the Admin.
      *
      * @apiExample {curl} Example usage:
      *     curl -i http://localhost:6001/test/4711

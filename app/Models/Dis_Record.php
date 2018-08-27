@@ -24,12 +24,12 @@ class Dis_Record extends Model
 	
 	//一条分销记录对应一个购买者
 	public function Buyer(){
-		return $this->belongsTo('User','Buyer_ID');
+		return $this->belongsTo('Admin','Buyer_ID');
 	}
 	
 	//一个分销记录对应一个拥有者
 	public function Owner(){
-		return $this->belongsTo('User','Owner_ID');
+		return $this->belongsTo('Admin','Owner_ID');
 	}
 	
 	

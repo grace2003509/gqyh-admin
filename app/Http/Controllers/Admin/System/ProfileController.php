@@ -3,7 +3,7 @@ namespace App\Http\Controllers\Admin\System;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\User;
+use App\Models\Admin;
 use Validator;
 
 class ProfileController extends Controller

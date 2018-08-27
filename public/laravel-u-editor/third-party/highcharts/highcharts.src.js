@@ -6751,7 +6751,7 @@ Axis.prototype = {
 		axis.max = null;
 		axis.min = null;
 	
-		// User set min and max
+		// Admin set min and max
 		//axis.userMin = UNDEFINED,
 		//axis.userMax = UNDEFINED,
 

@@ -134,7 +134,7 @@ class Dis_Account_Record extends Model
      */
     public function recordBetween($Begin_Time, $End_Time, $Record_Status)
     {
-        $builder = $this::with('User');
+        $builder = $this::with('Admin');
 
         if ($Record_Status != 'all') {
             $builder = $builder->where('Record_Status', $Record_Status);

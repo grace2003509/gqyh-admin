@@ -4,14 +4,14 @@ namespace App\Http\Controllers\Admin\System;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\User;
+use App\Models\Admin;
 use App\Models\Role;
 
 class AssignroleController extends Controller
 {
     public function edit($id)
     {
-        $user = User::find($id);
+        $user = Admin::find($id);
         $user_name = $user['name'];
         $roles = Role::all();
         $user_role = [];
@@ -26,7 +26,7 @@ class AssignroleController extends Controller
 
     public function update(Request $request, $id)
     {
-        $user = User::find($id);
+        $user = Admin::find($id);
         $role_ids = $request->input('role');
 
         //解绑原有角色

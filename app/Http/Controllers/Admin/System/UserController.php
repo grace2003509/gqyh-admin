@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin\System;
 
 use Illuminate\Http\Request;
-use App\Models\User;
+use App\Models\Admin;
 use App\Models\Role;
 use Validator;
 use Illuminate\Support\Facades\Auth;
@@ -15,7 +15,7 @@ class UserController extends Controller
     public function index()
     {
 
-        $users = User::paginate(20);
+        $users = Admin::paginate(20);
 
         $user_role = [];
 
@@ -70,7 +70,7 @@ class UserController extends Controller
         }
 
         $input['password'] = bcrypt($input['password']);
-        User::create($input);
+        Admin::create($input);
         return redirect()->route('user.index')->with('success', '添加用户成功！');
 
     }
@@ -144,12 +144,12 @@ class UserController extends Controller
     //删除用户
     public function destroy($id)
     {
-        $user = User::where('id', $id)->first();
+        $user = Admin::where('id', $id)->first();
         $role = Role::where('id', 1)->first();
         if (($id == Auth::user()->id) || ($user->hasRole($role['name']))) {
             return response()->error();
         }
-        User::destroy($id);
+        Admin::destroy($id);
         return response()->json(['success']);
     }
 }

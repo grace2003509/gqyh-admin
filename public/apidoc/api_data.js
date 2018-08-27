@@ -40,7 +40,7 @@ define({ "api": [
             "type": "String",
             "optional": false,
             "field": "firstname",
-            "description": "<p>Firstname of the User.</p>"
+            "description": "<p>Firstname of the Admin.</p>"
           }
         ]
       },
