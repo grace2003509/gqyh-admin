@@ -55,7 +55,7 @@
                                         <td>
                                             <select name="MsgType" id="msgtype">
                                                 <option value="0" selected>文字消息</option>
-                                                <option value="1" >图文消息</option>
+                                                {{--<option value="1" >图文消息</option>--}}
                                                 <option value="2" >连接网址</option>
                                                 <option value="3">我的二维码</option>
                                             </select>
@@ -67,7 +67,7 @@
                                             <textarea name="TextContents"></textarea>
                                         </td>
                                     </tr>
-                                    <tr id="menu1" style="display:none;">
+                                    {{--<tr id="menu1" style="display:none;">
                                         <td>图文内容：</td>
                                         <td>
                                             <select name='MaterialID'>
@@ -89,12 +89,12 @@
                                                 @endforeach
                                             </select>
                                         </td>
-                                    </tr>
+                                    </tr>--}}
                                     <tr id="menu2" style="display:none;">
                                         <td>链接网址：</td>
                                         <td>
                                             <input type="text" name="Url" value="" class="form_input" size="30" maxlength="200" id="menu_url" />
-                                            <img src="/admin/images/ico/search.png" id="btn_select_url" />
+                                            {{--<img src="/admin/images/ico/search.png" id="btn_select_url" />--}}
                                         </td>
                                     </tr>
                                     <tr>

@@ -6,13 +6,9 @@
 
     <br><br>
     <ul>
-        @if(is_array(json_decode($errors, true)))
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        @else
-            <li>{{ $errors }}</li>
-        @endif
+        @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+        @endforeach
     </ul>
 </div>
 @endif

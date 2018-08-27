@@ -133,13 +133,13 @@ return json_encode([                                    // modules
             [
                 'name' => '生成报告',
                 'route' => 'admin.statistics.report_index',
-                'description' => '生成订单统计报表',
+                'description' => null,
                 'items' => null,
             ],
             [
                 'name' => '付款单',
                 'route' => 'admin.statistics.bill_index',
-                'description' => '生成订单统计报表',
+                'description' => null,
                 'items' => null,
             ],
         ],

@@ -57,7 +57,7 @@
                                         <td>
                                             <select name="MsgType" id="msgtype">
                                                 <option value="0" @if($rsMenu["Menu_MsgType"]==0) selected @endif>文字消息</option>
-                                                <option value="1" @if($rsMenu["Menu_MsgType"]==1) selected @endif >图文消息</option>
+                                                {{--<option value="1" @if($rsMenu["Menu_MsgType"]==1) selected @endif >图文消息</option>--}}
                                                 <option value="2" @if($rsMenu["Menu_MsgType"]==2) selected @endif >连接网址</option>
                                                 <option value="3" @if($rsMenu["Menu_MsgType"]==3) selected @endif>我的二维码</option>
                                             </select>
@@ -69,7 +69,7 @@
                                             <textarea name="TextContents">{{$rsMenu["Menu_TextContents"]}}</textarea>
                                         </td>
                                     </tr>
-                                    <tr id="menu1"  @if($rsMenu["Menu_MsgType"]!=1) style="display: none" @endif>
+                                    {{--<tr id="menu1"  @if($rsMenu["Menu_MsgType"]!=1) style="display: none" @endif>
                                         <td>图文内容：</td>
                                         <td>
                                             <select name='MaterialID'>
@@ -93,12 +93,12 @@
                                                 @endforeach
                                             </select>
                                         </td>
-                                    </tr>
+                                    </tr>--}}
                                     <tr id="menu2" @if($rsMenu["Menu_MsgType"]!=2) style="display: none" @endif>
                                         <td>链接网址：</td>
                                         <td>
                                             <input type="text" name="Url" value="{{$rsMenu["Menu_Url"]}}" class="form_input" size="30" maxlength="200" id="menu_url" />
-                                            <img src="/admin/images/ico/search.png" id="btn_select_url" />
+                                            {{--<img src="/admin/images/ico/search.png" id="btn_select_url" />--}}
                                         </td>
                                     </tr>
                                     <tr>
