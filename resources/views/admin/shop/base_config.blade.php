@@ -46,7 +46,7 @@
                                     </div>
                                 </td>
                             </tr>
-                            <tr>
+                            {{--<tr>
                                 <td width="50%" valign="top">
                                     <h1><strong>商家收款二维码一</strong><span class="tips">（添写格式：文字|位置）</span></h1>
                                     <input type="text" class="input" name="biz_qrcodeone" value="{{$rsConfig["biz_qrcodeone"]}}" maxlength="30" />
@@ -55,7 +55,7 @@
                                     <h1><strong>商家收款二维码二</strong><span class="tips">（添写格式：文字|位置）</span></h1>
                                     <input type="text" class="input" name="biz_qrcodetwo" value="{{$rsConfig["biz_qrcodetwo"]}}" maxlength="30" />
                                 </td>
-                            </tr>
+                            </tr>--}}
                             <tr>
                                 <td width="50%" valign="top">
                                     <h1><strong>订单确认</strong><span class="tips">（关闭后下订单可直接付款，无需经过卖家确认）</span></h1>
@@ -101,7 +101,7 @@
                                     <input type="text" class="input" name="CallPhoneNumber" value="{{$rsConfig["CallPhoneNumber"]}}" maxlength="20" />
                                 </td>
                             </tr>--}}
-                            <tr>
+                            {{--<tr>
                                 <td width="50%" valign="top">
                                     <h1><strong>商城关注提醒</strong>
                                         <input type="checkbox" name="Substribe" value="1" @if($rsConfig["Substribe"] == 1) checked @endif />
@@ -119,25 +119,25 @@
                                         <input type="hidden" id="SubscribeQrcodeDetail" name="SubscribeQrcodeDetail" value="@if($rsConfig && $rsConfig['SubscribeQrcode'] != '') {{$rsConfig['SubscribeQrcode']}} @endif" />
                                     </div>
                                 </td>
-                                <td width="50%" valign="top" style="display:none;">
+                                <td width="50%" valign="top">
                                     <h1><strong>需要物流</strong><span class="tips">（关闭后下订单无需填写收货地址）</span></h1>
                                     <div class="input">
                                         <label>需要<input type="radio" @if($rsConfig["NeedShipping"] == 1) checked @endif value="1" name="NeedShipping"></label>&nbsp;&nbsp;
                                         <label>不需要<input type="radio" @if($rsConfig["NeedShipping"] == 0) checked @endif value="0" name="NeedShipping"></label>
                                     </div>
                                 </td>
-                                <td width="50%" valign="top">
-                                    <h1><span class="fc_red">*</span> <strong>底部菜单样式</strong></h1>
-                                    <input type="radio"  name="Bottom_Style" value="0" @if($rsConfig["Bottom_Style"] == 0) checked @endif /> 图标
-                                    <input type="radio"  name="Bottom_Style" value="1"  @if($rsConfig["Bottom_Style"] == 1) checked @endif /> 图片
-                                </td>
-                            </tr>
-                            <tr>
                                 <td  width="50%" valign="top">
                                     <h1><strong>会员首次关注获取积分</strong>
                                         <input type="checkbox" name="SubstribeScore" value="1" @if($rsConfig["SubstribeScore"] == 1) checked @endif />
                                         <span class="tips">启用</span></h1>
                                     <input type="text" class="input" name="Member_SubstribeScore" style="width:50px" value=" {{$rsConfig["Member_SubstribeScore"]}} " />
+                                </td>
+                            </tr>--}}
+                            <tr>
+                                <td width="50%" valign="top">
+                                    <h1><span class="fc_red">*</span> <strong>底部菜单样式</strong></h1>
+                                    <input type="radio"  name="Bottom_Style" value="0" @if($rsConfig["Bottom_Style"] == 0) checked @endif /> 图标
+                                    <input type="radio"  name="Bottom_Style" value="1"  @if($rsConfig["Bottom_Style"] == 1) checked @endif /> 图片
                                 </td>
                                 <td>
                                     <h1><strong>充值积分比例(1元等于多少积分)</strong></h1>
@@ -217,7 +217,7 @@
                                 </td>
                             </tr>
                         </table>
-                        <table align="center" border="0" cellpadding="0" cellspacing="0">
+                        {{--<table align="center" border="0" cellpadding="0" cellspacing="0">
                             <tr>
                                 <td><h1><strong>触发信息设置</strong></h1>
                                     <div class="reply_msg">
@@ -252,7 +252,7 @@
                                     <input type="hidden" id="ReplyImgPath" name="ImgPath" value="{{$rsMaterial["ImgPath"]}}" />
                                 </td>
                             </tr>
-                        </table>
+                        </table>--}}
                         <div class="submit">
                             <input type="submit" name="submit_button" value="提交保存" />
                         </div>

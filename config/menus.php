@@ -62,24 +62,24 @@ return json_encode([                                    // modules
                 'description' => null,
                 'items' => null,
             ],
-            [
+            /*[
                 'name' => '首次关注设置',
                 'route' => 'admin.wechat.reply_index',
                 'description' => null,
                 'items' => null,
-            ],
+            ],*/
             [
                 'name' => '自定义菜单设置',
                 'route' => 'admin.wechat.menu_index',
                 'description' => null,
                 'items' => null,
             ],
-            [
+            /*[
                 'name' => '关键词回复设置',
                 'route' => 'admin.wechat.keyword_index',
                 'description' => null,
                 'items' => null,
-            ],
+            ],*/
             /*[
                 'name' => '图文消息管理',
                 'route' => 'admin.wechat.material_index',

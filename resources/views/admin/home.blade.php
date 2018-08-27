@@ -63,7 +63,7 @@
 
         <!-- create record start -->
         <div class="baobiao_x">
-            <form method="get" action="{{ route('admin.statistics.index') }}" id="form11">
+            <form method="get" action="{{ route('admin.statistics.report_index') }}" id="form11">
                 <span style=" font-size:16px; line-height:50px; margin-left:15px;">时间范围：</span>
                 <select class="xx-select" id="type" name="type">
                     <option value="week">近七天</option>

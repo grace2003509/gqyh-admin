@@ -58,7 +58,7 @@
 
         <!-- download -->
         @if(count($data2))
-            <a href="{{route('admin.statistics.download', ['type'=> $default_data['type'],'time' => $default_data['time']])}}">
+            <a href="{{route('admin.statistics.report_download', ['type'=> $default_data['type'],'time' => $default_data['time']])}}">
                 <button id="down" class="report_down_button">点击下载</button>
             </a>
         @endif

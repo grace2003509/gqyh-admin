@@ -30,11 +30,11 @@
                             <td class="righttd" id="kf_web">
                                 <table class="kftable_first">
                                     <tr>
-                                        <td class="sonlefttd">
+                                        {{--<td class="sonlefttd">
                                             <label>微官网</label>
                                             <input type="checkbox" name="KF_IsWeb" value="1"
                                                    @if($rsConfig['KF_IsWeb'] == 1) checked @endif >
-                                        </td>
+                                        </td>--}}
                                         <td class="sonlefttd">
                                             <label>微商城</label>
                                             <input type="checkbox" name="KF_IsShop" value="1"
