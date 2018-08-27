@@ -10,6 +10,8 @@
 
 @section('subcontent')
 
+    <script src="/static/js/plugins/jQuery/jQuery-2.2.0.min.js"></script>
+
     <div class="box">
         <div class="box-header with-border">
             <h5 class="box-title">编辑个人资料</h5>

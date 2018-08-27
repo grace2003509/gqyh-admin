@@ -20,6 +20,8 @@
 @section('page', '编辑用户')
 @section('subcontent')
 
+    <script src="/static/js/plugins/jQuery/jQuery-2.2.0.min.js"></script>
+
     <div class="box">
         <div class="box-header with-border">
             <h5 class="box-title">编辑</h5>
@@ -82,7 +84,6 @@
 
     </div>
 @endsection
-
 @section('script')
     @parent
 

@@ -131,6 +131,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
         //生成报告
         $route->get('/report_index', 'CreateReportController@index')->name('admin.statistics.report_index');
         $route->get('/report_download', 'CreateReportController@download')->name('admin.statistics.report_download');
+        //付款单
+        $route->get('/bill_index', 'PaymentBillController@index')->name('admin.statistics.bill_index');
 
     });
 

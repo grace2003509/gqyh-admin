@@ -5,6 +5,8 @@
 @section('page', '用户管理')
 @section('subcontent')
 
+    <script src="/static/js/plugins/jQuery/jQuery-2.2.0.min.js"></script>
+
     <div class="box">
         <div class="box-header with-border">
             <h5 class="box-title">用户列表</h5><br><br>

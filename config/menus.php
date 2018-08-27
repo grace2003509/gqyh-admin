@@ -136,7 +136,12 @@ return json_encode([                                    // modules
                 'description' => '生成订单统计报表',
                 'items' => null,
             ],
-
+            [
+                'name' => '付款单',
+                'route' => 'admin.statistics.bill_index',
+                'description' => '生成订单统计报表',
+                'items' => null,
+            ],
         ],
     ],
 

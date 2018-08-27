@@ -6,6 +6,9 @@
 @endsection
 @section('page', '权限分配')
 @section('subcontent')
+
+    <script src="/static/js/plugins/jQuery/jQuery-2.2.0.min.js"></script>
+
     <form action="{{ route('assignpermission.update',$id) }}" method="post">
         {{csrf_field()}}
         {{ method_field('PUT') }}

@@ -2,8 +2,10 @@
 
 @section('css')
 <link rel="stylesheet" href="/vendor/admin-lte/dist/css/skins/skin-green-light.min.css">
+<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap-daterangepicker/2.1.24/daterangepicker.min.css">
 <link rel="stylesheet" href="/vendor/bootstrap-treeview/dist/bootstrap-treeview.min.css">
 <link rel="stylesheet" href="/css/admin.css">
+
 <style type="text/css">
     header { font-family: "Microsoft Yahei"}
     .box-body { min-height: 120px; }
@@ -98,6 +100,8 @@
 <script src="/static/js/plugins/vue/vue-2.1.3.min.js"></script>
 <script src="/static/js/plugins/bootstrap/validator.min.js"></script>
 <script src="/static/js/plugins/jQuery/jquery.serializejson.min.js"></script>
+<script src="//cdn.bootcss.com/bootstrap-daterangepicker/2.1.24/moment.min.js"></script>
+<script src="//cdn.bootcss.com/moment.js/2.13.0/locale/zh-cn.js"></script>
 
 <script type="text/javascript">
     // moment.locale('zh-cn');
@@ -107,7 +111,8 @@
     $('.alert').fadeOut(3000);
 
 </script>
-
+<script src="//cdn.bootcss.com/bootstrap-daterangepicker/2.1.24/daterangepicker.min.js"></script>
+<script src="/static/js/app.js?r=201701101"></script>
 
 @endsection
 

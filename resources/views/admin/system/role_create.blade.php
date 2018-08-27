@@ -15,6 +15,8 @@
 @section('page', '新建角色')
 @section('subcontent')
 
+    <script src="/static/js/plugins/jQuery/jQuery-2.2.0.min.js"></script>
+
     <div class="box">
         <div class="box-header with-border">
             <h5 class="box-title">新建</h5>
@@ -51,9 +53,9 @@
     </div>
 
 @endsection
-
 @section('script')
     @parent
+
     <script>
         $('.form-horizontal').validator(validatorOptions);
     </script>
