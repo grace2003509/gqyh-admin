@@ -10,13 +10,9 @@
     <link href='/admin/css/global.css' rel='stylesheet' type='text/css' />
     <link href='/admin/css/main.css' rel='stylesheet' type='text/css' />
     <link href='/admin/css/shop.css' rel='stylesheet' type='text/css' />
-    {{--<link href='/static/css/jquery.datetimepicker.css' rel='stylesheet' type='text/css' />--}}
     <link href='/static/css/daterangepicker.css' rel='stylesheet' type='text/css' />
-    {{--<link href='/static/css/font-awesome.css' rel='stylesheet' type='text/css' />--}}
 
     <script src="/static/js/plugins/jQuery/jQuery-2.2.0.min.js"></script>
-    {{--<script type='text/javascript' src='/admin/js/global.js'></script>--}}
-    {{--<script type='text/javascript' src='/static/js/jquery.datetimepicker.js'></script>--}}
     <script src="/static/js/moment.js"></script>
     <script type='text/javascript' src='/static/js/daterangepicker.js'></script>
     <script type='text/javascript' src='/admin/js/payment.js'></script>
@@ -44,9 +40,6 @@
                         <span id="reportrange">
                             <input type="text" id="reportrange-input" name="date-range-picker" value="" placeholder="日期间隔">
                         </span>
-                        {{--<input type="text" class="input" name="AccTime_S" value="" maxlength="20" />
-                        -
-                        <input type="text" class="input" name="AccTime_E" value="" maxlength="20" />--}}
                         <input type="submit" class="search_btn" value="搜索" />
                         <input style="display:none;" type="button" class="output_btn" value="导出" />
                         <input type="hidden" value="1" name="search" />
@@ -84,7 +77,7 @@
                             <td nowrap="nowrap"><span style="color:#FF0000">{{$value["Order_Amount"] + $value["Order_Shipping"] - $value["Order_Diff"]}}</span></td>
                             <td nowrap="nowrap">{{$value["Web_Price"]}}</td>
                             <td nowrap="nowrap"><span style="color:blue">{{$value["Order_Amount"] + $value["Order_Shipping"] - $value["Order_Diff"] - $value["Web_Price"]}}</span></td>
-                            <td nowrap="nowrap">{{$status[$value["Record_Status"]]}}</td>
+                            <td nowrap="nowrap">{{$Status[$value["Record_Status"]]}}</td>
                             <td nowrap="nowrap">{{$value["Record_CreateTime"]}}</td>
                         </tr>
                         @endforeach

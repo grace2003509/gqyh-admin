@@ -133,6 +133,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
         $route->get('/report_download', 'CreateReportController@download')->name('admin.statistics.report_download');
         //付款单
         $route->get('/bill_index', 'PaymentBillController@index')->name('admin.statistics.bill_index');
+        $route->get('/bill_create', 'PaymentBillController@create')->name('admin.statistics.bill_create');
+        $route->get('/bill_show/{id}', 'PaymentBillController@show')->name('admin.statistics.bill_show');
+        $route->post('/bill_store', 'PaymentBillController@store')->name('admin.statistics.bill_store');
+        $route->get('/bill_del/{id}', 'PaymentBillController@del')->name('admin.statistics.bill_del');
 
     });
 

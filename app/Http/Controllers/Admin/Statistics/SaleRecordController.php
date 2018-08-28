@@ -69,8 +69,9 @@ class SaleRecordController extends Controller
         }
 
         $biz = Biz::all();//商家列表
-        $status = [
-            '未结算','已结算'
+        $Status = [
+            0 =>'未结算',
+            3 => '已结算'
         ];
         $order_typearr = array(
             'offline_st' => '在线买单',
@@ -80,6 +81,6 @@ class SaleRecordController extends Controller
         );
 
         return view('admin.statistics.sale_record',
-            compact('biz', 'sale_records', 'status', 'order_typearr', 'b'));
+            compact('biz', 'sale_records', 'Status', 'order_typearr', 'b'));
     }
 }

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class UsersConfig extends Model
 {
     protected  $primaryKey = "Users_ID";
-    protected  $table = "users";
+    protected  $table = "users_config";
     public $timestamps = false;
 
     protected $fillable = [

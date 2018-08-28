@@ -6,9 +6,13 @@
 
     <br><br>
     <ul>
-        @foreach ($errors->all() as $error)
-            <li>{{ $error }}</li>
-        @endforeach
+        @if(is_string($errors))
+            <li>{{$errors}}</li>
+        @else
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        @endif
     </ul>
 </div>
 @endif
