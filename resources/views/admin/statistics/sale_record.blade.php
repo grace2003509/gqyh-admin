@@ -23,11 +23,12 @@
 
                 <div id="orders" class="r_con_wrap">
                     <form class="search" id="search_form" method="get" action="{{route('admin.statistics.sale_record')}}">
-                        是否结算：
+                        结算状态：
                         <select name="Status">
                             <option value="all">全部</option>
-                            <option value='0'>未结算</option>
-                            <option value='1'>已结算</option>
+                            @foreach($Status as $k => $v)
+                            <option value='{{$k}}'>{{$v}}</option>
+                            @endforeach
                         </select>&nbsp;
                         商家
                         <select name='BizID'>
@@ -63,13 +64,13 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($sale_records as $recordid => $value)
+                        @foreach($sale_records as $key => $value)
                         <!--结算 = 实收 - 网站所得 -->
                         <tr>
-                            <td nowrap="nowrap">{{$recordid+1}}</td>
+                            <td nowrap="nowrap">{{$key+1}}</td>
                             <td nowrap="nowrap">{{$value["Biz_Name"]}}</td>
                             <td nowrap="nowrap">{{$value['ordersn']}}</td>
-                            <td nowrap="nowrap">{{$order_typearr[$value['rsorder']["Order_Type"]]}}</td>
+                            <td nowrap="nowrap">{{@$order_type[$value['rsorder']["Order_Type"]]}}</td>
                             <td nowrap="nowrap">{{$value["Order_Amount"]}}</td>
                             <td nowrap="nowrap">{{$value["Order_Shipping"]}}</td>
                             <td nowrap="nowrap"><span style="color:#F60">{{$value["Order_Amount"] + $value["Order_Shipping"]}}</span></td>

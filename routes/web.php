@@ -137,6 +137,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
         $route->get('/bill_show/{id}', 'PaymentBillController@show')->name('admin.statistics.bill_show');
         $route->post('/bill_store', 'PaymentBillController@store')->name('admin.statistics.bill_store');
         $route->get('/bill_del/{id}', 'PaymentBillController@del')->name('admin.statistics.bill_del');
+        $route->get('/bill_okey/{id}', 'PaymentBillController@okey')->name('admin.statistics.bill_okey');
 
     });
 

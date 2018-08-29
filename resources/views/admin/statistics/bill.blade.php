@@ -51,10 +51,11 @@
                                 <option value="{{$value["Biz_ID"]}}">{{$value["Biz_Name"]}}</option>
                             @endforeach
                         </select>&nbsp;
-                        是否结算： <select name="Status">
+                        结算状态： <select name="Status">
                             <option value="all">全部</option>
-                            <option value=3>未结算</option>
-                            <option value=4>已结算</option>
+                            @foreach($STATUS as $k => $v)
+                                <option value={{$k}}>{{$v}}</option>
+                            @endforeach
                         </select>&nbsp;
                         时间：
                         <span id="reportrange">
@@ -83,9 +84,9 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($lists as $paymentid => $value)
+                        @foreach($lists as $key => $value)
                         <tr>
-                            <td nowrap="nowrap" class="paymentid">{{$paymentid+1}}</td>
+                            <td nowrap="nowrap" class="paymentid">{{$key+1}}</td>
                             <td nowrap="nowrap">{{$value["Biz_Name"]}}</td>
                             <td nowrap="nowrap">
                                 <a href="/member/distribute/withdraw.php?Payment_Sn={{$value["Payment_Sn"]}}">
@@ -97,12 +98,12 @@
                                 <br />~<br />
                                 {{$value["EndTime"]}}
                             </td>
-                            <td nowrap="nowrap"><span style="color: #F60">{{$value["Amount"] + $value["Shipping"]}}</span></td>
+                            <td nowrap="nowrap"><span style="color: #F60">{{$value['total_ss']}}</span></td>
                             <td nowrap="nowrap">{{$value["Web"]}}</td>
                             <td nowrap="nowrap">
                                 <span style="color:blue">{{$value["Total"]}}</span><br>
-                                (转账<span>{{$value["Total"]*$BizPayRate[$value["Biz_ID"]]/100}}</span>
-                                 + 转向余额{{$value["Total"]-($value["Total"]*$BizPayRate[$value["Biz_ID"]]/100)}})
+                                (转账<span>{{$value["zhuanzhang"]}}</span>
+                                 + 转向余额{{$value["zhuan_ye"]}})
                             </td>
                             <td nowrap="nowrap">{{$STATUS[$value["Status"]]}}</td>
                             <td nowrap="nowrap" style="text-align: center;" paymentid="{{$value["Payment_ID"]}}">
@@ -127,7 +128,8 @@
                                        onClick="if(!confirm('删除后不可恢复，继续吗？')){return false};">[删除]</a>
                                 @endif
                                 @if($value["Status"]==3 && ($value['Payment_Type']==2 || $value['Payment_Type']==3))
-                                    <a href="?action=okpay&paymentid={{$paymentid}}" onClick="if(!confirm('确定要打款？')){return false};">[确认打款]</a>&nbsp;
+                                    <a href="{{route('admin.statistics.bill_okey', ['id'=> $value["Payment_ID"]])}}"
+                                       onClick="if(!confirm('确定要打款？')){return false};">[确认打款]</a>&nbsp;
                                 @endif
                             </td>
                         </tr>
