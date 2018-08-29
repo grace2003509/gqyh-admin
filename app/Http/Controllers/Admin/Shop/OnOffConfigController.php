@@ -8,14 +8,24 @@ use App\Http\Controllers\Controller;
 
 class OnOffConfigController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        $type = $request->get('type');
+
         $pc_obj = new PermissionConfig();
+
+        if(isset($type)){
+            $pc_obj = $pc_obj->where('Perm_Tyle', $type);
+        }else{
+            $pc_obj = $pc_obj->where('Perm_Tyle', '<=', 2);
+        }
         $perm_config = $pc_obj->where('Is_Delete', 0)
             ->orderBy('Perm_On', 'desc')
             ->get();
+
         $switchplace = array('非法操作','分销中心','个人中心','分销中心-二维码','产品详情','提交订单');
-        return view('admin.shop.on_off_config', compact('perm_config', 'switchplace'));
+
+        return view('admin.shop.on_off_config', compact('perm_config', 'switchplace', 'type'));
     }
 
     public function store(Request $request)
@@ -29,6 +39,7 @@ class OnOffConfigController extends Controller
             'Perm_Picture' => $input['Logo'],
             'Perm_Url' => $input['http_url'],
             'Perm_Tyle' => $input['Tyle_IS'],
+            'Perm_index' => $input['index'],
         );
         $flag = $pc_obj->create($Data);
         if($flag){
@@ -50,6 +61,7 @@ class OnOffConfigController extends Controller
             'Perm_Picture' => $input['Logo'],
             'Perm_Url' => $input['http_url'],
             'Perm_Tyle' => $input['Tyle_IS'],
+            'Perm_index' => $input['index'],
         );
         $pc_obj->where('Permission_ID', $id)->update($Data);
 

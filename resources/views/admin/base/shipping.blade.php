@@ -12,9 +12,9 @@
     <div class="box">
         <div id="iframe_page">
             <div class="iframe_content">
-                <div id="update_post_tips"></div>
+
                 <div id="user" class="r_con_wrap">
-                    <div class="control_btn">
+                    <div class="control_btn" style="margin-left: 0px">
                         <a data-target="#create_shipping_btn" data-toggle= 'modal' class="btn_green btn_w_120">添加</a>
                         {{--<a data-target="#mod_delete_shipping" data-toggle= 'modal' class="btn_green btn_w_120">恢复默认设置</a>--}}
                     </div>

@@ -45,9 +45,9 @@
 #material .m_righter select *{width:300px; overflow:hidden;}
 
 #url .type{margin-bottom:15px; min-height:30px;}
-#url .type a{display:block; width:80px; height:30px; line-height:30px; background:#ddd; float:left; margin-right:5px; text-align:center; text-decoration:none; margin-bottom:5px; position:relative}
+#url .type a{color: #fff; display:block; width:120px; height:30px; line-height:30px; background:#1584D5; float:left; margin-right:5px; text-align:center; text-decoration:none; margin-bottom:5px; position:relative}
 #url .type a.cur, #url .type a:hover{background:#1584D5; color:#fff;}
-#url .type a span{display:block; width:80px; height:30px; line-height:30px; background:#ddd; text-align:center; text-decoration:none; visibility:hidden; z-index:999;position:relative;}
+#url .type a span{display:block; width:120px; height:30px; line-height:30px; text-align:center; text-decoration:none; visibility:hidden; z-index:999;position:relative;}
 #url .type a:hover span{background:#1584D5; border-top:1px #79A6D5 solid; color:#fff; visibility:visible; display:block;}
 #url .add_form{border:1px solid #ddd; background:#f7f7f7; margin-bottom:10px;}
 #url .mod_form{border:1px dotted red;}
