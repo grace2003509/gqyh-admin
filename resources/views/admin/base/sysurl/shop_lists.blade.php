@@ -9,21 +9,19 @@
         <tbody>
 		  
           <?php
-				$list_column = \App\Models\ShopProduct::where('Products_Status', 1)
-                    ->orderBy('Products_Index', 'asc')
-                    ->paginate(40);
-				foreach($list_column as $k=>$v){
+            $list_column = \App\Models\ShopProduct::where('Products_Status', 1)
+                ->orderBy('Products_Index', 'asc')
+                ->paginate(40);
 		  ?>
+          @foreach($list_column as $k=>$v)
           <tr>
-            <td nowrap="nowrap"><?php echo $k;?></td>
-            <td nowrap="nowrap"><?php echo $v["Products_Name"];?></td>
+            <td nowrap="nowrap">{{$k+1}}</td>
+            <td nowrap="nowrap">{{$v["Products_Name"]}}</td>
             <td nowrap="nowrap" class="left last">
-            	http://<?php echo $rulreal ?>/api/<?php echo USERSID ?>/shop/products/<?php echo $v["Products_ID"];?>/
+            	http://{{$rulreal}}/api/shop/products/{{$v["Products_ID"]}}/
             </td>
           </tr>
-          <?php
-		  		}
-		  ?>
+          @endforeach
         </tbody>
       </table>
 	  <div class="blank20"></div>

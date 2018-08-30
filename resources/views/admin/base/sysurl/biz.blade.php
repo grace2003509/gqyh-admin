@@ -7,13 +7,17 @@
           </tr>
         </thead>
         <tbody>
-
-<!--$DB->query("select Biz_ID,Biz_Name,Is_Union from biz as b left join biz_group g on b.Group_ID=g.Group_ID where g.Group_IsStore=1 and b.Users_ID='".$_SESSION["Users_ID"]."' order by b.Biz_ID asc");				-->
-
-          <tr>
-            <td nowrap="nowrap"></td>
-            <td nowrap="nowrap" class=""></td>
-            <td nowrap="nowrap" class="left last"></td>
-          </tr>
+          <?php
+            $bizs = \App\Models\Biz::all();
+          ?>
+          @foreach($bizs as $k => $v)
+              <tr>
+                <td nowrap="nowrap">{{$k+1}}</td>
+                <td nowrap="nowrap">{{$v->Biz_Name}}</td>
+                <td nowrap="nowrap" class="left last">
+                    http://{{$rulreal}}/api/biz/{{$v["Biz_ID"]}}/
+                </td>
+              </tr>
+          @endforeach
         </tbody>
       </table>

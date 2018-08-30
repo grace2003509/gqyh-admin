@@ -7,34 +7,27 @@
           </tr>
         </thead>
         <tbody>
-		<tr>
-            <td nowrap="nowrap">1</td>
-            <td nowrap="nowrap">首页</td>
-            <td nowrap="nowrap" class="left last">http://<?php echo $rulreal ?>/api/<?php echo USERSID ?>/shop/union/?love</td>
-          </tr>
-          <tr>
-            <td nowrap="nowrap">2</td>
-            <td nowrap="nowrap">购物</td>
-            <td nowrap="nowrap" class="left last">http://<?php echo $rulreal ?>/api/<?php echo USERSID ?>/shop/wzw/</td>
-          </tr>
-		   <tr>
-            <td nowrap="nowrap">3</td>
-            <td nowrap="nowrap">全部分类</td>
-            <td nowrap="nowrap" class="left last">http://<?php echo $rulreal ?>/api/<?php echo USERSID ?>/shop/allcategory/?love</td>
-          </tr>
-          <?php
-            $list_column = \App\Models\ShopCategory::orderBy('Category_ID', 'asc')->get();
-            foreach($list_column as $k => $v){
-		  ?>
-          <tr>
-            <td nowrap="nowrap"><?php echo $k+4;?></td>
-            <td nowrap="nowrap"><?php echo $v["Category_Name"];?></td>
-            <td nowrap="nowrap" class="left last">
-            	http://<?php echo $rulreal ?>/api/<?php echo USERSID ?>/shop/category/<?php echo $v["Category_ID"];?>/
-            </td>
-          </tr>
-          <?php
-            }
-		  ?>
+            <tr>
+                <td nowrap="nowrap">1</td>
+                <td nowrap="nowrap">首页</td>
+                <td nowrap="nowrap" class="left last">http://{{$rulreal}}/api/shop/wzw/</td>
+            </tr>
+            <tr>
+                <td nowrap="nowrap">2</td>
+                <td nowrap="nowrap">全部分类</td>
+                <td nowrap="nowrap" class="left last">http://{{$rulreal}}/api/shop/allcategory/</td>
+            </tr>
+              <?php
+                $list_column = \App\Models\ShopCategory::orderBy('Category_ID', 'asc')->get();
+              ?>
+            @foreach($list_column as $k => $v)
+            <tr>
+                <td nowrap="nowrap">{{$k+3}}</td>
+                <td nowrap="nowrap">{{$v["Category_Name"]}}</td>
+                <td nowrap="nowrap" class="left last">
+                    http://{{$rulreal}}/api/shop/category/{{$v["Category_ID"]}}/
+                </td>
+            </tr>
+            @endforeach
         </tbody>
       </table>

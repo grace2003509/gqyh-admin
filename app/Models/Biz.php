@@ -11,7 +11,7 @@ class Biz extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'Biz_ID','Users_ID','Biz_Account','Biz_PassWord','Biz_Name','Area_ID','Biz_Province','Biz_City','Biz_Area',
+        'Users_ID','Biz_Account','Biz_PassWord','Biz_Name','Area_ID','Biz_Province','Biz_City','Biz_Area',
         'Biz_Address','Biz_PrimaryLng','Biz_PrimaryLat','Biz_Contact','Biz_Phone','Biz_Email','Biz_Homepage',
         'Biz_Introduce','Biz_Status','Biz_CreateTime','Biz_SmsPhone','Shipping','Default_Shipping','Default_Business',
         'Biz_RecieveProvince','Biz_RecieveCity','Biz_RecieveArea','Biz_RecieveAddress','Biz_RecieveName',
@@ -24,4 +24,5 @@ class Biz extends Model
     ];
 
     protected $hidden = ['Biz_PassWord'];
+
 }

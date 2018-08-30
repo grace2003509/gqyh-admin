@@ -15,21 +15,6 @@ class AreaRegion extends Model
     ];
 
 
-    /*public function get_region($condition){
-        $region = array();
-        $this->db->Get($this->table,'*',$condition);
-        while($r = $this->db->fetch_assoc()){
-            if($r["Region_ParentID"]==0){
-                if(empty($region[$r["Area_ID"]][$r["Region_ID"]]["Region_ID"])){
-                    $region[$r["Area_ID"]][$r["Region_ID"]] = $r;
-                }
-            }else{
-                $region[$r["Area_ID"]][$r["Region_ParentID"]]["child"][] = $r;
-            }
-        }
-        return $region;
-    }*/
-
     public function get_areainfo($areaid)
     {
         $r = Area::where('area_id', $areaid)->first();

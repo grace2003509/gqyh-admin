@@ -2,14 +2,13 @@
 @section('ancestors')
     <li>基础设置</li>
 @endsection
-@section('page', '自定义URL')
+@section('page', '系统URL查询')
 @section('subcontent')
 
     <link href='/admin/css/main.css' rel='stylesheet' type='text/css' />
     <link href='/admin/css/material.css' rel='stylesheet' type='text/css' />
 
     <script src="/static/js/plugins/jQuery/jQuery-2.2.0.min.js"></script>
-{{--    <script type='text/javascript' src='/admin/js/global.js'></script>--}}
     <script type='text/javascript' src='/admin/js/material.js'></script>
 
     <div class="box">
@@ -18,34 +17,22 @@
 
                 <div id="url" class="r_con_wrap" style="min-height:500px;">
                     <div class="type">
-                        @foreach($modules as $m)
-                            @if($m["name"] != '云购')
-                            <a href=" @if(empty($menus[$m["parentid"]]["type"])){{route('admin.base.sys_url', ['dialog'=>$dialog ,'input'=>$input, 'module'=>$m["module"]])}} @else # @endif ">
-                                {{$m["name"]}}
-                                @if(!empty($menus[$m["moduleid"]]["type"]))
-                                    @foreach($menus[$m["moduleid"]]["type"] as $t)
-                                    <span onClick="window.location.href='{{route('admin.base.sys_url', ['dialog'=>$dialog ,'input'=>$input, 'module'=>$m['module'], 'type'=>$t['module']])}}';">
-                                        {{$t["name"]}}
-                                    </span>
-                                    @endforeach
-                                @endif
-                            </a>
-                            @endif
-                        @endforeach
+                        <a href="{{route('admin.base.sys_url', [ 'type'=>'shop_category'])}}">
+                            产品分类
+                        </a>
+                        <a href="{{route('admin.base.sys_url', [ 'type'=>'shop_lists'])}}" >
+                            产品列表
+                        </a>
+                        <a href="{{route('admin.base.sys_url', [ 'type'=>'biz'])}}" >
+                            店铺列表
+                        </a>
                     </div>
-                    @include('admin.base.sysurl.'.$module.($type ? '_'.$type : ''))
+                    @include('admin.base.sysurl.'.$type)
                 </div>
 
             </div>
         </div>
     </div>
-
-    @if($input)
-        <script language="javascript">
-            var parent_input = '{{$input}}';
-            $(document).ready(material_obj.url_select);
-        </script>
-    @endif
 
 
 @endsection

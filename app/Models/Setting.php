@@ -1,4 +1,7 @@
 <?php
+/**
+ * 系统基本设置表
+ */
 
 namespace App\Models;
 
