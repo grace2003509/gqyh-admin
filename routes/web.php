@@ -121,6 +121,16 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
         $route->get('/on_off_del/{id}', 'OnOffConfigController@del')->name('admin.shop.on_off_del');
     });
 
+    Route::group(['prefix' => 'active', 'namespace' => 'Active'], function ($route) {
+        $route->get('/index', 'ActiveController@index')->name('admin.active.index');
+        $route->get('/create', 'ActiveController@create')->name('admin.active.create');
+        $route->post('/store', 'ActiveController@store')->name('admin.active.store');
+        $route->get('/edit/{id}', 'ActiveController@edit')->name('admin.active.edit');
+        $route->post('/update/{id}', 'ActiveController@update')->name('admin.active.update');
+        $route->get('/del/{id}', 'ActiveController@del')->name('admin.active.del');
+        $route->get('/biz_active/{id}', 'ActiveController@biz_actives')->name('admin.active.biz_active');
+    });
+
     //财务统计
     Route::group(['prefix' => 'statistics', 'namespace' => 'Statistics'], function ($route) {
         //销售记录

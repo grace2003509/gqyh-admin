@@ -114,6 +114,25 @@ return json_encode([                                    // modules
         ],
     ],
     [
+        'name' => '活动管理',
+        'icon' => 'rocket',
+        'route' => null,
+        'items' => [
+            [
+                'name' => '活动列表',
+                'route' => 'admin.active.index',
+                'description' => null,
+                'items' => null,
+            ],
+            [
+                'name' => '创建活动',
+                'route' => 'admin.active.create',
+                'description' => null,
+                'items' => null,
+            ],
+        ],
+    ],
+    [
         'name' => '财务统计',
         'icon' => 'bar-chart',
         'route' => null,
