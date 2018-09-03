@@ -120,10 +120,15 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
         $route->post('/on_off_update/{id}', 'OnOffConfigController@update')->name('admin.shop.on_off_update');
         $route->get('/on_off_del/{id}', 'OnOffConfigController@del')->name('admin.shop.on_off_del');
         //首页设置
-        $route->get('/index', 'HomeConfigController@index')->name('admin.shop.home_index');
-        $route->post('/update', 'HomeConfigController@update')->name('admin.shop.home_update');
+        $route->get('/home_index', 'HomeConfigController@index')->name('admin.shop.home_index');
+        $route->post('/home_update', 'HomeConfigController@update')->name('admin.shop.home_update');
+        //底部菜单设置
+        $route->get('/foot_menu_index', 'FootMenuController@index')->name('admin.shop.foot_menu_index');
+        $route->post('/foot_menu_update', 'FootMenuController@update')->name('admin.shop.foot_menu_update');
+        $route->get('/foot_menu_del', 'FootMenuController@del')->name('admin.shop.foot_menu_del');
     });
 
+    //活动管理
     Route::group(['prefix' => 'active', 'namespace' => 'Active'], function ($route) {
         $route->get('/index', 'ActiveController@index')->name('admin.active.index');
         $route->get('/create', 'ActiveController@create')->name('admin.active.create');

@@ -106,6 +106,12 @@ return json_encode([                                    // modules
                 'items' => null,
             ],
             [
+                'name' => '底部菜单设置',
+                'route' => 'admin.shop.foot_menu_index',
+                'description' => null,
+                'items' => null,
+            ],
+            [
                 'name' => '积分设置',
                 'route' => 'admin.shop.integrate_index',
                 'description' => null,

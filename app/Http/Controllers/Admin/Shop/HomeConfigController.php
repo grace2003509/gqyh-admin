@@ -41,10 +41,11 @@ class HomeConfigController extends Controller
 
     public function update(Request $request)
     {
-        $do_action=empty($_POST['do_action'])?'':$_POST['do_action'];
+        $input = $request->input();
+        $do_action=empty($input['do_action'])?'':$input['do_action'];
         if($do_action=='shop.home_diy'){
             $Data=array(
-                "Home_Json"=>str_replace('undefined','',$_POST["gruopPackage"])
+                "Home_Json"=>str_replace('undefined','',$input["gruopPackage"])
             );
             $sc_obj = new ShopConfig();
             $rsConfig = $sc_obj->where('Users_ID', USERSID)->first();

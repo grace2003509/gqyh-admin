@@ -3401,7 +3401,7 @@ var shop_obj={
         str = "["+str.substr(0,str.length-1)+"]"; //json end
         $.ajax({
             type    : "POST",
-            url     : "/admin/shop/update",
+            url     : "/admin/shop/home_update",
             data    : "gruopPackage="+encodeURIComponent(str)+"&do_action=shop.home_diy&date="+new Date(),
             dataType:"json",
             success: function(data){
