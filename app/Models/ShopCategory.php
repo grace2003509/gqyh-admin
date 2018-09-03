@@ -11,7 +11,7 @@ class ShopCategory extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'Category_ID','Users_ID','Category_Index','Category_Name','Category_ParentID','Category_ListTypeID',
+        'Users_ID','Category_Index','Category_Name','Category_ParentID','Category_ListTypeID',
         'Category_Img','Category_IndexShow','Category_Bond','Category_CommissionRate','Category_ProfitRate'
     ];
 }

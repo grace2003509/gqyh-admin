@@ -181,13 +181,13 @@ class ActiveController extends Controller
     {
         $ba_obj = New Biz_Active();
         $biz_active = $ba_obj->where('Active_ID', $id)->where('Status', 2)->get();
-        if($biz_active){
+        if(count($biz_active) > 0){
             return redirect()->back()->with('errors', '已有商家正在参加活动，不能删除');
         }
 
         $a_obj = New Active();
         $rst = $a_obj->find($id);
-        $flag2 = $rst->biz_actives->delete();
+        $flag2 = $rst->biz_actives()->delete();
         $flag1 = $a_obj->destroy($id);
 
         if($flag1 || $flag2){

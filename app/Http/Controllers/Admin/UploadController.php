@@ -137,7 +137,7 @@ class UploadController extends Controller
                 if (!file_exists($save_path . 'n0/')) {
                     mkdir($save_path . 'n0/');
                 }
-                if (!file_exists($save_path . 'n1/')) {
+                /*if (!file_exists($save_path . 'n1/')) {
                     mkdir($save_path . 'n1/');
                 }
                 if (!file_exists($save_path . 'n2/')) {
@@ -148,15 +148,15 @@ class UploadController extends Controller
                 }
                 if (!file_exists($save_path . 'n4/')) {
                     mkdir($save_path . 'n4/');
-                }
+                }*/
 
                 $thumImg = new ImageThum();
                 //开始缩略图
                 $thumImg->littleImage($file_path, $save_path . 'n0/', 200);
-                $thumImg->littleImage($file_path, $save_path . 'n1/', 300);
+/*                $thumImg->littleImage($file_path, $save_path . 'n1/', 300);
                 $thumImg->littleImage($file_path, $save_path . 'n2/', 0, 350);
                 $thumImg->littleImage($file_path, $save_path . 'n3/', 100);
-                $thumImg->littleImage($file_path, $save_path . 'n4/', 420);
+                $thumImg->littleImage($file_path, $save_path . 'n4/', 420);*/
             }
 
             /*向数据库中插入记录*/

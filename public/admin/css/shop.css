@@ -6,7 +6,7 @@
 #skin li .item .title{height:22px; line-height:22px; padding-top:5px; overflow:hidden; text-align:center;}
 #skin li.cur .img{border:3px solid #F60; margin:0px;}
 
-#home .m_lefter{width:320px; overflow:hidden; float:left; _display:inline; border:1px solid #ddd; background:#FFF; margin-right:20px;}
+#home .m_lefter{width:100%; overflow:hidden; float:left; _display:inline; border:1px solid #ddd; background:#FFF; margin-right:20px;}
 #home .m_righter{float:left; background:#f7f7f7; width:400px; border:1px solid #ddd; min-height:200px; _height:200px;}
 #home .m_righter .item{border-bottom:1px solid #ddd; padding:15px; padding-bottom:5px;}
 #home .m_righter .rows{overflow:hidden;}
@@ -73,7 +73,7 @@
 #products .category .m_righter .opt_item #pro-list-type li .item .filter{position:absolute; width:100px; height:135px; z-index:2;}
 #products .category .m_righter .opt_item #pro-list-type li .item .bg{position:absolute; width:100px; height:135px; z-index:3;}
 #products .category .m_righter .opt_item #pro-list-type li .item_on .filter{background:#000; filter:alpha(opacity=70); -moz-opacity:0.7; -khtml-opacity:0.7; opacity:0.7;}
-#products .category .m_righter .opt_item #pro-list-type li .item_on .bg{background:url(../images/shop/selected-icon.png) center center no-repeat;}
+#products .category .m_righter .opt_item #pro-list-type li .item_on .bg{background:url(../images/diy/selected-icon.png) center center no-repeat;}
 #products .category .m_righter #look{width:220px; overflow:hidden;}
 #products .category .m_righter #look img{max-width:220px; max-height:100px;}
 #products .property .m_lefter{float:left; width:385px; padding:10px; border:1px solid #ddd; background:#f7f7f7; min-height:400px; _height:400px; overflow:hidden;}
@@ -180,14 +180,14 @@ input[type='submit']{height:30px; line-height:30px; border:none; border-radius:8
 .package_sprite .sp1{ height:31px; background:#ececec; line-height:31px; padding-left:15px; color:#777; border-bottom:1px #bdbdbf solid;}
 .package_sprite .sp2{ min-height:460px; background:#FFF;}
 .square_sprite{ width:49px; height:79px; float:left; margin-left:33px; margin-top:10px;}
-.square_sprite .square_img{ width:49px; height:49px; background:url(../images/shop/diy/square.jpg) no-repeat; text-align:center; cursor:move;}
+.square_sprite .square_img{ width:49px; height:49px; background:url(../images/diy/square.jpg) no-repeat; text-align:center; cursor:move;}
 .square_sprite .square_img img{ vertical-align:middle;}
 .square_sprite .square_img span{ vertical-align:middle;display:inline-block; height:100%;}
 .square_sprite .square_name{ width:49px; height:30px; line-height:30px; line-height:30px; text-align:center; font-size:12px;}
 /* 组件区域end */
 
 /* 视图区域start */
-.ipad_sprite{ width:360px; height:550px; overflow:hidden; background:url(../images/shop/diy/ipad.png);float:left; margin-left:20px; margin-top:5px;}
+.ipad_sprite{ width:360px; height:550px; overflow:hidden; background:url(../images/diy/ipad.png);float:left; margin-left:20px; margin-top:5px;}
 .ipad{ width:318px; height:510px; margin-left:20px; margin-top:20px; overflow-y:scroll; position:relative; overflow-x:hidden;}
 #ipadNotice{line-height:420px; text-align:center}
 .ipad .sprite1{ cursor:move; line-height:22px; min-height:22px;position:relative; z-index:900; font-size:12px; margin:1px; border:1px #ccc dashed;}
@@ -261,7 +261,7 @@ input[type='submit']{height:30px; line-height:30px; border:none; border-radius:8
 .chanpint1_x{ width:100%; margin:0 auto; background:#f8f8f8;}
 .chanpint1_x ul{}
 .chanpint1_x ul li { overflow:hidden;float:left; width:47%; padding:0.5% 0.5%; margin:1%; background:#fff;}
-.chanpint1_x ul li span.cpt_x{ width:30%;}
+.chanpint1_x ul li span.cpt_x{ width:40%;}
 .chanpint1_x ul li span.cpt_x img{ width:100%;}
 .chanpint1_x ul li div.cpxq1_x{ padding:0 2%;}
 .chanpint1_x ul li div.cpxq1_x div.cpbt_x{ line-height:22px; font-size:15px; max-height:22px; overflow:hidden;}
@@ -341,8 +341,8 @@ input[type='submit']{height:30px; line-height:30px; border:none; border-radius:8
 
 /* 属性start */
 .property_sprite{ width:360px; border:1px #bdbdbf solid; float:left; margin-left:20px; margin-top:5px;}
-.property_sprite .ps1{ height:30px; border-bottom:1px #bdbdbf solid; background:url(../images/shop/diy/p1.jpg)}
-.property_sprite .ps1_1{ width:30px; height:30px; background:url(../images/shop/diy/icon1.jpg) 50% 50% no-repeat; float:left; border-right:1px #bdbdbf solid;}
+.property_sprite .ps1{ height:30px; border-bottom:1px #bdbdbf solid; background:url(../images/diy/p1.jpg)}
+.property_sprite .ps1_1{ width:30px; height:30px; background:url(../images/diy/icon1.jpg) 50% 50% no-repeat; float:left; border-right:1px #bdbdbf solid;}
 .property_sprite .ps1_2{ float:left; height:30px;  line-height:30px;  padding-left:15px;}
 .property_sprite .ps1_3{  float:right; margin-right:10px; margin-top:5px;}
 .property_sprite .ps2{  padding-bottom:10px;}
@@ -369,7 +369,8 @@ input[type='submit']{height:30px; line-height:30px; border:none; border-radius:8
 .checkList{width:340px;margin-left:10px; margin-top:5px; overflow:hidden; float:left;}
 .checkList label{overflow: hidden;height:28px;line-height: 28px;}
 .checkList div{height:28px;}
-.checkList div input{margin-right: 5px;margin-left: 5px;}
+.checkList div input{margin-right: 5px;margin-left: 5px;
+    height: 35px;}
 .num{margin-top: 5px;}
 .more{margin-top: 5px;}
 .p_title{margin-top: 5px;}

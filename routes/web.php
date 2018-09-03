@@ -119,6 +119,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
         $route->post('/on_off_store', 'OnOffConfigController@store')->name('admin.shop.on_off_store');
         $route->post('/on_off_update/{id}', 'OnOffConfigController@update')->name('admin.shop.on_off_update');
         $route->get('/on_off_del/{id}', 'OnOffConfigController@del')->name('admin.shop.on_off_del');
+        //首页设置
+        $route->get('/index', 'HomeConfigController@index')->name('admin.shop.home_index');
+        $route->post('/update', 'HomeConfigController@update')->name('admin.shop.home_update');
     });
 
     Route::group(['prefix' => 'active', 'namespace' => 'Active'], function ($route) {

@@ -6,7 +6,7 @@ if (!isset($_POST[$session_name])) {
     session_start();
 }
 
-$targetFolder = '/uploadfiles/'.$_SESSION["Users_ID"].'/'; // Relative to the root
+$targetFolder = '/uploadfiles/9nj50igwex/'; // Relative to the root
 if(@is_dir($_SERVER['DOCUMENT_ROOT'] .$targetFolder)===false){
     mkdir($_SERVER['DOCUMENT_ROOT'] .$targetFolder);
 }
@@ -49,7 +49,7 @@ if (!empty($_FILES)) {
             }else{
                 if($v['type'] ==1 ){
                     //做缩略图
-                    require_once $_SERVER['DOCUMENT_ROOT'] . '/include/library/ImageThum.class.php';
+                    require_once $_SERVER['DOCUMENT_ROOT'] . '/admin/js/uploadify/ImageThum.php';
                     $save_path = $_SERVER['DOCUMENT_ROOT'] . $save_path;
                     $file_path = $_SERVER['DOCUMENT_ROOT'] . $targetFile;
                     if (!file_exists($save_path . 'n0/')) {
@@ -64,7 +64,7 @@ if (!empty($_FILES)) {
                     if (!file_exists($save_path . 'n3/')) {
                         mkdir($save_path . 'n3/');
                     }
-                    $thumImg = new imageThum();
+                    $thumImg = new ImageThum();
                     $thumImg->littleImage($file_path, $save_path . 'n0/', 200);
                     $thumImg->littleImage($file_path, $save_path . 'n1/', 190);
                     $thumImg->littleImage($file_path, $save_path . 'n2/', 0, 350);
