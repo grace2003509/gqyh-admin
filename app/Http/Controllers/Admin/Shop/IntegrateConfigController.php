@@ -51,6 +51,8 @@ class IntegrateConfigController extends Controller
             "Man"=>json_encode($man,JSON_UNESCAPED_UNICODE),
             "Integral_Buy"=>isset($input["Integral_Buy"])?$input["Integral_Buy"]:0,
             "Integral_Use_Laws"=>json_encode($Integral_Use_Laws,JSON_UNESCAPED_UNICODE),
+            "Is_Sign"=>isset($input['Is_Sign']) ? $input['Is_Sign'] : 0,
+            "Integral_Sign"=>isset($input['Integral_Sign']) ? intval($input['Integral_Sign']) : 0,
         );
 
         $sc_obj = new ShopConfig();

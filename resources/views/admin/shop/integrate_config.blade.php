@@ -49,7 +49,25 @@
                                 <div class="rows">
                                     <label>积分抵用设置</label>
                                     <span class="input">
-                                      每 <input type="text" name="Integral_Buy" size="5" value="{{$rsConfig['Integral_Buy']}}"/> 积分抵用一元
+                                      每 <input type="number" name="Integral_Buy" size="5" value="{{$rsConfig['Integral_Buy']}}"/> 积分抵用一元
+                                    </span>
+                                    <div class="clear"></div>
+                                </div>
+
+                                <div class="rows">
+                                    <label>签到获取积分是否启用</label>
+                                    <span class="input">
+                                      开启 <input type="radio" name="Is_Sign" value="1" @if($rsConfig['Is_Sign'] == 1) checked @endif />
+                                      关闭 <input type="radio" name="Is_Sign" value="0" @if($rsConfig['Is_Sign'] == 0) checked @endif />
+                                    </span>
+                                    <div class="clear"></div>
+                                </div>
+
+                                <div class="rows">
+                                    <label>签到积分</label>
+                                    <span class="input">
+                                        会员每日签到获得
+                                        <input type="number" name="Integral_Sign" size="5" value="{{$rsConfig['Integral_Sign']}}"/> 积分
                                     </span>
                                     <div class="clear"></div>
                                 </div>
