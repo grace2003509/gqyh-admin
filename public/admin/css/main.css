@@ -60,7 +60,7 @@
 .r_con_table td a{color:#4D88D3;}
 .r_con_table thead{background:#f1f1f1; font-weight:bold;}
 .r_con_table tbody tr:hover{background:#E4F1FC;}
-.r_con_table tbody td, .r_con_table tbody td *{font-size:12px;}
+.r_con_table tbody td, .r_con_table tbody td *{font-size:14px;}
 .r_con_table tbody td .upd_txt input{width:80px; height:24px; line-height:24px; text-align:center; border:1px solid #ddd;}
 
 .r_con_config table{width:100%;}
@@ -112,7 +112,7 @@
 .lean-modal-forma .rows .input .img_detail img{max-height:30px; max-width:100px;}
 .lean-modal-forma .rows .input .big_size_tips{float:right; height:30px; line-height:30px; color:#888; padding-right:75px;}
 .lean-modal-forma .rows .input .txetarea{width:320px; height:30px; line-height:150%; padding:5px; border:1px solid #ddd;}
-.lean-modal-forma .rows .submit input{height:30px; line-height:30px; background:url(../images/ok-btn-bg.jpg); border:none; border-radius:8px; color:#fff; width:145px; font-size:14px;}
+.lean-modal-forma .rows .submit input{height:30px; line-height:30px; background:#1584D5; border:none; border-radius:8px; color:#fff; width:145px; font-size:14px;}
 
 .lean-modal-form .rows label.error{color:#F45F58;float:none;}
 #iframe_page{width:100%; }

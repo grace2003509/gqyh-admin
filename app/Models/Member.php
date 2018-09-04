@@ -5,6 +5,7 @@
 
 namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Member extends Model {
 
@@ -15,7 +16,7 @@ class Member extends Model {
 
 	//一个用户对应一个分销账号
 	public function disAccount() {
-		return $this->hasOne('Dis_Account', 'User_ID', 'User_ID');
+		return $this->hasOne(Dis_Account::class, 'User_ID', 'User_ID');
 	}
 
 	//一个用户拥有多个订单
@@ -32,11 +33,11 @@ class Member extends Model {
 	public function OwnerDisRecord(){
 		return $this->hasMany('Order', 'Owner_ID', 'User_ID');
 	}
-	
-	//一个用户拥有多个分销账号记录
-	public function disAccountRecord(){
-	
-	}
+
+	public function MoneyRecord()
+    {
+        return $this->hasMany(UserMoneyRecord::class, 'User_ID', 'User_ID');
+    }
 	
 	
 	/*
@@ -86,25 +87,104 @@ class Member extends Model {
 
 	}
 
-	// 多where
-	public function scopeMultiwhere($query, $arr) {
-		if (!is_array($arr)) {
-			return $query;
-		}
 
-		foreach ($arr as $key => $value) {
-			$query = $query->where($key, $value);
-		}
 
-		return $query;
-	}
+    //清除会员
+    function clearUser(array $UserID = [])
+    {
+        $flag = true;
+        if(!empty($UserID)){
+            $result = $this->whereIn('User_ID', $UserID)->get(['User_ID'])->toArray();
+        }else{
+            $result = $this->get(['User_ID'])->toArray();
+            $ssp_obj = new ShopSalesPayment();
+            $flag &= $ssp_obj->delete();
+        }
 
-	/**
-	 * 关闭日期转换功能
-	 *
-	 */
-	public function getDates() {
-		return array();
-	}
+        if(!empty($result)){
+            $uid = array_map(function($val){
+                return $val['User_ID'];
+            }, $result);
+            $result = DB::table('distribute_account')->whereIn('User_ID', $uid)->get(['Account_ID']);
+            $Account_list = [];
+            foreach($result as $value){
+                $Account_list[] = $value->Account_ID;
+            }
+            $result = DB::table('user_order')->whereIn('User_ID', $uid)->get(['Order_ID']);
+            $orderlist = [];
+            foreach($result as $value){
+                $orderlist[] = $value->Order_ID;
+            }
+
+            $tables = ['action_num_record','agent_order','alipay_refund',
+                'distribute_account','distribute_account_message','distribute_account_record','distribute_agent_areas',
+                'distribute_agent_rec','distribute_order','distribute_order_record','distribute_point_record','distribute_record',
+                'distribute_sales_record','distribute_sha_rec','distribute_withdraw_method','distribute_withdraw_methods',
+                'distribute_withdraw_record','http_raw_post_data','shop_dis_agent_areas','shop_dis_agent_rec','shop_distribute_account',
+                'shop_distribute_account_record','shop_distribute_config','shop_distribute_msg','shop_distribute_record',
+                'shop_property','shop_sales_payment','shop_sales_record','shop_shipping_company','shop_shipping_template',
+                'shop_user_withdraw_methods','shop_withdraw_method','shipping_orders','shipping_orders_commit',
+                'sms','third_login_users','uploadfiles','user','user_address','user_back_order',
+                'user_back_order_detail','user_card_benefits','user_charge','user_coupon','user_coupon_logs',
+                'user_coupon_record','user_favourite_products','user_get_orders','user_get_product','user_gift',
+                'user_gift_orders','user_integral_record','user_message','user_message_record','user_money_record',
+                'user_operator','user_order','user_order_commit','user_peas','user_peas_orders','user_pre_order',
+                'user_profile','user_recieve_address','user_reserve','user_yielist'];
+            $item[] = 'User_ID';
+            if (!empty($Account_list)) {
+                $item[] = 'Account_ID';
+            }
+            if (!empty($orderlist)) {
+                $item[] = 'Order_ID';
+            }
+            $sql = "";
+            foreach ($item as $it) {
+                if ($it == 'Account_ID') {
+                    $kid = $Account_list;
+                    $itemarray = array('distribute_agent_areas', 'distribute_agent_rec', 'distribute_sha_rec');
+                } elseif ($it == 'Order_ID') {
+                    $kid = $orderlist;
+                    $itemarray = array('distribute_record', 'shop_sales_record');
+                } else {
+                    $kid = $uid;
+                    $itemarray = 1;
+                }
+                foreach ($tables as $key) {
+                    if ($itemarray == 1 || in_array($key, $itemarray)) {
+                        $json = DB::select('Describe ' . $key . ' ' . $it . '');
+                        if(isset($json[0])){
+                            $json = $json[0];
+                            if (count($json) > 0) {
+                                if ($json->Field == $it) {
+                                    DB::table($key)->whereIn($it, $kid)->delete();
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            $sql = trim($sql, ';');
+            foreach ($uid as $v){
+                $file = $_SERVER["DOCUMENT_ROOT"] . '/data/avatar/' . USERSID . $v . '.jpg';
+                if(is_file($file) && file_exists($file)){
+                    $flag &= unlink($file);
+                }
+                $file = $_SERVER["DOCUMENT_ROOT"] . '/data/temp/user_' . $v . '.jpg';
+                if(is_file($file) && file_exists($file)){
+                    $flag &= unlink($file);
+                }
+                $file = $_SERVER["DOCUMENT_ROOT"] . '/data/poster/user_'  . USERSID . $v .  '.png';
+                if(is_file($file) && file_exists($file)){
+                    $flag &= unlink($file);
+                }
+                $file = $_SERVER["DOCUMENT_ROOT"] . '/data/poster/user_'  . USERSID . $v .  'pop.png';
+                if(is_file($file) && file_exists($file)){
+                    $flag &= unlink($file);
+                }
+            }
+        }
+        return $flag;
+    }
+
 
 }

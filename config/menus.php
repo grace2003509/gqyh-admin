@@ -126,6 +126,19 @@ return json_encode([                                    // modules
         ],
     ],
     [
+        'name' => '会员管理',
+        'icon' => 'group',
+        'route' => null,
+        'items' => [
+            [
+                'name' => '会员列表',
+                'route' => 'admin.member.user_list',
+                'description' => null,
+                'items' => null,
+            ],
+        ],
+    ],
+    [
         'name' => '活动管理',
         'icon' => 'rocket',
         'route' => null,

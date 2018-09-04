@@ -106,6 +106,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
         $route->get('/material_del/{id}', 'MaterialController@del')->name('admin.wechat.material_del');
     });
 
+    //商城管理
     Route::group(['prefix' => 'shop', 'namespace' => 'Shop'], function ($route) {
         //商城基本设置
         $route->get('/base_index', 'BaseConfigController@index')->name('admin.shop.base_index');
@@ -126,6 +127,17 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
         $route->get('/foot_menu_index', 'FootMenuController@index')->name('admin.shop.foot_menu_index');
         $route->post('/foot_menu_update', 'FootMenuController@update')->name('admin.shop.foot_menu_update');
         $route->get('/foot_menu_del', 'FootMenuController@del')->name('admin.shop.foot_menu_del');
+    });
+
+    //会员管理
+    Route::group(['prefix' => 'member', 'namespace' => 'Member'], function ($route) {
+        //会员列表
+        $route->get('/user_list', 'UserController@index')->name('admin.member.user_list');
+        $route->get('/user_output', 'UserController@output')->name('admin.member.user_output');
+        $route->get('/user_del/{id}', 'UserController@del')->name('admin.member.user_del');
+        $route->get('/all_user_del', 'UserController@all_del')->name('admin.member.all_user_del');
+        $route->post('/user_update', 'UserController@update')->name('admin.member.user_update');
+        $route->get('/user_capital/{id}', 'UserController@show')->name('admin.member.user_capital');
     });
 
     //活动管理
