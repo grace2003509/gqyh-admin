@@ -2,29 +2,30 @@
 
 namespace App\Http\Controllers\Admin\Member;
 
+use App\Events\OrderEvent;
 use App\Models\Dis_Account;
 use App\Models\Dis_Config;
 use App\Models\Dis_Level;
 use App\Models\Member;
 use App\Models\ShopConfig;
+use App\Models\ShopProduct;
 use App\Models\UserCharge;
 use App\Models\UserIntegralRecord;
 use App\Models\UserMoneyRecord;
+use App\Models\UserOrder;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Facades\Excel;
 
 class UserController extends Controller
 {
     public function index(Request $request)
     {
-        //获取商城设置与分销设置
-        $sc_obj = new ShopConfig();
-        $sConfig = $sc_obj->find(USERSID)->toArray();
-        $dc_obj = new Dis_Config();
-        $dConfig = $dc_obj->find(1)->toArray();
-        $rsConfigs = array_merge($sConfig, $dConfig);
+        //获取商城虚拟商品
+        $sp_obj = new ShopProduct();
+        $productList = $sp_obj->where('Products_IsVirtual', 1)->get();
 
         //会员的分销商等级
         $dl_obj = new Dis_Level();
@@ -100,7 +101,7 @@ class UserController extends Controller
             $input['MemberLevel'] = 'all';
         }
 
-        return view('admin.member.user_list', compact('UserLevel', 'lists', 'input'));
+        return view('admin.member.user_list', compact('UserLevel', 'lists', 'input', 'productList'));
     }
 
 
@@ -220,6 +221,93 @@ class UserController extends Controller
             }
             echo json_encode($Data,JSON_UNESCAPED_UNICODE);
             exit;
+        }
+
+        //手动下单
+        if(isset($input['action']) && $input['action'] == "do_order"){
+            $rules = [
+                'Mobile' => "required|exists:user,User_Mobile,User_ID,{$input['UserID']}",
+                'Products_ID' => 'required|exists:shop_products,Products_ID',
+                'price' => 'required|numeric'
+            ];
+            $validator = Validator::make($input, $rules);
+            if($validator->fails()){
+                return redirect()->back()->with('errors', $validator->messages());
+            }
+            $Products_ID = intval($input['Products_ID']);
+            $price = trim($input['price']);
+            $sp_obj = new ShopProduct();
+            $rsProducts = $sp_obj->find($input['Products_ID']);
+            $userInfo = $m_obj->select('User_ID', 'Is_Distribute', 'Owner_Id')
+                ->where('User_ID', $input['UserID'])->first();
+            if (!empty($userInfo['Is_Distribute'])) {
+                $realownerid = $input['UserID'];
+            } else {
+                $realownerid = $userInfo['Owner_Id'];
+            }
+            //产品图片
+            $JSON = json_decode($rsProducts['Products_JSON'], true);//产品图片
+            $CartList[$Products_ID][] = array(
+                "ProductsName" => $rsProducts["Products_Name"],
+                "ImgPath" => $JSON["ImgPath"][0],
+                "ProductsPriceX" => $price,
+                "ProductsPriceY" => $rsProducts["Products_PriceY"],
+                "ProductsWeight" => $rsProducts["Products_Weight"],
+                "Products_Shipping" => $rsProducts["Products_Shipping"],
+                "Products_Business" => $rsProducts["Products_Business"],
+                "Shipping_Free_Company" => $rsProducts["Shipping_Free_Company"],
+                "IsShippingFree" => $rsProducts["Products_IsShippingFree"],
+                "Products_IsPaysBalance" => $rsProducts["Products_IsPaysBalance"],
+                "OwnerID" => $realownerid,
+                "ProductsIsShipping" => $rsProducts["Products_IsShippingFree"],
+                "Qty" => 1,
+                "spec_list" => '',
+                "Property" => array(),
+                "nobi_ratio" => $rsProducts["nobi_ratio"],
+                "platForm_Income_Reward" => $rsProducts["platForm_Income_Reward"],
+                "area_Proxy_Reward" => $rsProducts["area_Proxy_Reward"],
+                "sha_Reward" => $rsProducts["sha_Reward"],
+                "Products_Profit" => $rsProducts["Products_Profit"]
+            );
+
+            $Data = array(
+                "Users_ID" => USERSID,
+                "User_ID" => $input['UserID'],
+                "Order_IsVirtual" => 1,
+                "Order_IsRecieve" => 1,
+                "Address_Mobile" => $input ["Mobile"],
+                'Owner_ID' => $realownerid,
+                "Order_Status" => 1,
+                "Order_Type" => "shop",
+                "Order_TotalPrice" => $price,
+                "Order_TotalAmount" => $price,
+                "Integral_Get" => $rsProducts['Products_Integration'],
+                "Biz_ID" => $rsProducts['Biz_ID'],
+                "Order_CartList" => json_encode($CartList,JSON_UNESCAPED_UNICODE),
+                "Order_PaymentMethod" => '后台手动下单',
+                "Order_CreateTime" => time(),
+                "addtype" => 1,//后台添加
+
+            );
+
+            $uo_obj = new UserOrder();
+            $Flag_a = $uo_obj->create($Data);
+            $neworderid = $Flag_a['Order_ID'];
+
+//            $s = event(new OrderEvent($Flag_a));
+
+            /*Dis_Record::observe(new DisRecordObserver());
+            if($userInfo['Owner_Id'] > 0) {
+                add_distribute_record($input['UserID'],$price,$Products_ID,1,$neworderid,0);
+            }
+            $pay_order = new pay_order($neworderid);
+            $Data = $pay_order->make_pay();*/
+
+            if($Flag_a){
+                return redirect()->back()->with('success', '手动下单成功');
+            }else{
+                return redirect()->back()->with('errors', '手动下单失败');
+            }
         }
 
 

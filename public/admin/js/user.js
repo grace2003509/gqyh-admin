@@ -262,6 +262,8 @@ var user_obj={
         $('a[href="#doOrder"]').each(function(){
             $(this).click(function(){
                 $('#do_order_hand form input[name=UserID]').val($(this).parent().parent().attr('UserID'));
+                $('#do_order_hand  form input[name=User_Mobile]').val($(this).attr('Mobile'));
+                $('#do_order_hand  form input[name=Mobile]').val($(this).attr('Mobile'));
                 $('#do_order_hand form').show();
                 $('#do_order_hand .tips').hide();
                 $('#do_order_hand').leanModal();

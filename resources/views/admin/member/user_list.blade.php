@@ -90,7 +90,7 @@
                         <td nowrap="nowrap" class="upd_money" field="4"><span class="upd_txt">{{$rsUser['User_Money']}}</span></td>
                         <td nowrap="nowrap">{{$rsUser['User_CreateTime']}}</td>
                         <td nowrap="nowrap" class="last">
-                            <a href="#doOrder" url="{{$rsUser['User_ID']}}" style="text-decoration: none">
+                            <a href="#doOrder" Mobile="{{$rsUser['User_Mobile']}}" style="text-decoration: none">
                                 <img src="/admin/images/ico/add.gif" align="absmiddle" title="手动添加订单" />
                             </a>
                             <a href="#modpass" style="text-decoration: none">
@@ -162,14 +162,18 @@
                             <span class="fc_red">*</span><label>会员手机号：</label>
                         </td>
                         <td class="left">
-                            <input type="text" name="Mobile" value="" size="15" maxlength="30" required style="width: 160px; height: 30px; line-height: 30px;" />
+                            <input type="text" name="User_Mobile" value="" maxlength="11" style="width: 160px; height: 30px; line-height: 30px;" disabled />
+                            <input type="hidden" name="Mobile" value="" />
                         </td>
                     </tr>
                     <tr>
                         <td><span class="fc_red">*</span><label>产品名称：</label></td>
                         <td class="left">
-                            <select name="Products_ID" id="proChange" style="width: 160px; height: 30px; line-height: 30px;">
-                                <option value="0">请选择产品</option>
+                            <select name="Products_ID" style="width: 160px; height: 30px; line-height: 30px;">
+                                <option value="">请选择产品</option>
+                                @foreach($productList as $k=>$v)
+                                    <option value="{{$v['Products_ID']}}">{{$v['Products_Name']}}</option>
+                                @endforeach
                             </select>
                             只显示订单流程为其他类型的产品
                         </td>
@@ -177,7 +181,7 @@
                     <tr>
                         <td><span class="fc_red">*</span><label>订单价格：</label></td>
                         <td class="left">
-                            <input type="number" name="price" value="" id="price" class="form_input" size="15" maxlength="30" style="width: 160px; height: 30px; line-height: 30px;" required />
+                            <input type="number" name="price" value="" id="price" class="form_input" maxlength="10" style="width: 160px; height: 30px; line-height: 30px;" required />
                             可根据实际情况进行更改
                         </td>
                     </tr>
@@ -229,7 +233,7 @@
                         }
                         $.post("?",{ password:password,action:'deleteAllreal' }, function(data){
                             if(data.status === 1){
-                                layer.confirm('本操作将清空与会员相关的一切数据（会员管理  订单管理  分销记录  分销账号管理  代理信息 股东信息  创始人信息 结算信息等）请慎操！<br>确定清空全部会员？', {
+                                layer.confirm('本操作将清空与会员相关的一切数据（会员管理  订单管理  分销记录  分销账号管理  代理信息 创始人信息 结算信息等）请慎操！<br>确定清空全部会员？', {
                                     btn: ['确定','取消'], //按钮
                                     shade: false //不显示遮罩
                                 }, function(){
@@ -246,17 +250,5 @@
         }
     }
 
-    $(".doOrder").click(function(){
-        var uid;
-        uid =$(this).attr('url');
-        var url = 'do_order.php?uid='+uid;
-        layer.open({
-            type: 2,
-            title: '线下交易手动下单',
-
-            area: ['800px', '350px'], //宽高
-            content: [url, 'no']
-        });
-    })
 </script>
 @endsection
