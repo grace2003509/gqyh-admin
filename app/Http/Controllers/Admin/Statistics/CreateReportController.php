@@ -2,7 +2,7 @@
 /*生成统计报告*/
 namespace App\Http\Controllers\Admin\Statistics;
 
-use App\Models\Order;
+use App\Models\UserOrder;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -45,7 +45,7 @@ class CreateReportController extends Controller
             $end_time = time();
         }
 
-        $order = new Order();
+        $order = new UserOrder();
 
         $Order_Status = 2;
         $order_list = $order->whereBetween('Order_CreateTime', [$begin_time, $end_time])
@@ -141,7 +141,7 @@ class CreateReportController extends Controller
             $end_time = time();
         }
 
-        $order = new Order();
+        $order = new UserOrder();
 
         $Order_Status = 2;
         $order_list = $order->whereBetween('Order_CreateTime', [$begin_time, $end_time])

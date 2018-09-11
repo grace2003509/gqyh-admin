@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Member;
 
-use App\Events\OrderEvent;
+use App\Events\OrderDistributeEvent;
 use App\Models\Dis_Account;
 use App\Models\Dis_Config;
 use App\Models\Dis_Level;
@@ -13,6 +13,7 @@ use App\Models\UserCharge;
 use App\Models\UserIntegralRecord;
 use App\Models\UserMoneyRecord;
 use App\Models\UserOrder;
+use App\Services\ServicePayOrder;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -223,6 +224,13 @@ class UserController extends Controller
             exit;
         }
 
+    }
+
+
+    public function do_order(Request $request)
+    {
+        $m_obj = new Member();
+        $input = $request->input();
         //手动下单
         if(isset($input['action']) && $input['action'] == "do_order"){
             $rules = [
@@ -263,10 +271,8 @@ class UserController extends Controller
                 "Qty" => 1,
                 "spec_list" => '',
                 "Property" => array(),
-                "nobi_ratio" => $rsProducts["nobi_ratio"],
                 "platForm_Income_Reward" => $rsProducts["platForm_Income_Reward"],
                 "area_Proxy_Reward" => $rsProducts["area_Proxy_Reward"],
-                "sha_Reward" => $rsProducts["sha_Reward"],
                 "Products_Profit" => $rsProducts["Products_Profit"]
             );
 
@@ -286,31 +292,26 @@ class UserController extends Controller
                 "Order_CartList" => json_encode($CartList,JSON_UNESCAPED_UNICODE),
                 "Order_PaymentMethod" => '后台手动下单',
                 "Order_CreateTime" => time(),
+                "Web_Price" => $price*$rsProducts["platForm_Income_Reward"] * $rsProducts["commission_radio"]/10000,
                 "addtype" => 1,//后台添加
-
             );
 
             $uo_obj = new UserOrder();
             $Flag_a = $uo_obj->create($Data);
-            $neworderid = $Flag_a['Order_ID'];
 
-//            $s = event(new OrderEvent($Flag_a));
-
-            /*Dis_Record::observe(new DisRecordObserver());
             if($userInfo['Owner_Id'] > 0) {
-                add_distribute_record($input['UserID'],$price,$Products_ID,1,$neworderid,0);
+                $e_flag = event(new OrderDistributeEvent($Flag_a));
             }
-            $pay_order = new pay_order($neworderid);
-            $Data = $pay_order->make_pay();*/
 
-            if($Flag_a){
+            $pay_order = new ServicePayOrder();
+            $Data = $pay_order->make_pay($Flag_a['Order_ID']);
+
+            if($Flag_a && $Data['status'] == 1){
                 return redirect()->back()->with('success', '手动下单成功');
             }else{
                 return redirect()->back()->with('errors', '手动下单失败');
             }
         }
-
-
     }
 
 
@@ -468,5 +469,21 @@ class UserController extends Controller
                 $sheet->rows($cellData);
             });
         })->export('xls');
+    }
+
+
+    public function product_change($id)
+    {
+        $p_obj = new ShopProduct();
+        $productInfo = $p_obj->select('Products_ID', 'Products_PriceX')
+            ->where('Products_ID', $id)
+            ->first();
+        if (empty($productInfo)) {
+            echo json_encode(array('status'=>0,'info'=>'未找到此产品'));
+            exit;
+        }
+        $price = $productInfo['Products_PriceX'];
+        echo json_encode(array('status'=>1,'data'=>$price));
+        exit;
     }
 }

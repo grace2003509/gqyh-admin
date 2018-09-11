@@ -168,7 +168,7 @@ class ServiceSMS
         return $res;
     }
 
-    public function send_sms($mobile, $message, $usersid='') {
+    public function send_sms($mobile, $message) {
         global $DB1;
         $flag = 1;
 
@@ -206,7 +206,7 @@ class ServiceSMS
                 "word"=>$word,
                 "sendtime"=>time(),
                 "code"=>$code,
-                "usersid"=>$usersid
+                "usersid"=>USERSID
             );
             $DB1->Add("sms",$Data);
 

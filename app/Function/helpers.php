@@ -238,3 +238,34 @@ function curl_redir_exec($ch) {
         return $data;
     }
 }
+
+
+if ( ! function_exists('build_record_sn'))
+{
+    /**
+     * 得到一个记录流水号
+     * @return  string
+     */
+    function build_record_sn()
+    {
+        return 'WD' . date('Ymd') . str_pad(mt_rand(1, 999999), 6, '0', STR_PAD_LEFT);
+    }
+
+}
+
+if( ! function_exists('virtual_randchar'))
+{
+    /**
+     * 得到一个虚拟订单的消费券码
+     * @param int $length
+     * @return string
+     */
+    function virtual_randcode($length = 10) {
+        $chars = '0123456789';
+        $temchars = '';
+        for($i = 0; $i < $length; $i++){
+            $temchars .= $chars[ mt_rand(0, strlen($chars) - 1) ];
+        }
+        return $temchars;
+    }
+}

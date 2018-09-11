@@ -15,21 +15,26 @@ class Dis_Record extends Model
 	protected  $primaryKey = "Record_ID";
     protected  $table = "distribute_record";
 	public $timestamps = false;
+
+	protected $fillable = [
+	    'Users_ID','Buyer_ID','Owner_ID','Order_ID','Product_ID','Product_Price','Qty','Bonous_1','Bonous_2','Bonous_3',
+        'status','Record_CreateTime','deleted_at','Biz_ID'
+    ];
 	
 
 	//一条分销记录属于一个订单
-	public function Order(){
-		return $this->belongsTo('Order','Order_ID','Order_ID');
+	public function UserOrder(){
+		return $this->belongsTo('UserOrder','Order_ID','Order_ID');
 	}
 	
 	//一条分销记录对应一个购买者
 	public function Buyer(){
-		return $this->belongsTo('Admin','Buyer_ID');
+		return $this->belongsTo('Member','Buyer_ID');
 	}
 	
 	//一个分销记录对应一个拥有者
 	public function Owner(){
-		return $this->belongsTo('Admin','Owner_ID');
+		return $this->belongsTo('Member','Owner_ID');
 	}
 	
 	
@@ -42,25 +47,6 @@ class Dis_Record extends Model
     public function DisAccountRecord(){
         return $this->hasMany('Dis_Account_Record','Ds_Record_ID','Record_ID');
     }
-	
-	// 多where
-	public function scopeMultiwhere($query, $arr)
-	{
-		if (!is_array($arr)) {
-			return $query;
-		}
-	
-		foreach ($arr as $key => $value) {
-			$query = $query->where($key, $value);
-		}
-		return $query;
-	}
-	
-	//无需日期转换
-	public function getDates()
-	{
-		return array();
-	}
 	
 	
 }

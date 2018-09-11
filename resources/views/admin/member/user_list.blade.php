@@ -154,7 +154,7 @@
 
         <div id="do_order_hand" class="lean-modal lean-modal-forma" style="width: 40%">
             <div class="ha">线下交易手动下单<a class="modal_close" href="#"></a></div>
-            <form class="form" method="post" action="{{route('admin.member.user_update')}}">
+            <form class="form" method="post" action="{{route('admin.member.do_order')}}">
                 {{csrf_field()}}
                 <table width="100%" border="0" cellpadding="5" class="r_con_table" style="border-left: 1px #ddd solid">
                     <tr style="border-top: 1px #ddd solid">
@@ -169,7 +169,7 @@
                     <tr>
                         <td><span class="fc_red">*</span><label>产品名称：</label></td>
                         <td class="left">
-                            <select name="Products_ID" style="width: 160px; height: 30px; line-height: 30px;">
+                            <select id="proChange" name="Products_ID" style="width: 160px; height: 30px; line-height: 30px;">
                                 <option value="">请选择产品</option>
                                 @foreach($productList as $k=>$v)
                                     <option value="{{$v['Products_ID']}}">{{$v['Products_Name']}}</option>
@@ -208,10 +208,31 @@
     @endforeach
     $(document).ready(function(){user_obj.user_init();});
 
+    //会员列表导出
     $("#search_form .output_btn").click(function(){
         window.location = '/admin/member/user_output?Fields={{$input['Fields']}}&Keyword={{$input['Keyword']}}&MemberLevel={{$input['MemberLevel']}}';
     });
 
+    //手动下单，选择商品获得商品价格
+    $("#proChange").change(function(){
+        var pid = $(this).val();
+        if(pid === 0) {
+            $("#price").val('');
+            return false;
+        }
+        $.get('/admin/member/product_change/'+pid,'',function(res){
+            if(res.status === 1){
+                var price = res.data;
+                $("#price").val(price);
+            } else {
+                alert(res.info);
+            }
+        },'json')
+
+
+    })
+
+    //清空会员
     function deleteUser(user){
         if(user){
             if(user === -1){

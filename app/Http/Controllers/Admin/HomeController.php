@@ -8,7 +8,7 @@ use App\Models\Dis_Account_Record;
 use App\Models\Dis_Agent_Record;
 use App\Services\ServiceSMS;
 use Carbon\Carbon;
-use App\Models\Order;
+use App\Models\UserOrder;
 use App\Models\Dis_Record;
 use Illuminate\Support\Facades\DB;
 
@@ -32,7 +32,7 @@ class HomeController extends Controller
         $month_start = $carbon->startOfMonth()->timestamp;
         $month_end =  $carbon->endOfMonth()->timestamp;
 
-        $order = new Order();
+        $order = new UserOrder();
         $account_record = new Dis_Account_Record();
         $account = new Dis_Account();
         //今日订单总数目
@@ -58,7 +58,7 @@ class HomeController extends Controller
         $endDayTime = time();
         $startDayTime = strtotime(date('Y-m-d', $endDayTime - 86400 * 6));
         //获取七天内所有订单列表
-        $week_order_list = Order::whereBetween('Order_CreateTime', array($startDayTime, $endDayTime))
+        $week_order_list = UserOrder::whereBetween('Order_CreateTime', array($startDayTime, $endDayTime))
             ->where('Order_Status',4)
             ->get(array('Order_ID','Order_TotalAmount','Order_CreateTime'))->toArray();
 
@@ -148,7 +148,7 @@ class HomeController extends Controller
         }
         $mon_end = $carbon->endOfMonth()->timestamp;
         //获取本月内所有订单列表
-        $month_order_list = Order::whereBetween('Order_CreateTime', array($mon_start,$mon_end))
+        $month_order_list = UserOrder::whereBetween('Order_CreateTime', array($mon_start,$mon_end))
             ->where('Order_Status',4)
             ->get(array('Order_ID','Order_TotalAmount','Order_CreateTime'));
         //统计每日销量

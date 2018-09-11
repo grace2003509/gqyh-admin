@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin\Statistics;
 
 use App\Models\Biz;
-use App\Models\Order;
+use App\Models\UserOrder;
 use App\Models\ShopSalesRecord;
 use App\Models\UserOrder;
 use Illuminate\Http\Request;
@@ -43,7 +43,7 @@ class SaleRecordController extends Controller
                     $sale_records[$value["Record_ID"]]['Order_Json'] = htmlspecialchars_decode($value['Order_Json']);
                 }
 
-                $o_obj = new Order();
+                $o_obj = new UserOrder();
                 $value['ordersn'] = $o_obj->getorderno($value["Order_ID"]);
 
 

@@ -54,83 +54,15 @@ class Dis_Account extends Model {
 		return $this->hasMany('Dis_Account_Record', 'User_ID', 'User_ID');
 	}
 
-	/**
-	 * 获取此分销账号的祖先id列表
-	 * @param 本店当前分销级数 int $level
-	 * @return Array $ids 祖先id列表
-	 */
-	function getAncestorIds($level = 0, $self = 0) {
-
-		$ids = array();
-
-		if (!empty($this->Dis_Path)) {
-			$res = trim($this->Dis_Path, ',,');
-			$list = explode(',', $res);
-
-			if ($level) {
-				$ids = array_slice($list, -$level);
-			} else {
-				$ids = $list;
-			}
-
-			//convert id from  string to int
-//            $count = count($ids) - 1;
-			foreach ($ids as $key => $item) {
-				$ids[$key] = intval($item);
-			}
-		
-		}
-		
-
-		$self ? array_push($ids, $this->User_ID) : '';
-	
-		return $ids;
-	}
-
-
-    /**
-     * 获取此账号的祖先id列表
-     * @param $user_id $users_id
-     * @return array
-     */
-    public function getUserAncestorIds($owner_id, $users_id, $ids = '', $level = 0) {
-        $where = [
-            'Users_ID' => $users_id,
-            'User_ID' => $owner_id,
-        ];
-        $user = Member::select('Users_ID','Owner_Id', 'User_ID', 'User_Level')->where($where)->first();
-        //只识别vip会员和总代
-        if(@$user->disAccount->status == 1 && @$user->disAccount->Level_ID >= 2){
-            $ids .= $user['User_ID'].',';
-        }
-        if($user['Owner_Id'] > 0){
-            $ids = $this->getUserAncestorIds($user['Owner_Id'], $users_id, $ids, 0);
-        }
-
-        $ids_arr = explode(',', $ids);
-        $ids_arr = array_filter($ids_arr);
-        $ids_arr = array_unique($ids_arr);
-
-        if ($level) {
-            $ids_rst = array_slice($ids_arr, -$level);
-        } else {
-            $ids_rst = $ids_arr;
-        }
-
-        return $ids_rst;
-    }
-
-
 
     /**
      * 获取此分销账号的祖先id列表
      * @param 本店当前分销级数 int $level
      * @return Array $ids 祖先id列表
      */
-    function getAncestorIdsNew($level = 0, $self = 0) {
-
+    function getAncestorIds($level = 0, $self = 0)
+    {
         $ids = array();
-
         if (!empty($this->Dis_Path)) {
             $res = trim($this->Dis_Path, ',,');
             $list = explode(',', $res);
@@ -152,8 +84,6 @@ class Dis_Account extends Model {
 
         return $ids;
     }
-
-
 
 
 	/**
@@ -242,41 +172,29 @@ class Dis_Account extends Model {
 		return $levelList;
 
 	}
+
+
 	/**
 	 * 获取此账号下属分销商
 	 * @param  int $level 此店的分销商层数
 	 * @return Collection $posterity
 	 */
-	 /*edit in 20160328*/
 	public function getPosterity($level = 0,$force=false, $type = 'uids') {
 
 		$User_ID = $this->User_ID;
 		//获取分销父路径中包含此用户ID的分销商
 		$fields = ['Account_ID', 'User_ID', 'Dis_Path','invite_id','Shop_Name','balance',
 				'Is_Audit','Total_Income','Account_CreateTime','Shop_Logo','Level_ID','Professional_Title'];
-		if (!function_exists('get_Invite_Ids')) {
-			function get_Invite_Ids($obj, array $param, &$userids, $level, $deepth = 1){
-				$result = $obj->whereIn('invite_id', $param)->get(['User_ID'])->toArray();
-				if(!empty($result)){
-					$arrUserIds = array_map(function($v){
-						return $v['User_ID'];
-					}, $result);
-					$userids = array_merge($userids, $arrUserIds);
-					if($deepth<$level || $level == 0){
-						get_Invite_Ids($obj, $arrUserIds, $userids,$level, ++$deepth);
-					}
-				}
-			}
-		}
+
 		$ids = [];
-		get_Invite_Ids($this, [$User_ID], $ids,$level, 1);
+		$this->get_Invite_Ids($this, [$User_ID], $ids,$level, 1);
 		if($force){
 			$ids[] = $User_ID;
 		}
 		if ($type != 'uids') {
 			return $ids;
 		} else {
-			return $this->whereIn('User_ID', $ids)->get($fields)->filter(function (&$dsAccount) use ($level, $User_ID) {
+			$flag = $this->whereIn('User_ID', $ids)->get($fields)->filter(function (&$dsAccount) use ($level, $User_ID) {
 
 				//计算出分销商级数
 				$dis_path = trim($dsAccount->Dis_Path, ',');
@@ -291,8 +209,9 @@ class Dis_Account extends Model {
 				if ($curLevel <= $level || $level == 0) {
 					return true;
 				}
-
 			});
+
+			return $flag;
 		}
 	}
 	
@@ -361,22 +280,126 @@ class Dis_Account extends Model {
 		
 	}
 
-	//无需日期转换
-	public function getDates() {
-		return array();
-	}
 
-	// 多where
-	public function scopeMultiwhere($query, $arr) {
-		if (!is_array($arr)) {
-			return $query;
-		}
+    function get_distribute_balance_userids($BuyerID,$userids,$distribute_bonus,$type=0)
+    {
+        $dl_obj = new Dis_Level();
+        $level_data = $dl_obj->get_dis_level();
+        //此变量用来计算下面拿佣金的会员是第几个分销商级别
+        $level_ids = array_flip(array_keys($level_data));
+        if(empty($userids)){
+            return array();
+        }
 
-		foreach ($arr as $key => $value) {
-			$query = $query->where($key, $value);
-		}
-		return $query;
-	}
+        //获得每个分销商级别
+        $account_list = $this->whereIn('User_ID',$userids)
+            ->get(array('Level_ID','User_ID'))
+            ->map(function($account){
+                return $account->toArray();
+            })->all();
+        $accounts = array();
+        foreach($account_list as $account){
+            $accounts[$account['User_ID']] = array(
+                'limit'=>empty($level_data[$account['Level_ID']]) ? array() : json_decode($level_data[$account['Level_ID']]['Level_PeopleLimit'], true),
+                'bonus'=>empty($distribute_bonus[$account['Level_ID']]) ? array() : $distribute_bonus[$account['Level_ID']],
+                'level' => $level_ids[$account['Level_ID']]
+            );
+        }
+
+        //循环数组筛选
+        $result = array();
+        foreach($userids as $key=>$value){
+            $result[$value]['level'] = $accounts[$value]['level'];
+            //该用户在这条线上的级别为$key+1
+            $lid = $key+1;
+            if ($lid <= 3) {
+
+                if(empty($accounts[$value]['limit'])){//不存在该分销商级别人数限制，忽略
+                    $result[$value] = array('status'=>0,'msg'=>'你的分销商级别不存在');
+                    continue;
+                }
+
+                if(empty($accounts[$value]['bonus'])){//不存在该分销商级别佣金设置，忽略
+                    $result[$value] = array('status'=>0,'msg'=>'该分销商级别佣金未设置');
+                    continue;
+                }
+
+                if(!isset($accounts[$value]['limit'][$lid])){//限制人数没有到此级别，忽略
+                    $result[$value] = array('status'=>0,'msg'=>'分销商级别设置有误，该分销级别的限制人数未设置');
+                    continue;
+                }
+
+                if(!isset($accounts[$value]['bonus'][$key])){//限制人数没有到此级别，忽略
+                    $result[$value] = array('status'=>0,'msg'=>'分销佣金设置有误，该分销级别的分销佣金未设置');
+                    continue;
+                }
+
+                if($accounts[$value]['limit'][$lid]==-1){//禁止获得该级别佣金，忽略
+                    $result[$value] = array('status'=>0,'msg'=>'你的分销商级别禁止获得'.$lid.'级佣金');
+                    continue;
+                }
+
+                if(empty($record_list[$value])){//该用户未获得过佣金
+                    $result[$value] = array('status'=>1,'bonus'=>$accounts[$value]['bonus'][$key]);
+                    $result[$value]['level'] = $accounts[$value]['level'];
+                    continue;
+                }
+
+                if(empty($record_list[$value][$lid])){//该用户未获得过该级别佣金
+                    $result[$value] = array('status'=>1,'bonus'=>$accounts[$value]['bonus'][$key]);
+                    $result[$value]['level'] = $accounts[$value]['level'];
+                    continue;
+                }
+
+                if($accounts[$value]['limit'][$lid]==0){//该级别佣金不限制
+                    $result[$value] = array('status'=>1,'bonus'=>$accounts[$value]['bonus'][$key]);
+                    $result[$value]['level'] = $accounts[$value]['level'];
+                    continue;
+                }
+
+                if(in_array($BuyerID,$record_list[$value][$lid])){//已经获得此人的佣金
+                    $result[$value] = array('status'=>1,'bonus'=>$accounts[$value]['bonus'][$key]);
+                    $result[$value]['level'] = $accounts[$value]['level'];
+                    continue;
+                }
+
+                if($accounts[$value]['limit'][$lid]>0 && count($record_list[$value][$lid])>=$accounts[$value]['limit'][$lid]){//获得过的该级别佣金未达到最大值
+                    $result[$value] = array('status'=>0,'msg'=>'你获得的'.$lid.'级佣金人数级已达到最大值');
+                    continue;
+                }
+
+                if($accounts[$value]['limit'][$lid]>0 && count($record_list[$value][$lid])<$accounts[$value]['limit'][$lid]){//获得过的该级别佣金未达到最大值
+                    $result[$value] = array('status'=>1,'bonus'=>$accounts[$value]['bonus'][$key]);
+                    $result[$value]['level'] = $accounts[$value]['level'];
+                    continue;
+                }
+            } else {
+                //多级统一走key为999的设置
+                if (!empty($accounts[$value]['bonus'][999])) {
+                    $result[$value] = array('status'=>1,'bonus'=>$accounts[$value]['bonus'][999]);
+                } else {
+                    $result[$value] = array('status'=>1,'bonus'=>0);
+                }
+                $result[$value]['level'] = $accounts[$value]['level'];
+            }
+        }
+        return $result;
+    }
+
+
+    public function get_Invite_Ids($obj, array $param, &$userids, $level, $deepth = 1){
+        $result = $obj->whereIn('invite_id', $param)->get(['User_ID'])->toArray();
+        if(!empty($result)){
+            $arrUserIds = array_map(function($v){
+                return $v['User_ID'];
+            }, $result);
+            $userids = array_merge($userids, $arrUserIds);
+            if($deepth<$level || $level == 0){
+                $this->get_Invite_Ids($obj, $arrUserIds, $userids,$level, ++$deepth);
+            }
+        }
+    }
+
 	
 
 }

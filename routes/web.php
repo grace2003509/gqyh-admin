@@ -138,6 +138,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
         $route->get('/all_user_del', 'UserController@all_del')->name('admin.member.all_user_del');
         $route->post('/user_update', 'UserController@update')->name('admin.member.user_update');
         $route->get('/user_capital/{id}', 'UserController@show')->name('admin.member.user_capital');
+        //手动下单选择商品显示价格
+        $route->get('/product_change/{id}', 'UserController@product_change')->name('admin.member.product_change');
+        $route->post('/do_order', 'UserController@do_order')->name('admin.member.do_order');
     });
 
     //活动管理

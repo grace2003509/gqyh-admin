@@ -30,5 +30,16 @@ class Dis_Level extends Model
         return !empty($UserLevel)?$UserLevel:false;
     }
 
+    //获取以level_id为键值的分销商级别设置数组
+    public function get_dis_level()
+    {
+        $dis_level = array();
+        $r = $this->orderBy('Level_ID', 'asc')->get();
+        foreach($r as $k => $v){
+            $dis_level[$v['Level_ID']] = $v;
+        }
+        return $dis_level;
+    }
+
 
 }

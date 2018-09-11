@@ -15,10 +15,15 @@ class Dis_Account_Record extends Model
 {
     use SoftDeletes;
     protected $dates = ['deleted_at'];
-    protected $fillable = ['Record_Status'];
     protected $primaryKey = "Record_ID";
     protected $table = "distribute_account_record";
     public $timestamps = false;
+
+    protected $fillable = [
+        'Users_ID','Ds_Record_ID','User_ID','level','Record_Sn','Account_Info','Record_Qty','Record_Price','Record_Money',
+        'Record_Description','Record_Type','Record_Status','Record_CreateTime','deleted_at','Owner_ID','CartID','skustr',
+        'skukey','yformat'
+    ];
 
     //一个佣金获得记录属于一个分销记录
     public function DisRecord()
@@ -32,25 +37,6 @@ class Dis_Account_Record extends Model
         return $this->belongsTo('Member', 'User_ID', 'User_ID');
     }
 
-
-    // 多where
-    public function scopeMultiwhere($query, $arr)
-    {
-        if (!is_array($arr)) {
-            return $query;
-        }
-
-        foreach ($arr as $key => $value) {
-            $query = $query->where($key, $value);
-        }
-        return $query;
-    }
-
-    //无需日期转换
-    public function getDates()
-    {
-        return array();
-    }
 
     /**
      * 指定时间内分销佣金合计
@@ -155,7 +141,6 @@ class Dis_Account_Record extends Model
     {
         $flag = Capsule::table($this->table)->insert($records);
         return $flag;
-
     }
 
     /**
@@ -167,7 +152,7 @@ class Dis_Account_Record extends Model
     public static function changeStatusByOrderID($OrderID, $Status)
     {
 
-        $order = Order::Find($OrderID);
+        $order = UserOrder::Find($OrderID);
         $disAccountRecord = $order->disAccountRecord();
         $flag = true;
         if ($disAccountRecord->count() > 0) {
@@ -176,23 +161,4 @@ class Dis_Account_Record extends Model
         return $flag;
     }
 
-
-    //生成出账记录信息
-    function output_record($Begin_Time, $End_Time)
-    {
-        $fields = array('Record_ID', 'Record_Sn', 'Record_CreateTime', 'Record_Money', 'Record_Status', 'User_ID');
-        $output_record_builder = $this->recordBetween($Begin_Time, $End_Time, 2)
-            ->where('Record_Type', 0);
-
-        $paginate_obj = $output_record_builder->paginate(5, $fields);
-
-        $res = array(
-            'sum' => $output_record_builder->sum('Record_Money'),
-            'output_paginate' => $paginate_obj,
-            'total_pages' => $paginate_obj->lastPage()
-        );
-
-        return $res;
-
-    }
 }

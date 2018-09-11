@@ -9,12 +9,12 @@
 namespace App\Services;
 
 
-use App\Models\Order;
+use App\Models\UserOrder;
 
 class ServiceOrder
 {
     function getorderno($oid) {
-        $builder = new Order();
+        $builder = new UserOrder();
         $builder = $builder->where('Order_ID',$oid);
         $rsOrder = $builder->first(array('Order_Type','Order_CreateTime','Order_Code'));
         if ($rsOrder) {
