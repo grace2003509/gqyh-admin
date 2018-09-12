@@ -141,6 +141,13 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
         //手动下单选择商品显示价格
         $route->get('/product_change/{id}', 'UserController@product_change')->name('admin.member.product_change');
         $route->post('/do_order', 'UserController@do_order')->name('admin.member.do_order');
+        //消息管理
+        $route->get('/message_index', 'MessageController@index')->name('admin.member.message_index');
+        $route->get('/message_create', 'MessageController@create')->name('admin.member.message_create');
+        $route->post('/message_store', 'MessageController@store')->name('admin.member.message_store');
+        $route->get('/message_edit/{id}', 'MessageController@edit')->name('admin.member.message_edit');
+        $route->post('/message_update/{id}', 'MessageController@update')->name('admin.member.message_update');
+        $route->get('/message_del/{id}', 'MessageController@del')->name('admin.member.message_del');
     });
 
     //活动管理

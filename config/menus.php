@@ -136,6 +136,12 @@ return json_encode([                                    // modules
                 'description' => null,
                 'items' => null,
             ],
+            [
+                'name' => '消息管理',
+                'route' => 'admin.member.message_index',
+                'description' => null,
+                'items' => null,
+            ],
         ],
     ],
     [

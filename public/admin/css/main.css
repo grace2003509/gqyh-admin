@@ -117,7 +117,7 @@
 .lean-modal-form .rows label.error{color:#F45F58;float:none;}
 #iframe_page{width:100%; }
 #iframe_page .iframe_content{}
-#iframe_page .control_btn{margin:5px 10px 15px 20px; height:30px; clear:both;}
+#iframe_page .control_btn{margin:5px 10px 15px 0px; height:30px; clear:both;}
 #iframe_page .btn_ok{display:block; height:30px; line-height:30px; background-color: #1584D5;  border:none; color:#fff; width:145px; border-radius:5px; text-align:center; text-decoration:none; float:left; margin-right:10px;}
 #iframe_page .btn_ok_w_120{width:120px; background:url(../images/ok-btn-120-bg.jpg);}
 #iframe_page .btn_cancel{display:block; height:30px; line-height:30px; background:url(../images/cancel-btn-bg.jpg); border:none; width:88px; border-radius:5px; text-align:center; text-decoration:none; float:left;}
