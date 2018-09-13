@@ -51,11 +51,13 @@ var global_obj={
 						}else{
 							
 							filepath_input_obj.val(jsonData.filepath);
-							img_detail_obj.html(global_obj.img_link(jsonData.filepath));
+							// img_detail_obj.html(global_obj.img_link(jsonData.filepath));
+							var img_str = '<img width="100" src="'+jsonData.filepath+'">'
+							img_detail_obj.html(img_str);
 						}
 					}else{
 						alert('文件上传失败，出现未知错误！');
-					};
+					}
 				}
 			}
 		});

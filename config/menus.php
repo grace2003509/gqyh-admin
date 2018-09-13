@@ -154,7 +154,13 @@ return json_encode([                                    // modules
                 'route' => 'admin.product.product_index',
                 'description' => null,
                 'items' => null,
-            ]
+            ],
+            [
+                'name' => '产品类别',
+                'route' => 'admin.product.product_category_index',
+                'description' => null,
+                'items' => null,
+            ],
         ],
     ],
     [

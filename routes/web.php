@@ -158,6 +158,13 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
         //批量设置
         $route->post('/product_active', 'ProductController@active')->name('admin.product.product_active');
         $route->get('/product_commission', 'ProductController@commission')->name('admin.product.product_commission');
+        //产品类别
+        $route->get('/product_category_index', 'ProductCategoryController@index')->name('admin.product.product_category_index');
+        $route->get('/product_category_create', 'ProductCategoryController@create')->name('admin.product.product_category_create');
+        $route->post('/product_category_store', 'ProductCategoryController@store')->name('admin.product.product_category_store');
+        $route->get('/product_category_edit/{id}', 'ProductCategoryController@edit')->name('admin.product.product_category_edit');
+        $route->post('/product_category_update/{id}', 'ProductCategoryController@update')->name('admin.product.product_category_update');
+        $route->get('/product_category_del/{id}', 'ProductCategoryController@del')->name('admin.product.product_category_del');
 
     });
 
