@@ -56,8 +56,8 @@
             K.create('textarea[name="Description"]', {
                 themeType : 'simple',
                 filterMode : false,
-                uploadJson : '/member/upload_json.php?TableField=message',
-                fileManagerJson : '/member/file_manager_json.php',
+                uploadJson : '/admin/upload_json?TableField=message',
+                fileManagerJson : '{{route('admin.file_manager_json')}}',
                 allowFileManager : true,
                 items : [
                     'source', '|', 'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',

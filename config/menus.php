@@ -145,6 +145,19 @@ return json_encode([                                    // modules
         ],
     ],
     [
+        'name' => '产品管理',
+        'icon' => 'diamond',
+        'route' => null,
+        'items' => [
+            [
+                'name' => '产品列表',
+                'route' => 'admin.product.product_index',
+                'description' => null,
+                'items' => null,
+            ]
+        ],
+    ],
+    [
         'name' => '活动管理',
         'icon' => 'rocket',
         'route' => null,

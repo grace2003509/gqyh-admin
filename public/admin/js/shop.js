@@ -382,7 +382,7 @@ var shop_obj={
             }
         });
 
-        $('a[href=#select_category]').each(function(){
+        $("a[href='#select_category']").each(function(){
             $(this).click(function(){
                 $('#select_category').leanModal();
             });
@@ -404,7 +404,7 @@ var shop_obj={
 
         $("#select_category .catlist input:checkbox").click(function(){
             var flag = $(this).attr("rel");
-            if(flag == 1){
+            if(flag === 1){
                 if($(this).is(':checked')){
                     $(this).parent().next("dd").find("input").attr("checked",true);
                 }else{

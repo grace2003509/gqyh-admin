@@ -150,6 +150,17 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
         $route->get('/message_del/{id}', 'MessageController@del')->name('admin.member.message_del');
     });
 
+    //产品管理
+    Route::group(['prefix' => 'product', 'namespace' => 'Product'], function ($route) {
+        $route->get('/product_index', 'ProductController@index')->name('admin.product.product_index');
+        $route->get('/product_audit/{id}', 'ProductController@audit')->name('admin.product.product_audit');
+        $route->post('/product_update/{id}', 'ProductController@update')->name('admin.product.product_update');
+        //批量设置
+        $route->post('/product_active', 'ProductController@active')->name('admin.product.product_active');
+        $route->get('/product_commission', 'ProductController@commission')->name('admin.product.product_commission');
+
+    });
+
     //活动管理
     Route::group(['prefix' => 'active', 'namespace' => 'Active'], function ($route) {
         $route->get('/index', 'ActiveController@index')->name('admin.active.index');
@@ -158,6 +169,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
         $route->get('/edit/{id}', 'ActiveController@edit')->name('admin.active.edit');
         $route->post('/update/{id}', 'ActiveController@update')->name('admin.active.update');
         $route->get('/del/{id}', 'ActiveController@del')->name('admin.active.del');
+        //商家活动列表
         $route->get('/biz_active/{id}', 'ActiveController@biz_actives')->name('admin.active.biz_active');
     });
 

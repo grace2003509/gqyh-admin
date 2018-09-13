@@ -199,7 +199,11 @@ class ActiveController extends Controller
     }
 
 
-
+    /**
+     * 商家参与活动的列表
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function biz_actives($id)
     {
         $status = [

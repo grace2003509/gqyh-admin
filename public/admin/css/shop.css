@@ -35,7 +35,7 @@
 #products .search .search_btn{background:#1584D5; color:white; border:none; height:22px; line-height:22px; width:50px;}
 #products .r_con_table .proimg{width:90px;}
 #products .r_con_table del{color:#888;}
-#products .rows .price, #products .rows .attr{font-size:12px; color:#888; height:32px; line-height:28px;}
+#products .rows .price, #products .rows .attr{font-size:12px; color:#888; height:45px; line-height:28px;}
 #products .rows .property{padding:5px 10px; width:610px;}
 #products .rows .property h1{padding-bottom:3px; font-size:12px;}
 #products .rows .property li{border:1px solid #ddd; height:22px; line-height:22px; overflow:hidden; background:#f7f7f7; width:140px; float:left; margin-right:10px; margin-bottom:5px; text-indent:5px;}
