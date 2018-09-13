@@ -120,19 +120,8 @@
                         <label>发放比例</label>
                         <span class="input price">
                             <span>%</span>
-                            <input type="text" name="platForm_Income_Reward" value="
-                                    @if(!empty($rsProducts["platForm_Income_Reward"]))
-                                        {{$rsProducts["platForm_Income_Reward"]}}
-                                    @elseif(isset($Shop_Commision_Reward_Arr['platForm_Income_Reward']))
-                                        {{$Shop_Commision_Reward_Arr['platForm_Income_Reward']}}
-                                    @else 0 @endif "
-                                   class="form_input commision_config" data-value="
-                                   @if(!empty($rsProducts["platForm_Income_Reward"]))
-                                        {{$rsProducts["platForm_Income_Reward"]}}
-                                   @elseif(isset($Shop_Commision_Reward_Arr['platForm_Income_Reward']))
-                                        {{ $Shop_Commision_Reward_Arr['platForm_Income_Reward']}}
-                                   @else 0 @endif " size="5" maxlength="10" required />
-                            <span>(发放金额所占网站利润的百分比；小于100%大于0%；)</span>
+                            <input type="text" name="platForm_Income_Reward" value="{{$rsProducts["platForm_Income_Reward"]}}" class="form_input" size="5" maxlength="10" required />
+                            <span>(发放金额所占网站利润的百分比；小于等于100%大于等0%；)</span>
                         </span>
                         <div class="clear"></div>
                     </div>
@@ -141,17 +130,7 @@
                         <label>佣金比例</label>
                         <span class="input price">
                             <span>%</span>
-                                <input type="text" name="commission_ratio" value="
-                                @if(!empty($rsProducts["commission_ratio"]) || $rsProducts["commission_ratio"] == 0)
-                                    {{$rsProducts["commission_ratio"]}}
-                                @elseif(isset($Shop_Commision_Reward_Arr['commission_Reward']))
-                                    {{$Shop_Commision_Reward_Arr['commission_Reward']}}
-                                @else 0 @endif " class="form_input commision_config" data-value="
-                                @if(!empty($rsProducts["commission_ratio"]))
-                                    {{$rsProducts["commission_ratio"]}}
-                                @elseif(isset($Shop_Commision_Reward_Arr['commission_Reward']))
-                                    {{$Shop_Commision_Reward_Arr['commission_Reward']}}
-                                @else 0 @endif " size="5" maxlength="10" required />
+                                <input type="text" name="commission_ratio" value="{{$rsProducts["commission_ratio"]}}" class="form_input" size="5" maxlength="10" required />
                             <span>(佣金所占发放比例的百分比)</span>
                         </span>
                         <div class="clear"></div>
@@ -174,18 +153,8 @@
                                             {{$arr[$i]}}级
                                         @endif
                                             <input id="dischange{{$disinfo['Level_ID'].$i}}"
-                                               name="Distribute[{{$disinfo['Level_ID']}}][{{$i}}]" value="
-                                               @if(!empty($distribute_list[$disinfo['Level_ID']][$i]))
-                                                   {{$distribute_list[$disinfo['Level_ID']][$i]}}
-                                               @elseif(isset($Shop_Commision_Reward_Arr['Distribute'][$disinfo['Level_ID']][$i]))
-                                                   {{$Shop_Commision_Reward_Arr['Distribute'][$disinfo['Level_ID']][$i]}}
-                                               @else 0 @endif"
-                                               class="form_input commision_config" data-value="
-                                               @if(!empty($distribute_list[$disinfo['Level_ID']][$i]))
-                                                   {{$distribute_list[$disinfo['Level_ID']][$i]}}
-                                               @elseif(isset($Shop_Commision_Reward_Arr['Distribute'][$disinfo['Level_ID']][$i]))
-                                                   {{$Shop_Commision_Reward_Arr['Distribute'][$disinfo['Level_ID']][$i]}}
-                                               @else 0 @endif" size="5" maxlength="10" type="text">元(佣金比例的金额)
+                                               name="Distribute[{{$disinfo['Level_ID']}}][{{$i}}]" value="{{$distribute_list[$disinfo['Level_ID']][$i]}}"
+                                               class="form_input" size="5" maxlength="10" type="text">元(佣金比例的金额)
                                         </td>
                                     </tr>
                                     @endfor
@@ -193,14 +162,8 @@
                                         <td>
                                             多级
                                             &nbsp;&nbsp;
-                                            <input  name="Distribute[{{$disinfo['Level_ID']}}][999]" value="
-                                                @if(!empty($distribute_list[$disinfo['Level_ID']][999]))
-                                                    {{$distribute_list[$disinfo['Level_ID']][999]}}
-                                                @else 0 @endif"
-                                                class="form_input commision_config" data-value="
-                                                @if(!empty($distribute_list[$disinfo['Level_ID']][999]))
-                                                    {{$distribute_list[$disinfo['Level_ID']][999]}}
-                                                @else 0 @endif" size="5" maxlength="10" type="text">元(三级以后佣金比例的金额)
+                                            <input  name="Distribute[{{$disinfo['Level_ID']}}][999]" value="{{$distribute_list[$disinfo['Level_ID']][999]}}"
+                                                class="form_input" size="5" maxlength="10" type="text">元(三级以后佣金比例的金额)
                                         </td>
                                     </tr>
                                 </table>
@@ -420,6 +383,7 @@
                         <label></label>
                         <span class="input">
                             <input type="hidden" name="ProductsID" id="ProductsID"  value="{{$rsProducts["Products_ID"]}}">
+                            <input type="hidden" name="Products_Union_ID" id="ProductsID"  value="{{$rsProducts["Products_Union_ID"]}}">
                             <input type="submit" class="btn_green" name="submit_button" value="提交保存" /></span>
                         <div class="clear"></div>
                     </div>
@@ -445,10 +409,7 @@
             allowFileManager : true
         });
 
-        K('#PicDetail div span').click(function(){
-            K(this).parent().remove();
-        });
-    })
+    });
 
     var level = '{{$level}}';
     var dislevelcont = '{{$dislevelcont}}';

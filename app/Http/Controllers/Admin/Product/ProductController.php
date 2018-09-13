@@ -12,6 +12,7 @@ use App\Models\ShopProduct;
 use App\Models\UsersPayConfig;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
 {
@@ -175,6 +176,61 @@ class ProductController extends Controller
 
     public function update(Request $request, $id)
     {
+        $input = $request->input();
+        $rules = [
+            'Category' => 'required_if:Products_Union_ID,0|exists:shop_category,Category_ID',
+            'Index' => 'required|integer|min:1',
+            'platForm_Income_Reward' => 'numeric|min:0|max:100',
+            'commission_ratio' => 'numeric|min:0|max:100'
+        ];
+        $messages = [
+            'Category.required_if' => '请选择产品类别',
+            'Category.exists' => '此产品类别不存在',
+            'Index.required' => '请填写产品序号',
+            'Index.integer' => '产品序号必须是整数',
+            'Index.min' => '产品序号最小值为1',
+            'platForm_Income_Reward.numeric' => '请设置合理的网站所得比例',
+            'platForm_Income_Reward.min' => '请设置合理的网站所得比例',
+            'platForm_Income_Reward.max' => '请设置合理的网站所得比例',
+            'commission_ratio.numeric' => '请设置合理的佣金分配比例',
+            'commission_ratio.min' => '请设置合理的佣金分配比例',
+            'commission_ratio.max' => '请设置合理的佣金分配比例',
+        ];
+        $validator = Validator::make($input, $rules, $messages);
+        if($validator->fails()){
+            return redirect()->back()->with('errors', $validator->messages())->withInput();
+        }
+
+        $sp_obj = new ShopProduct();
+        $sc_obj = new ShopCategory();
+
+        if ($input['Products_Union_ID'] == 0) {
+            $cateInfo = $sc_obj->select('Category_ParentID')->find($input['Category']);
+        }
+
+        $Data=array(
+            "Products_Index"=>empty($input["Index"]) ? 9999 : intval($input["Index"]),
+            "Products_Integration"=>empty($input['Products_Integration'])?"0":$input['Products_Integration'],
+            "Products_Category"=>empty($input["Category"])?"0":$input["Category"],
+            "Father_Category" => !empty($cateInfo['Category_ParentID'])?$cateInfo['Category_ParentID']:0,
+            "Products_Distributes"=>empty($input['Distribute'])?"":json_encode($input['Distribute'],JSON_UNESCAPED_UNICODE),
+            "Products_IsNew"=>isset($input["IsNew"])?$input["IsNew"]:0,
+            "Products_IsHot"=>isset($input["IsHot"])?$input["IsHot"]:0,
+            "Products_IsRecommend"=>isset($input["IsRecommend"])?$input["IsRecommend"]:0,
+            "Products_IsPaysBalance" => isset($input["IsPaysBalance"])?$input["IsPaysBalance"]:0,
+            "Products_IsMember" => isset($input["IsMember"])?$input["IsMember"]:0,
+            "Products_IsVip" => isset($input["IsVip"])?$input["IsVip"]:0,
+            "Products_IsZongDai" => isset($input["IsZongDai"])?$input["IsZongDai"]:0,
+            "Integrationswitch"=>$input["Integrationswitch"],
+            "Products_Status"=>$input["Status"],
+            "commission_ratio"=>isset($input["commission_ratio"])?intval($input["commission_ratio"]):0,
+            "platForm_Income_Reward" => isset($input['platForm_Income_Reward'])?intval($input['platForm_Income_Reward']) : 0,
+            'store_mention' => empty($_POST['store_mention']) ? 0 : 1,
+        );
+
+        $sp_obj->where('Products_ID', $id)->update($Data);
+
+        return redirect()->route('admin.product.product_index')->with('success', '保存成功');
 
     }
 
