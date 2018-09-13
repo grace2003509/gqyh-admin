@@ -16,9 +16,9 @@ class Dis_Point_Record extends Model
      */
     public static function updatePointStatus($Order_ID, $status)
     {
-        $count = Dis_Point_Record::where(['orderid' => $Order_ID])->count('id');
+        $count = Dis_Point_Record::where('orderid', $Order_ID)->count('id');
         if ($count > 0) {
-            $flag = Dis_Point_Record::where(['orderid' => $Order_ID])->update(['status' => $status]);
+            $flag = Dis_Point_Record::where('orderid', $Order_ID)->update(['status' => $status]);
         } else {
             $flag = true;
         }

@@ -28,13 +28,13 @@ class Dis_Account_Record extends Model
     //一个佣金获得记录属于一个分销记录
     public function DisRecord()
     {
-        return $this->belongsTo('Dis_Record', 'Ds_Record_ID');
+        return $this->belongsTo(Dis_Record::class, 'Ds_Record_ID');
     }
 
     /*一条佣金分销记录属于一个用户*/
     public function User()
     {
-        return $this->belongsTo('Member', 'User_ID', 'User_ID');
+        return $this->belongsTo(Member::class, 'User_ID', 'User_ID');
     }
 
 

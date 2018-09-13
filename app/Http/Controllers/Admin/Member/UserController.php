@@ -244,15 +244,18 @@ class UserController extends Controller
             }
             $Products_ID = intval($input['Products_ID']);
             $price = trim($input['price']);
+
             $sp_obj = new ShopProduct();
             $rsProducts = $sp_obj->find($input['Products_ID']);
+
             $userInfo = $m_obj->select('User_ID', 'Is_Distribute', 'Owner_Id')
                 ->where('User_ID', $input['UserID'])->first();
-            if (!empty($userInfo['Is_Distribute'])) {
+            if ($userInfo['Is_Distribute']==1) {
                 $realownerid = $input['UserID'];
             } else {
                 $realownerid = $userInfo['Owner_Id'];
             }
+
             //产品图片
             $JSON = json_decode($rsProducts['Products_JSON'], true);//产品图片
             $CartList[$Products_ID][] = array(
@@ -292,7 +295,7 @@ class UserController extends Controller
                 "Order_CartList" => json_encode($CartList,JSON_UNESCAPED_UNICODE),
                 "Order_PaymentMethod" => '后台手动下单',
                 "Order_CreateTime" => time(),
-                "Web_Price" => $price*$rsProducts["platForm_Income_Reward"] * $rsProducts["commission_radio"]/10000,
+                "Web_Price" => $price*$rsProducts["platForm_Income_Reward"] * $rsProducts["commission_ratio"]/10000,
                 "addtype" => 1,//后台添加
             );
 
@@ -300,7 +303,7 @@ class UserController extends Controller
             $Flag_a = $uo_obj->create($Data);
 
             if($userInfo['Owner_Id'] > 0) {
-                $e_flag = event(new OrderDistributeEvent($Flag_a));
+                event(new OrderDistributeEvent($Flag_a));
             }
 
             $pay_order = new ServicePayOrder();

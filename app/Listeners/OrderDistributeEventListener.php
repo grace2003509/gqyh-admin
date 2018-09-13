@@ -38,34 +38,22 @@ class OrderDistributeEventListener
 
         $ProductID = array_keys($Order_CartList);
         $fields = ['Products_ID', 'Products_PriceX', 'Products_Distributes', 'Biz_ID', 'Products_Name',
-            'commission_ratio', 'platForm_Income_Reward', 'area_Proxy_Reward'];
+            'commission_ratio', 'platForm_Income_Reward'];
         $p_obj = new ShopProduct();
         $Products = $p_obj->select($fields)->whereIn('Products_ID', $ProductID)->get();
 
         //循环商品
         foreach($Products as $key => $value){
 
-            if($value["commission_ratio"]<=0 || $value['platForm_Income_Reward']){//佣金比例
+            if($value["commission_ratio"]<=0 || $value['platForm_Income_Reward'] <=0){//佣金比例
                 return false;//产品利润为0不处理
             }
 
             $Products_Distributes = $value['Products_Distributes'] ? json_decode($value['Products_Distributes'], true) : array();
-            $distribute_bonus_list = array();
-            if(!empty($Products_Distributes)){
-                foreach ($Products_Distributes as $pkey => $item) {
-                    foreach($item as $k=>$v){
-                        //调整成直接填写数字的模式,如果想用百分比的形式,则注释掉第二行开启第一行即可
-                        //$distribute_bonus_list[$pkey][$k] = $value['commission_ratio'] * $value['platForm_Income_Reward'] * $v / 1000000;
-                        $distribute_bonus_list[$pkey][$k] = $v;
-                    }
-                }
-            }
             //商品未设置佣金
-            if(empty($distribute_bonus_list)){
+            if(empty($Products_Distributes)){
                 return false;
             }
-
-            $value['Distribute_List'] = $distribute_bonus_list;//佣金列表，已经计算出具体金额
 
             //增加分销记录
             $dr_obj = new Dis_Record();
@@ -80,9 +68,12 @@ class OrderDistributeEventListener
             $dis_record_data['Record_CreateTime'] = time();
             $dis_record_data['status'] = 0;
             $dis_record_data['Biz_ID'] = $value["Biz_ID"];
+
             $dis_record = $dr_obj->create($dis_record_data);
-            $dis_record['Distribute_List'] = $value['Distribute_List'];
+
+            $dis_record['Distribute_List'] = $Products_Distributes;//佣金列表，现设置的是具体金额
             $dis_record['Web_Price'] = $order['Web_Price'];//用于分销的金额
+
             //如果有分销记录则创建佣金记录
             if($dis_record){
                 $this->createDisAccountRecord($dis_record);
@@ -108,15 +99,21 @@ class OrderDistributeEventListener
         //查询购买者的所有上级分销账号id
         $da_obj = new Dis_Account();
         //第一个参数$level变量为控制发几级佣金,如果传0的话,则代表不限制,第二个参数是否包含自己
-        $ancestors = $da_obj->getAncestorIds(20,$self);
+        $dis_account = $da_obj->where('User_ID', $dis_Record->Buyer_ID)->first();
+        if($dis_account){
+            $ancestors = $dis_account->getAncestorIds(20,$self);
+        }else{
+            return false;
+        }
 
         $sp_obj = new ShopProduct();
         $product = $sp_obj->find($dis_Record->Product_ID);
+
         $ancestors_meet = $da_obj->get_distribute_balance_userids($dis_Record->Buyer_ID,$ancestors,$dis_Record['Distribute_List']);
         $send_commi = 0; //已经发放的佣金
         foreach ($ancestors_meet as $mk => $mv) {
             //根据查询出来的佣金发放金额跟产品价格做对比,如果超过利润就不再发放
-            if ($send_commi + $mv['bonus'] > $dis_Record->Web_Price || $mv['bonus'] == 0) {
+            if ($send_commi + $mv['bonus'] > $dis_Record['Web_Price'] || $mv['bonus'] == 0) {
                 unset($ancestors_meet[$mk]);
                 continue;
             }
@@ -141,7 +138,7 @@ class OrderDistributeEventListener
                 //上级分销商获取的佣金
                 if(!empty($ancestors_meet[$value])){
                     if($ancestors_meet[$value]['status']==1){//正常
-                        $Record_Money = !empty($ancestors_meet[$value]['bonus']) ? $ancestors_meet[$value]['bonus'] * $Qty : 0;//门槛商品数量
+                        $Record_Money = $ancestors_meet[$value]['bonus'] > 0 ? $ancestors_meet[$value]['bonus'] * $Qty : 0;//门槛商品数量
                         $Record_Price = $Record_Money / $Qty;
                     }else{
                         $Record_Money = 0;
@@ -170,13 +167,11 @@ class OrderDistributeEventListener
                 'yformat' => '',
                 'Record_Description' => $Record_Description,
             ];
+
             $dar_obj = new Dis_Account_Record();
-            $flag = $dar_obj->create($dis_account_record_data);
+            $dar_obj->create($dis_account_record_data);
+
         }
-        if($flag){
-            return true;
-        }else{
-            return false;
-        }
+
     }
 }

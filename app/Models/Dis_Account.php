@@ -26,32 +26,32 @@ class Dis_Account extends Model {
 
 	//一个分销账号属于一个用户
 	public function user() {
-		return $this->belongsTo('Member', 'User_ID', 'User_ID');
+		return $this->belongsTo(Member::class, 'User_ID', 'User_ID');
 	}
 
 	//获取此分销商的邀请人
 	public function inviter() {
-		return $this->belongsTo('Member', 'invite_id', 'User_ID');
+		return $this->belongsTo(Member::class, 'invite_id', 'User_ID');
 	}
 
 	//一个分销账户拥有多个代理地区
 	public function disAreaAgent() {
-		return $this->hasMany('Dis_Agent_Area', 'Account_ID', 'Account_ID');
+		return $this->hasMany(Dis_Agent_Area::class, 'Account_ID', 'Account_ID');
 	}
 
 	/*一个分销账号拥有多个分销记录*/
 	public function disRecord() {
-		return $this->hasMany('Dis_Record', 'Owner_ID', 'User_ID');
+		return $this->hasMany(Dis_Record::class, 'Owner_ID', 'User_ID');
 	}
 
 	/*一个分销账号拥有多个发钱记录*/
 	public function disAccountRecord() {
-		return $this->hasManyThrough('Dis_Account_Record', 'Dis_Record', 'Owner_ID', 'Record_ID');
+		return $this->hasManyThrough(Dis_Account_Record::class, 'Dis_Record', 'Owner_ID', 'Record_ID');
 	}
 
 	/*一个分销账号拥有多个得钱记录*/
 	public function disAccountPayRecord() {
-		return $this->hasMany('Dis_Account_Record', 'User_ID', 'User_ID');
+		return $this->hasMany(Dis_Account_Record::class, 'User_ID', 'User_ID');
 	}
 
 
@@ -64,25 +64,27 @@ class Dis_Account extends Model {
     {
         $ids = array();
         if (!empty($this->Dis_Path)) {
-            $res = trim($this->Dis_Path, ',,');
-            $list = explode(',', $res);
-            $list = array_filter($list);
-            $list = array_unique($list);
+
+            $list = explode(',', $this->Dis_Path);
+            $list = array_unique($list);//数组去重
+            $list = array_filter($list);//去除空值
+
             if ($level && $level <= count($list)) {
                 $cut_num = count($list) - $level;
-                $ids = array_slice($list, $cut_num);
+                $ids = array_slice($list, $cut_num-1);//截取数组
             } else {
                 $ids = $list;
             }
+
             foreach ($ids as $key => $item) {
                 $ids[$key] = intval($item);
             }
 
         }
 
-        $self ? array_push($ids, $this->User_ID) : '';
+        if($self > 0) $ids = array_push($ids, $this->User_ID);
 
-        return $ids;
+        return array_reverse($ids);
     }
 
 

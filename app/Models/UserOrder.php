@@ -50,7 +50,7 @@ class UserOrder extends Model
      */
     public function pointRecord()
     {
-        return $this->hasMany('Dis_Point_Record', 'orderid', 'Order_ID');
+        return $this->hasMany(Dis_Point_Record::class, 'orderid', 'Order_ID');
     }
 
     /**

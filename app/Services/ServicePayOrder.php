@@ -56,9 +56,8 @@ class ServicePayOrder
         }
         $rsUser = Member::find($rsOrder["User_ID"]);
 
-        $url = '';
-        if ($rsOrder["Order_Status"] <> 1) {
-            return array("status" => 1, "url" => $url);
+        if ($rsOrder["Order_Status"] >= 2) {
+            return array("status" => 1);
         }
         //更新订单状态
         $rsOrder->Order_Status = 2;
@@ -104,7 +103,6 @@ class ServicePayOrder
         }
 
         if ($Flag_b && $Flag_c && $Flag_d) {
-            $url = '/api/' . USERSID . '/' . $rsOrder["Order_Type"] . '/member/status/2/';
             $rsConfig = $this->get_shopconfig();
 
             //获取订单中的产品id集
@@ -200,7 +198,6 @@ class ServicePayOrder
 
                     if ($rsOrder["Order_IsRecieve"] == 1) {
                         $Flag = $order->confirmReceive($orderid);
-                        $url = "/api/" . USERSID . "/" . $rsOrder["Order_Type"] . "/member/status/4/";
                     } else {
                         $confirm_code = $order->get_virtual_confirm_code($orderid);
                         $Data = array('Order_Code' => $confirm_code);
@@ -236,14 +233,9 @@ class ServicePayOrder
                     }
                 }
 
-                if ($rsOrder["Order_Type"] == 'offline_st') {
-                    $url = "/api/" . USERSID . "/offline/member/status/4/";
-                } else {
-                    $url = "/api/" . USERSID . "/shop/member/detail/" . $orderid . "/";
-                }
             }
 
-            return array("status" => 1, "url" => $url);
+            return array("status" => 1);
         } else {
             return array("status" => 0, "msg" => "订单支付失败");
         }
@@ -275,7 +267,7 @@ class ServicePayOrder
         $flag = $flag_a && $flag_b && $flag_c && $flag_d;
 
         if (!$flag) {
-            DB::rollBakc();
+            DB::rollBack();
         } else {
             DB::commit();
         }
@@ -456,7 +448,7 @@ class ServicePayOrder
         $disAccount->Level_ID = $LevelID;
         $disAccount->User_ID = $UserID;
         $disAccount->Real_Name = $user_data['User_Name'] ? $user_data['User_Name'] : $user_data['User_NickName'];
-        $disAccount->Shop_Name = $user_data['User_NickName'] . '的店';
+        $disAccount->Shop_Name = $user_data['User_NickName'];
         $disAccount->Shop_Logo = $user_data['User_HeadImg'];
         $disAccount->balance = 0;
         $disAccount->status = 1;
@@ -531,7 +523,7 @@ class ServicePayOrder
             // 增加积分记录
             if ($interval > 0) {
                 if ($order->Order_Type != 'offline_st' && $order->Order_Type != 'offline_qrcode' && $order->Order_Type != 'offline') {
-                    $this->handle_integral_record($interval);
+                    $this->handle_integral_record($interval, $user);
                 }
             }
         }
@@ -574,18 +566,17 @@ class ServicePayOrder
     /**
      * 增加用户积分记录
      */
-    private function handle_integral_record($interval)
+    private function handle_integral_record($interval, $user)
     {
-
         $user_integral_record = new UserIntegralRecord();
         $user_integral_record->Record_Integral = $interval;
-        $user_integral_record->Record_SurplusIntegral = $this->user ['User_Integral'];
+        $user_integral_record->Record_SurplusIntegral = $user['User_Integral'];
         $user_integral_record->Operator_UserName = '';
         $user_integral_record->Record_Type = 2;
         $user_integral_record->Record_Description = '购买商品送 ' . $interval . ' 个积分';
         $user_integral_record->Record_CreateTime = time();
-        $user_integral_record->User_ID = $this->user ['User_ID'];
-        $user_integral_record->Users_ID = $this->user['Users_ID'];
+        $user_integral_record->User_ID = $user['User_ID'];
+        $user_integral_record->Users_ID = USERSID;
         $flag = $user_integral_record->save();
 
         return $flag;
