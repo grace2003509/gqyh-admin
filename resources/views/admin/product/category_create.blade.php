@@ -20,7 +20,7 @@
             <div id="products" class="r_con_wrap">
                 <div class="category">
                     <div class="m_righter" style="margin-left:0px;">
-                        <form action="{{route('admin.product.product_category_store')}}" name="category_form" id="category_form" method="post">
+                        <form action="{{route('admin.product.category_store')}}" name="category_form" id="category_form" method="post">
                             {{csrf_field()}}
                             <h4>添加产品分类</h4>
                             <div class="opt_item">
@@ -82,7 +82,7 @@
                                 <label></label>
                                 <span class="input">
                                     <input type="submit" class="btn_green btn_w_120" name="submit_button" value="添加分类" />
-                                    <a href="{{route('admin.product.product_category_index')}}" class="btn_gray">返回</a>
+                                    <a href="{{route('admin.product.category_index')}}" class="btn_gray">返回</a>
                                 </span>
                                 <div class="clear"></div>
                             </div>

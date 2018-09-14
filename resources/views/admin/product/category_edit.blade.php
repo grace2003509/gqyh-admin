@@ -20,7 +20,7 @@
             <div id="products" class="r_con_wrap">
                 <div class="category">
                     <div class="m_righter" style="margin-left:0px;">
-                        <form action="{{route('admin.product.product_category_update', ['id'=>$rsCategory['Category_ID']])}}"
+                        <form action="{{route('admin.product.category_update', ['id'=>$rsCategory['Category_ID']])}}"
                               name="category_form" id="category_form" method="post">
                             {{csrf_field()}}
                             <h4>编辑产品分类</h4>
@@ -84,7 +84,7 @@
                                 <label></label>
                                 <span class="input">
                                     <input type="submit" class="btn_green btn_w_120" name="submit_button" value="编辑分类" />
-                                    <a href="{{route('admin.product.product_category_index')}}" class="btn_gray">返回</a>
+                                    <a href="{{route('admin.product.category_index')}}" class="btn_gray">返回</a>
                                 </span>
                                 <div class="clear"></div>
                             </div>

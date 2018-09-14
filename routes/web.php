@@ -153,19 +153,24 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
     //产品管理
     Route::group(['prefix' => 'product', 'namespace' => 'Product'], function ($route) {
         $route->get('/product_index', 'ProductController@index')->name('admin.product.product_index');
+        //审核
         $route->get('/product_audit/{id}', 'ProductController@audit')->name('admin.product.product_audit');
         $route->post('/product_update/{id}', 'ProductController@update')->name('admin.product.product_update');
         //批量设置
         $route->post('/product_active', 'ProductController@active')->name('admin.product.product_active');
+        //产品分销佣金设置详情
         $route->get('/product_commission', 'ProductController@commission')->name('admin.product.product_commission');
         //产品类别
-        $route->get('/product_category_index', 'ProductCategoryController@index')->name('admin.product.product_category_index');
-        $route->get('/product_category_create', 'ProductCategoryController@create')->name('admin.product.product_category_create');
-        $route->post('/product_category_store', 'ProductCategoryController@store')->name('admin.product.product_category_store');
-        $route->get('/product_category_edit/{id}', 'ProductCategoryController@edit')->name('admin.product.product_category_edit');
-        $route->post('/product_category_update/{id}', 'ProductCategoryController@update')->name('admin.product.product_category_update');
-        $route->get('/product_category_del/{id}', 'ProductCategoryController@del')->name('admin.product.product_category_del');
-
+        $route->get('/category_index', 'ProductCategoryController@index')->name('admin.product.category_index');
+        $route->get('/category_create', 'ProductCategoryController@create')->name('admin.product.category_create');
+        $route->post('/category_store', 'ProductCategoryController@store')->name('admin.product.category_store');
+        $route->get('/category_edit/{id}', 'ProductCategoryController@edit')->name('admin.product.category_edit');
+        $route->post('/category_update/{id}', 'ProductCategoryController@update')->name('admin.product.category_update');
+        $route->get('/category_del/{id}', 'ProductCategoryController@del')->name('admin.product.category_del');
+        //产品评论
+        $route->get('/commit_index', 'ProductCommitController@index')->name('admin.product.commit_index');
+        $route->get('/commit_del/{id}', 'ProductCommitController@del')->name('admin.product.commit_del');
+        $route->get('/commit_audit/{id}', 'ProductCommitController@audit')->name('admin.product.commit_audit');
     });
 
     //活动管理

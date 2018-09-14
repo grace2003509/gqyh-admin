@@ -25,7 +25,7 @@ class ProductCategoryController extends Controller
             }
         }
 
-        return view('admin.product.product_category', compact('ParentMenu'));
+        return view('admin.product.category', compact('ParentMenu'));
     }
 
 
@@ -69,7 +69,7 @@ class ProductCategoryController extends Controller
         $sc_obj = new ShopCategory();
         $Flag=$sc_obj->create($Data);
         if($Flag){
-            return redirect()->route('admin.product.product_category_index')->with('success', '添加成功');
+            return redirect()->route('admin.product.category_index')->with('success', '添加成功');
         }else{
             return redirect()->back()->with('errors', '保存失败')->withInput();
         }
@@ -117,7 +117,7 @@ class ProductCategoryController extends Controller
         $sc_obj = new ShopCategory();
         $sc_obj->where('Category_ID', $id)->update($Data);
 
-        return redirect()->route('admin.product.product_category_index')->with('success', '编辑成功');
+        return redirect()->route('admin.product.category_index')->with('success', '编辑成功');
 
     }
 

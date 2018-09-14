@@ -41,7 +41,7 @@
             <div id="products" class="r_con_wrap">
                 <div class="category">
                     <div class="control_btn">
-                        <a href="{{route('admin.product.product_category_create')}}" class="btn_green btn_w_120">添加分类</a>
+                        <a href="{{route('admin.product.category_create')}}" class="btn_green btn_w_120">添加分类</a>
                     </div>
                     <table width="100%" border="0" cellpadding="0" cellspacing="0" class="mytable">
                         <tr bgcolor="#f5f5f5">
@@ -62,10 +62,10 @@
                             </td>
                             <td></td>
                             <td align="center">
-                                <a href="{{route('admin.product.product_category_edit', ['id' => $value["Category_ID"]])}}" title="修改">
+                                <a href="{{route('admin.product.category_edit', ['id' => $value["Category_ID"]])}}" title="修改">
                                     <img src="/admin/images/ico/mod.gif" align="absmiddle" />
                                 </a>　
-                                <a href="{{route('admin.product.product_category_del', ['id' => $value["Category_ID"]])}}" title="删除" onClick="if(!confirm('删除后不可恢复，继续吗？')){return false};">
+                                <a href="{{route('admin.product.category_del', ['id' => $value["Category_ID"]])}}" title="删除" onClick="if(!confirm('删除后不可恢复，继续吗？')){return false};">
                                     <img src="/admin/images/ico/del.gif" align="absmiddle" />
                                 </a>
                             </td>
@@ -82,10 +82,10 @@
                                     </td>
                                     <td>{{$v["Category_Bond"]}}</td>
                                     <td align="center">
-                                        <a href="{{route('admin.product.product_category_edit', ['id' => $v["Category_ID"]])}}" title="修改">
+                                        <a href="{{route('admin.product.category_edit', ['id' => $v["Category_ID"]])}}" title="修改">
                                             <img src="/admin/images/ico/mod.gif" align="absmiddle" />
                                         </a>　
-                                        <a href="{{route('admin.product.product_category_del', ['id' => $v["Category_ID"]])}}" title="删除" onClick="if(!confirm('删除后不可恢复，继续吗？')){return false};">
+                                        <a href="{{route('admin.product.category_del', ['id' => $v["Category_ID"]])}}" title="删除" onClick="if(!confirm('删除后不可恢复，继续吗？')){return false};">
                                             <img src="/admin/images/ico/del.gif" align="absmiddle" />
                                         </a>
                                     </td>
