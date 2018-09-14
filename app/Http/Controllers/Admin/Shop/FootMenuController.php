@@ -16,8 +16,8 @@ class FootMenuController extends Controller
                 'icon' => 'fa fa-home fa-2x',
                 'icon_on' => '/static/api/distribute/images/shouye1.png',
                 'icon_up' => '/static/api/distribute/images/shouye.png',
-                'menu_href' => '/api/' . USERSID . '/shop/union/',
-                'login_menu_href' => '/api/' . USERSID . '/shop/union/',
+                'menu_href' => '/',
+                'login_menu_href' => '/',
                 'bind_action_attr' => 0,
                 'menu_order' => '1'),
             array(
@@ -26,8 +26,8 @@ class FootMenuController extends Controller
                 'icon' => 'fa fa-cart-plus fa-2x',
                 'icon_on' => '/static/api/distribute/images/gwc1.png',
                 'icon_up' => '/static/api/distribute/images/gwc.png',
-                'menu_href' => '/api/' . USERSID . '/shop/wzw/',
-                'login_menu_href' => '/api/' . USERSID . '/shop/wzw/',
+                'menu_href' => '/',
+                'login_menu_href' => '/',
                 'bind_action_attr' => 0,
                 'menu_order' => '2'),
             array(
@@ -36,8 +36,8 @@ class FootMenuController extends Controller
                 'icon' => 'fa fa-shopping-bag fa-6x',
                 'icon_on' => '/static/api/distribute/images/center_x1.png',
                 'icon_up' => '/static/api/distribute/images/center_x.png',
-                'menu_href' => '/api/' . USERSID . '/distribute/join/',
-                'login_menu_href' => '/api/' . USERSID . '/distribute/',
+                'menu_href' => '/',
+                'login_menu_href' => '/',
                 'bind_action_attr' => 1,
                 'menu_order' => '3'),
             array(
@@ -46,8 +46,8 @@ class FootMenuController extends Controller
                 'icon' => 'fa fa-user fa-2x',
                 'icon_on' => '/static/api/distribute/images/hyzx1.png',
                 'icon_up' => '/static/api/distribute/images/hyzx.png',
-                'menu_href' => '/api/' . USERSID . '/shop/member/',
-                'login_menu_href' => '/api/' . USERSID . '/shop/member/',
+                'menu_href' => '/',
+                'login_menu_href' => '/',
                 'bind_action_attr' => 0,
                 'menu_order' => '4'),
         )

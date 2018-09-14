@@ -15,24 +15,4 @@ class ShopShippingCompany extends Model
         'Shipping_Des', 'Shipping_Status', 'Shipping_CreateTime','Biz_ID'
     ];
 
-
-    // 多where
-    public function scopeMultiwhere($query, $arr)
-    {
-        if (!is_array($arr)) {
-            return $query;
-        }
-
-        foreach ($arr as $key => $value) {
-            $query = $query->where($key, $value);
-        }
-        return $query;
-    }
-
-
-    //无需日期转换
-    public function getDates()
-    {
-        return array();
-    }
 }

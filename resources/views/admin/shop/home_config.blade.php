@@ -1822,7 +1822,7 @@
         function openwin(){
             var win_top = ($(window).height()-750)/2;
             var win_left = ($(window).width()-480)/2;
-            window.open('/api/<?=USERSID?>/shop/wzw/','','height=750,width=480,top='+win_top+',left='+win_left+',toolbar=no,menubar=no,scrollbars=yes,resizable=no,location=no,status=no');
+            window.open('/','','height=750,width=480,top='+win_top+',left='+win_left+',toolbar=no,menubar=no,scrollbars=yes,resizable=no,location=no,status=no');
         }
 
         var editor;

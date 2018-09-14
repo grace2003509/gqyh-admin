@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin\Statistics;
 use App\Models\Biz;
 use App\Models\UserOrder;
 use App\Models\ShopSalesRecord;
-use App\Models\UserOrder;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -35,18 +34,15 @@ class SaleRecordController extends Controller
 
         $b = [0,0,0,0,0,0,0];
         foreach($sale_records as $key => $value){
-            $user_order = UserOrder::find($value["Order_ID"]);
+            $o_obj = new UserOrder();
+            $user_order = $o_obj->find($value["Order_ID"]);
             if($user_order){
                 $value['rsorder'] = $user_order;
                 $flag = strpos($value['Order_Json'],'&amp');
                 if ($flag) {
                     $sale_records[$value["Record_ID"]]['Order_Json'] = htmlspecialchars_decode($value['Order_Json']);
                 }
-
-                $o_obj = new UserOrder();
                 $value['ordersn'] = $o_obj->getorderno($value["Order_ID"]);
-
-
                 $value["Order_Amount"] = round_pad_zero($value["Order_Amount"], 2);
                 $value["Record_CreateTime"] = date('Y-m-d', $value["Record_CreateTime"]);
 
@@ -71,8 +67,6 @@ class SaleRecordController extends Controller
 
                 $sale_records[$key] = $value;
             }
-
-
         }
 
         $biz = Biz::all();//商家列表

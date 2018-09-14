@@ -188,12 +188,12 @@ class UploadController extends Controller
 
         $php_path = $_SERVER['DOCUMENT_ROOT'];
         //根目录路径，可以指定绝对路径，比如 /var/www/attached/
-        $root_path = $php_path . '/uploadfiles/' . USERSID . '/';
+        $root_path = $php_path . '/uploadfiles/';
         if (!file_exists($root_path)) {
             mkdir($root_path);
         }
         //根目录URL，可以指定绝对路径，比如 http://www.yoursite.com/attached/
-        $root_url = '/uploadfiles/' . USERSID . '/';
+        $root_url = '/uploadfiles/';
         //图片扩展名
         $ext_arr = array('gif', 'jpg', 'jpeg', 'png', 'bmp');
 

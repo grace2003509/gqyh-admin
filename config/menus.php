@@ -167,6 +167,12 @@ return json_encode([                                    // modules
                 'description' => null,
                 'items' => null,
             ],
+            [
+                'name' => '产品订单列表',
+                'route' => 'admin.product.order_index',
+                'description' => null,
+                'items' => null,
+            ],
         ],
     ],
     [

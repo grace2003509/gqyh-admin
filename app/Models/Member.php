@@ -115,7 +115,8 @@ class Member extends Model {
             }
             $sql = trim($sql, ';');
             foreach ($uid as $v){
-                $file = $_SERVER["DOCUMENT_ROOT"] . '/data/avatar/' . USERSID . $v . '.jpg';
+                $str = USERSID;
+                $file = $_SERVER["DOCUMENT_ROOT"] . '/data/avatar/' . $str . $v . '.jpg';
                 if(is_file($file) && file_exists($file)){
                     $flag &= unlink($file);
                 }
@@ -123,11 +124,11 @@ class Member extends Model {
                 if(is_file($file) && file_exists($file)){
                     $flag &= unlink($file);
                 }
-                $file = $_SERVER["DOCUMENT_ROOT"] . '/data/poster/user_'  . USERSID . $v .  '.png';
+                $file = $_SERVER["DOCUMENT_ROOT"] . '/data/poster/user_'  . $str . $v .  '.png';
                 if(is_file($file) && file_exists($file)){
                     $flag &= unlink($file);
                 }
-                $file = $_SERVER["DOCUMENT_ROOT"] . '/data/poster/user_'  . USERSID . $v .  'pop.png';
+                $file = $_SERVER["DOCUMENT_ROOT"] . '/data/poster/user_'  . $str . $v .  'pop.png';
                 if(is_file($file) && file_exists($file)){
                     $flag &= unlink($file);
                 }

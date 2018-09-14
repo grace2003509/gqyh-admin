@@ -33,6 +33,15 @@ class UserOrder extends Model
         return $this->belongsTo(Member::class, 'User_ID', 'User_ID');
     }
 
+    /**
+     * 订单所属店铺
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function biz()
+    {
+        return $this->belongsTo(Biz::class, 'Biz_ID', 'Biz_ID');
+    }
+
     /*一个订单对应多条分销记录*/
     public function disRecord()
     {
@@ -51,6 +60,15 @@ class UserOrder extends Model
     public function pointRecord()
     {
         return $this->hasMany(Dis_Point_Record::class, 'orderid', 'Order_ID');
+    }
+
+    /**
+     * 一个订单包含一个退货/退款单
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function backOrder()
+    {
+        return $this->hasOne(User_Back_Order::class, 'Order_ID', 'Order_ID');
     }
 
     /**

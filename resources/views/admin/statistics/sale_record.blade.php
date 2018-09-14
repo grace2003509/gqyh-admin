@@ -15,7 +15,6 @@
     <script src="/static/js/plugins/jQuery/jQuery-2.2.0.min.js"></script>
     <script src="/static/js/moment.js"></script>
     <script type='text/javascript' src='/static/js/daterangepicker.js'></script>
-    <script type='text/javascript' src='/admin/js/payment.js'></script>
 
     <div class="box" >
         <div id="iframe_page">

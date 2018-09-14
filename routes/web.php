@@ -171,6 +171,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
         $route->get('/commit_index', 'ProductCommitController@index')->name('admin.product.commit_index');
         $route->get('/commit_del/{id}', 'ProductCommitController@del')->name('admin.product.commit_del');
         $route->get('/commit_audit/{id}', 'ProductCommitController@audit')->name('admin.product.commit_audit');
+        //产品订单
+        $route->get('/order_index', 'ProductOrderController@index')->name('admin.product.order_index');
+        $route->get('/order_show/{id}', 'ProductOrderController@show')->name('admin.product.order_show');
+        $route->get('/order_print/{ids}', 'ProductOrderController@order_print')->name('admin.product.order_print');
     });
 
     //活动管理
