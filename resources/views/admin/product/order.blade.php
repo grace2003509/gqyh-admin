@@ -110,14 +110,12 @@
                                     <img src="/admin/images/ico/view.gif" align="absmiddle" alt="修改" />
                                 </a>
                                 @if($rsOrder['Order_Status']==1)
-                                <a href="{{route('admin.product.order_show', ['id' => $rsOrder["Order_ID"]])}}">
-                                    [确认收款]
-                                </a><br />
+                                    <a href="{{route('admin.product.order_show', ['id' => $rsOrder["Order_ID"]])}}">
+                                        [确认收款]
+                                    </a><br />
                                 @endif
 
-                                @if($rsOrder["Order_Status"]==2 && $rsOrder["Order_IsVirtual"]<>1)
-                                    <a href="javascript:void(0);" class="send_print" ret="{{$rsOrder["Order_ID"]}}">[打印发货单]</a>
-                                @elseif($rsOrder["Order_Status"]==0||$rsOrder["Order_Status"]==31)
+                                @if($rsOrder["Order_Status"]==0||$rsOrder["Order_Status"]==31)
                                     <a href="orders_confirm.php?OrderID={{$rsOrder["Order_ID"]}}">[确认订单]</a>
                                 @endif
                             </td>
@@ -199,6 +197,7 @@
             }
             window.location = "/admin/product/order_print/"+idlist;
         });
+
     });
 </script>
 

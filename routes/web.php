@@ -174,6 +174,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
         //产品订单
         $route->get('/order_index', 'ProductOrderController@index')->name('admin.product.order_index');
         $route->get('/order_show/{id}', 'ProductOrderController@show')->name('admin.product.order_show');
+        $route->post('/order_update/{id}', 'ProductOrderController@update')->name('admin.product.order_update');
         $route->get('/order_print/{ids}', 'ProductOrderController@order_print')->name('admin.product.order_print');
     });
 

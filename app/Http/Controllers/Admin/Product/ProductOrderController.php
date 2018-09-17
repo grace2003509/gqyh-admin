@@ -4,8 +4,11 @@ namespace App\Http\Controllers\Admin\Product;
 
 use App\Models\Area;
 use App\Models\Biz;
+use App\Models\ShopConfig;
+use App\Models\User_Back_Order;
 use App\Models\User_Recieve_Address;
 use App\Models\UserOrder;
+use App\Models\UsersPayConfig;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
@@ -96,11 +99,88 @@ class ProductOrderController extends Controller
      */
     public function show($id)
     {
+        $uo_obj = new UserOrder();
+        $a_obj = new Area();
+        $ubo_obj = new User_Back_Order();
 
-        return view('admin.product.order_show');
+        $rsOrder = $uo_obj->find($id);
+
+        $shipping=json_decode(htmlspecialchars_decode($rsOrder["Order_Shipping"]),true);
+
+        $CartList=json_decode(htmlspecialchars_decode($rsOrder["Order_CartList"]),true);
+        foreach($CartList as $key => $value){
+            foreach($value as $k => $v){
+                if(!empty($v["Property"])){
+                    $CartList[$key][$k]['attr'] = $v["Property"]['shu_value'];
+                    $v['ProductsPriceX'] = $v["Property"]['shu_pricesimp'];
+                }else{
+                    $CartList[$key][$k]['attr'] = '';
+                }
+            }
+        }
+
+        $PaymentInfo = json_decode($rsOrder["Order_PaymentInfo"], true);
+
+        $lists_back = $ubo_obj->where('Order_ID', $id)
+            ->where('Back_Type', 'shop')
+            ->get();
+        foreach($lists_back as $item){
+            $CartList_back=json_decode(htmlspecialchars_decode($item["Back_Json"]),true);
+            if(!empty($CartList_back["Property"])){
+                $item['attr'] = $CartList_back["Property"]['shu_value'];
+                $item["ProductsPriceX"] = $CartList_back["Property"]['shu_pricesimp'];
+            }else{
+                $item['attr'] = '';
+                $item["ProductsPriceX"] = $CartList_back["ProductsPriceX"];
+            }
+            $item["Back_Json"] = $CartList_back;
+        }
+
+        $status = array('申请中','卖家同意','买家发货','卖家收货并确定退款价格','完成','卖家拒绝退款');
+
+        $address = '';
+        if(!empty($rsOrder['Address_Province'])){
+            $p = $a_obj->find($rsOrder['Address_Province']);
+            $address .= $p['area_name'].',';
+        }
+        if(!empty($rsOrder['Address_City'])){
+            $c = $a_obj->find($rsOrder['Address_City']);
+            $address .= $c['area_name'].',';
+        }
+        if(!empty($rsOrder['Address_Area'])){
+            $a = $a_obj->find($rsOrder['Address_Area']);
+            $address .= $a['area_name'];
+        }
+        return view('admin.product.order_show', compact(
+            'rsOrder', 'address', 'shipping', 'status', 'PaymentInfo', 'CartList', 'lists_back'));
+
     }
 
 
+
+    public function update(Request $request, $id)
+    {
+        $uo_obj = new UserOrder();
+        $rsOrder = $uo_obj->find($id);
+
+        $input = $request->input();
+        if($rsOrder["Order_Status"]<2){
+            $rsOrder->Order_TotalPrice = empty($input["TotalPrice"]) ? 0 : $input["TotalPrice"];
+            $rsOrder->Order_Status = $input["Status"];
+            $Flag = $rsOrder->save();
+            if($Flag){
+                return redirect()->route('admin.product.order_index')->with('success', '保存成功');
+            }
+        }
+    }
+
+
+
+    /**
+     * 打印订单
+     * @param $ids
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function order_print($ids)
     {
         $uo_obj = new UserOrder();
