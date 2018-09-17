@@ -173,6 +173,12 @@ return json_encode([                                    // modules
                 'description' => null,
                 'items' => null,
             ],
+            [
+                'name' => '产品退货单列表',
+                'route' => 'admin.product.back_index',
+                'description' => null,
+                'items' => null,
+            ],
         ],
     ],
     [

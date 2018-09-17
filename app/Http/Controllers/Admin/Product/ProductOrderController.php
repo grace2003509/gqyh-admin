@@ -4,11 +4,9 @@ namespace App\Http\Controllers\Admin\Product;
 
 use App\Models\Area;
 use App\Models\Biz;
-use App\Models\ShopConfig;
 use App\Models\User_Back_Order;
 use App\Models\User_Recieve_Address;
 use App\Models\UserOrder;
-use App\Models\UsersPayConfig;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
@@ -157,7 +155,12 @@ class ProductOrderController extends Controller
     }
 
 
-
+    /**
+     * 修改订单
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function update(Request $request, $id)
     {
         $uo_obj = new UserOrder();
