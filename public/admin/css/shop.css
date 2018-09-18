@@ -354,7 +354,7 @@ input[type='submit']{height:30px; line-height:30px; border:none; border-radius:8
 .editorSprite{margin:10px 10px 0px 10px; float:left;}
 .selectLink{ width:340px; margin-left:10px; margin-top:5px; overflow:hidden; float:left;}
 .selectLink select{border: 1px solid #DDDDDD; border-radius: 5px; height: 32px; padding: 5px; vertical-align: middle; width: 270px; font-size:14px; vertical-align:middle;}
-.selectLink label{overflow: hidden;height:28px;line-height: 28px;}
+.selectLink label{overflow: hidden;height:28px;line-height: 42px;}
 .editBtn{float:left; margin-left:121px; margin-top:10px;}
 .phoneSprite{margin:10px; float:left; display:inline;}
 .phoneSprite textarea{ width:340px; height:147px; resize:none; overflow:auto;}
@@ -368,15 +368,14 @@ input[type='submit']{height:30px; line-height:30px; border:none; border-radius:8
 .lookDetail{ margin-left:10px; float:left; margin-top:5px;}
 .checkList{width:340px;margin-left:10px; margin-top:5px; overflow:hidden; float:left;}
 .checkList label{overflow: hidden;height:28px;line-height: 28px;}
-.checkList div{height:28px;}
-.checkList div input{margin-right: 5px;margin-left: 5px;
-    height: 35px;}
+.checkList div{height:40px; vertical-align: top}
+.checkList div input{margin-right: 5px;margin-left: 5px; height: 35px;line-height: 20px}
 .num{margin-top: 5px;}
 .more{margin-top: 5px;}
 .p_title{margin-top: 5px;}
-.num label{margin-left: 10px;overflow: hidden;height:28px;line-height: 28px;}
-.more label{margin-left: 10px;overflow: hidden;height:28px;line-height: 28px;}
-.p_title label{margin-left: 10px;overflow: hidden;height:28px;line-height: 28px;}
+.num label{margin-left: 10px;overflow: hidden;height:28px;line-height: 42px;}
+.more label{margin-left: 10px;overflow: hidden;height:28px;line-height: 42px;}
+.p_title label{margin-left: 10px;overflow: hidden;height:28px;line-height: 42px;}
 /* 属性end */
 
 /* 颜色选择器start */

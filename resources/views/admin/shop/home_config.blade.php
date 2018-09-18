@@ -14,7 +14,6 @@
     <link href='/admin/css/main.css' rel='stylesheet' type='text/css' />
     <link href='/admin/css/shop.css' rel='stylesheet' type='text/css' />
 
-
     <link rel="stylesheet" href="/admin/js/kindeditor/themes/default/default.css" />
     <script type='text/javascript' src="/admin/js/kindeditor/kindeditor-diy.js"></script>
     <script type='text/javascript' src="/admin/js/kindeditor/lang/zh_CN.js"></script>
@@ -23,9 +22,8 @@
     <script type='text/javascript' src='/static/js/plugins/dragsort/ca_orderDrag_shop.js'></script>
     <script type='text/javascript' src='/static/js/plugins/colorpicker/js/colorpicker.js'></script>
     <link href='/static/js/plugins/colorpicker/css/colorpicker.css' rel='stylesheet' type='text/css' />
-
-
     <script type='text/javascript' src='/admin/js/shop.js'></script>
+
     <div class="box">
         <div id="iframe_page">
             <div class="iframe_content">
@@ -83,10 +81,6 @@
                             <div class="square_sprite" packageName="p4">
                                 <div class="square_img"><img src="/admin/images//diy/l3.jpg" /><span></span></div>
                                 <div class="square_name">幻灯片</div>
-                            </div>
-                            <div class="square_sprite" packageName="p5">
-                                <div class="square_img"><img src="/admin/images//diy/l4.jpg" /><span></span></div>
-                                <div class="square_name">电话拨号</div>
                             </div>
                             <div class="square_sprite" packageName="p12">
                                 <div class="square_img"><img src="/admin/images//diy/l13.jpg" /><span></span></div>
@@ -383,11 +377,6 @@
                             <div class="p4ImgFrame"><img width="292"'.($pic[0]=='undefined'?' style="display:none"':' src="'.$pic[0].'" style="display:block"').'/><img width="292"'.($pic[1]=='undefined'?' style="display:none"':' src="'.$pic[1].'" style="display:none"').'/><img width="292"'.($pic[2]=='undefined'?' style="display:none"':' src="'.$pic[2].'" style="display:none"').'/><img width="292"'.($pic[3]=='undefined'?' style="display:none"':' src="'.$pic[3].'" style="display:none"').'/><img width="292"'.($pic[4]=='undefined'?' style="display:none"':' src="'.$pic[4].'" style="display:none"').'/></div>
                           </div>
                           <div class="delObj hand" onclick="shop_obj.delObjEvt(this, \'p4\');"><img  src="/admin/images/diy/del.png" /></div>
-                        </div>';
-                                    }elseif($value['type']=='p5'){//电话拨号
-                                        echo '<div style="background:'.$value['bgColor'].'" class="p5 sprite1" packageName="p5" background0="'.$value['bgColor'].'" color0="'.$value['txtColor'].'" fontsize0="'.$value['fontSize'].'px" >
-                          <div class="dragPart" style="color:'.$value['txtColor'].'; font-size:'.$value['fontSize'].'px;">'.$value['txt'].'</div>
-                          <div class="delObj hand" onclick="shop_obj.delObjEvt(this, \'p5\');"><img  src="/admin/images/diy/del.png" /></div>
                         </div>';
                                     }elseif($value['type']=='p12'){//搜索框
                                         $txtColor=explode('|',$value['txtColor']);
@@ -794,7 +783,7 @@
                                         }
                                         echo '</div>
                           </div>
-                          <div class="delObj hand" onclick="shop_obj.delObjEvt(this,\'p14\');"><img src="/admin/images//diy/del.png" /></div>
+                          <div class="delObj hand" onclick="shop_obj.delObjEvt(this,\'p14\');"><img src="/admin/images/diy/del.png" /></div>
                           <div class="clean"></div>
                           </div>';
                                     }
@@ -1627,32 +1616,6 @@
                                 <div class="clean"></div>
                             </div>
 
-                            <!---电话拨号-->
-                            <div class="ps2_frmae_p5">
-                                <div class="pNotice">注：一行填写一个号码，如：<span class="fc_red">13800138000/陈生</span></div>
-                                <div class="clean"></div>
-                                <div class="phoneSprite">
-                                    <textarea></textarea>
-                                </div>
-                                <div class="clean"></div>
-                                <div class="colorTitle">颜色：</div>
-                                <input type="text" maxlength="8" size="8" id="colorSelectorWordp5" class="txtColor" value="#ffffff" readonly />
-                                <div class="colorTitle" style="margin-left:20px;">背景：</div>
-                                <input type="text" maxlength="8" size="8" id="colorSelectorBgp5" class="bgColor" value="#4C4C4C" readonly />
-                                <div class="colorTitle" style="margin-left:20px;">大小：</div>
-                                <select class="fontSize_p5" style="vertical-align:-5px;">
-                                    <option value="14">14px</option>
-                                    <option value="16">16px</option>
-                                    <option value="18">18px</option>
-                                    <option value="20">20px</option>
-                                    <option value="22">22px</option>
-                                    <option value="24">24px</option>
-                                </select>
-                                <div class="clean"></div>
-                                <div class='btn_green btn_w_120 editBtn hand' onclick='shop_obj.p5.insertHtml("p5")'>保 存</div>
-                                <div class="clean"></div>
-                            </div>
-
                             <!--搜索框-->
                             <div class="ps2_frmae_p12">
                                 <div class="pNotice">注：搜索按钮(宽：40px，高：30px)</div>
@@ -1709,14 +1672,14 @@
                                 <div class="img_name num"><label>产品显示条数</label>
                                     <input  type="text" value="文字区域1" onFocus="this.value=='文字区域1'?this.value='':''" />
                                 </div>
-                                <div class="selectLink"><label>产品列表样式</label>
+                                {{--<div class="selectLink"><label>产品列表样式</label>
                                     <select id='list_type_p13'>
                                         <option value='1'>列表样式01</option>
                                         <option value='2'>列表样式02</option>
                                         <option value='3'>列表样式03</option>
                                         <option value='4'>列表样式04</option>
                                     </select>
-                                </div>
+                                </div>--}}
                                 <div class="checkList"><label>产品额外属性</label>
                                     <div>
                                         <span><input type="checkbox" name="nature_p13" value="dis"><label>折扣</label></span>
@@ -1725,14 +1688,14 @@
                                         <span><input type="checkbox" name="nature_p13" value="cart"><label>购物车</label></span>
                                     </div>
                                 </div>
-                                <div class="selectLink"><label>产品标题栏样式</label>
+                                {{--<div class="selectLink"><label>产品标题栏样式</label>
                                     <select id='type_p13'>
                                         <option value='1'>标题样式01</option>
                                         <option value='2'>标题样式02</option>
                                         <option value='3'>标题样式03</option>
                                         <option value='4'>标题样式04</option>
                                     </select>
-                                </div>
+                                </div>--}}
                                 <div class="checkList"><label>产品标题栏更多显示</label>
                                     <div>
                                         <span><input type='radio' name='check_more' checked='checked' value='1'><label>显示更多</label></span>
@@ -1770,30 +1733,30 @@
                                 <div class="img_name num"><label>产品显示条数</label>
                                     <input  value="文字区域1" onFocus="this.value=='文字区域1'?this.value='':''" />
                                 </div>
-                                <div class="selectLink"><label>产品列表样式</label>
+                                {{--<div class="selectLink"><label>产品列表样式</label>
                                     <select id='list_type_p14'>
                                         <option value='1'>列表样式01</option>
                                         <option value='2'>列表样式02</option>
                                         <option value='3'>列表样式03</option>
                                         <option value='4'>列表样式04</option>
                                     </select>
-                                </div>
+                                </div>--}}
                                 <div class="checkList"><label>产品额外属性</label>
                                     <div>
-                                        <span><input type="checkbox" name="nature_p14" value="dis"><label>折扣</label></span>
-                                        <span><input type="checkbox" name="nature_p14" value="sale"><label>销量</label></span>
-                                        <span><input type="checkbox" name="nature_p14" value="integration"><label>积分</label></span>
-                                        <span><input type="checkbox" name="nature_p14" value="cart"><label>购物车</label></span>
+                                        <input type="checkbox" name="nature_p14" value="dis"><label>折扣</label>
+                                        <input type="checkbox" name="nature_p14" value="sale"><label>销量</label>
+                                        <input type="checkbox" name="nature_p14" value="integration"><label>积分</label>
+                                        <input type="checkbox" name="nature_p14" value="cart"><label>购物车</label>
                                     </div>
                                 </div>
-                                <div class="selectLink"><label>产品标题栏样式</label>
+                                {{--<div class="selectLink"><label>产品标题栏样式</label>
                                     <select id='type_p14'>
                                         <option value='1'>标题样式01</option>
                                         <option value='2'>标题样式02</option>
                                         <option value='3'>标题样式03</option>
                                         <option value='4'>标题样式04</option>
                                     </select>
-                                </div>
+                                </div>--}}
                                 <div class="checkList"><label>产品标题栏更多显示</label>
                                     <div>
                                         <span><input type='radio' name='check_more_p14' checked='checked' value='1'><label>显示更多</label></span>
