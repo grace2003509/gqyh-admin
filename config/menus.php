@@ -52,43 +52,6 @@ return json_encode([                                    // modules
         ],
     ],
     [
-        'name' => '我的微信',
-        'icon' => 'weixin',
-        'route' => null,
-        'items' => [
-            [
-                'name' => '微信接口配置',
-                'route' => 'admin.wechat.api_index',
-                'description' => null,
-                'items' => null,
-            ],
-            /*[
-                'name' => '首次关注设置',
-                'route' => 'admin.wechat.reply_index',
-                'description' => null,
-                'items' => null,
-            ],*/
-            [
-                'name' => '自定义菜单设置',
-                'route' => 'admin.wechat.menu_index',
-                'description' => null,
-                'items' => null,
-            ],
-            /*[
-                'name' => '关键词回复设置',
-                'route' => 'admin.wechat.keyword_index',
-                'description' => null,
-                'items' => null,
-            ],*/
-            /*[
-                'name' => '图文消息管理',
-                'route' => 'admin.wechat.material_index',
-                'description' => null,
-                'items' => null,
-            ],*/
-        ],
-    ],
-    [
         'name' => '商城设置',
         'icon' => 'shopping-bag',
         'route' => null,
@@ -198,6 +161,43 @@ return json_encode([                                    // modules
                 'description' => null,
                 'items' => null,
             ],
+        ],
+    ],
+    [
+        'name' => '我的微信',
+        'icon' => 'weixin',
+        'route' => null,
+        'items' => [
+            [
+                'name' => '微信接口配置',
+                'route' => 'admin.wechat.api_index',
+                'description' => null,
+                'items' => null,
+            ],
+            /*[
+                'name' => '首次关注设置',
+                'route' => 'admin.wechat.reply_index',
+                'description' => null,
+                'items' => null,
+            ],*/
+            [
+                'name' => '自定义菜单设置',
+                'route' => 'admin.wechat.menu_index',
+                'description' => null,
+                'items' => null,
+            ],
+            /*[
+                'name' => '关键词回复设置',
+                'route' => 'admin.wechat.keyword_index',
+                'description' => null,
+                'items' => null,
+            ],*/
+            /*[
+                'name' => '图文消息管理',
+                'route' => 'admin.wechat.material_index',
+                'description' => null,
+                'items' => null,
+            ],*/
         ],
     ],
     [

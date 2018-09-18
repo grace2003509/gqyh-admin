@@ -72,40 +72,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
 
     });
 
-    //我的微信
-    Route::group(['perfix' => 'wechat', 'namespace' => 'Wechat'], function ($route) {
-        //微信接口配置
-        $route->get('/api_index', 'ApiConfigController@index')->name('admin.wechat.api_index');
-        $route->post('/api_edit', 'ApiConfigController@edit')->name('admin.wechat.api_edit');
-        //首次关注设置
-        $route->get('/reply_index', 'ReplyConfigController@index')->name('admin.wechat.reply_index');
-        $route->post('/reply_edit', 'ReplyConfigController@edit')->name('admin.wechat.reply_edit');
-        //自定义菜单设置
-        $route->get('/menu_index', 'DiyMenuConfigController@index')->name('admin.wechat.menu_index');
-        $route->get('/menu_edit/{id}', 'DiyMenuConfigController@edit')->name('admin.wechat.menu_edit');
-        $route->post('/menu_update/{id}', 'DiyMenuConfigController@update')->name('admin.wechat.menu_update');
-        $route->get('/menu_add', 'DiyMenuConfigController@add')->name('admin.wechat.menu_add');
-        $route->post('/menu_store', 'DiyMenuConfigController@store')->name('admin.wechat.menu_store');
-        $route->get('/menu_del/{id}', 'DiyMenuConfigController@del')->name('admin.wechat.menu_del');
-        $route->get('/menu_push', 'DiyMenuConfigController@push')->name('admin.wechat.menu_push');
-        $route->get('/menu_cancel', 'DiyMenuConfigController@cancel')->name('admin.wechat.menu_cancel');
-        //关键词设置
-        $route->get('/keyword_index', 'KeyWordController@index')->name('admin.wechat.keyword_index');
-        $route->get('/keyword_edit/{id}', 'KeyWordController@edit')->name('admin.wechat.keyword_edit');
-        $route->post('/keyword_update/{id}', 'KeyWordController@update')->name('admin.wechat.keyword_update');
-        $route->get('/keyword_add', 'KeyWordController@add')->name('admin.wechat.keyword_add');
-        $route->post('/keyword_store', 'KeyWordController@store')->name('admin.wechat.keyword_store');
-        $route->get('/keyword_del/{id}', 'KeyWordController@del')->name('admin.wechat.keyword_del');
-        //图文消息管理
-        $route->get('/material_index', 'MaterialController@index')->name('admin.wechat.material_index');
-        $route->get('/material_edit/{id}', 'MaterialController@edit')->name('admin.wechat.material_edit');
-        $route->post('/material_update/{id}', 'MaterialController@update')->name('admin.wechat.material_update');
-        $route->get('/material_add', 'MaterialController@add')->name('admin.wechat.material_add');
-        $route->get('/material_madd', 'MaterialController@madd')->name('admin.wechat.material_madd');
-        $route->post('/material_store', 'MaterialController@store')->name('admin.wechat.material_store');
-        $route->get('/material_del/{id}', 'MaterialController@del')->name('admin.wechat.material_del');
-    });
-
     //商城管理
     Route::group(['prefix' => 'shop', 'namespace' => 'Shop'], function ($route) {
         //商城基本设置
@@ -192,6 +158,41 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
         $route->get('/del/{id}', 'ActiveController@del')->name('admin.active.del');
         //商家活动列表
         $route->get('/biz_active/{id}', 'ActiveController@biz_actives')->name('admin.active.biz_active');
+    });
+
+
+    //我的微信
+    Route::group(['perfix' => 'wechat', 'namespace' => 'Wechat'], function ($route) {
+        //微信接口配置
+        $route->get('/api_index', 'ApiConfigController@index')->name('admin.wechat.api_index');
+        $route->post('/api_edit', 'ApiConfigController@edit')->name('admin.wechat.api_edit');
+        //首次关注设置
+        $route->get('/reply_index', 'ReplyConfigController@index')->name('admin.wechat.reply_index');
+        $route->post('/reply_edit', 'ReplyConfigController@edit')->name('admin.wechat.reply_edit');
+        //自定义菜单设置
+        $route->get('/menu_index', 'DiyMenuConfigController@index')->name('admin.wechat.menu_index');
+        $route->get('/menu_edit/{id}', 'DiyMenuConfigController@edit')->name('admin.wechat.menu_edit');
+        $route->post('/menu_update/{id}', 'DiyMenuConfigController@update')->name('admin.wechat.menu_update');
+        $route->get('/menu_add', 'DiyMenuConfigController@add')->name('admin.wechat.menu_add');
+        $route->post('/menu_store', 'DiyMenuConfigController@store')->name('admin.wechat.menu_store');
+        $route->get('/menu_del/{id}', 'DiyMenuConfigController@del')->name('admin.wechat.menu_del');
+        $route->get('/menu_push', 'DiyMenuConfigController@push')->name('admin.wechat.menu_push');
+        $route->get('/menu_cancel', 'DiyMenuConfigController@cancel')->name('admin.wechat.menu_cancel');
+        //关键词设置
+        $route->get('/keyword_index', 'KeyWordController@index')->name('admin.wechat.keyword_index');
+        $route->get('/keyword_edit/{id}', 'KeyWordController@edit')->name('admin.wechat.keyword_edit');
+        $route->post('/keyword_update/{id}', 'KeyWordController@update')->name('admin.wechat.keyword_update');
+        $route->get('/keyword_add', 'KeyWordController@add')->name('admin.wechat.keyword_add');
+        $route->post('/keyword_store', 'KeyWordController@store')->name('admin.wechat.keyword_store');
+        $route->get('/keyword_del/{id}', 'KeyWordController@del')->name('admin.wechat.keyword_del');
+        //图文消息管理
+        $route->get('/material_index', 'MaterialController@index')->name('admin.wechat.material_index');
+        $route->get('/material_edit/{id}', 'MaterialController@edit')->name('admin.wechat.material_edit');
+        $route->post('/material_update/{id}', 'MaterialController@update')->name('admin.wechat.material_update');
+        $route->get('/material_add', 'MaterialController@add')->name('admin.wechat.material_add');
+        $route->get('/material_madd', 'MaterialController@madd')->name('admin.wechat.material_madd');
+        $route->post('/material_store', 'MaterialController@store')->name('admin.wechat.material_store');
+        $route->get('/material_del/{id}', 'MaterialController@del')->name('admin.wechat.material_del');
     });
 
     //财务统计

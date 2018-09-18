@@ -31,8 +31,6 @@ class BaseConfigController extends Controller
 
     public function update(Request $request)
     {
-        $flag = true;
-
         $input = $request->input();
 
         if($input["Area"]>0){
@@ -58,7 +56,6 @@ class BaseConfigController extends Controller
             "DefaultLng"=>isset($input["DefaultLng"])?$input["DefaultLng"]:0,
             "Commit_Check"=>isset($input["CommitCheck"])?$input["CommitCheck"]:0,
             "Substribe"=>isset($input["Substribe"])?$input["Substribe"]:0,
-            "moneytoscore"=>preg_replace('/[^\d\.]/', '', $input["moneytoscore"]),
             "Distribute_Share"=>isset($input["DistributeShare"])?$input["DistributeShare"]:0,
             "Member_Share"=>isset($input["MemberShare"])?$input["MemberShare"]:0,
             "Member_SubstribeScore"=>empty($input["Member_SubstribeScore"]) ? 0 : $input["Member_SubstribeScore"],
@@ -68,17 +65,11 @@ class BaseConfigController extends Controller
             "DefaultAreaID"=>$areaid,
             'user_trans_switch' => (int)$input['user_trans_switch']
         );
-        if(!empty($input['app_login_secret_key'])){
-            $Data['app_login_secret_key'] = htmlspecialchars($input['app_login_secret_key']);
-        }
-        $sc_obj = new ShopConfig();
-        $Set = $sc_obj->set_config($Data);
-        $flag = $flag||$Set;
 
-        if($flag){
-            return redirect()->back()->with('success', '设置成功');
-        }else{
-            return redirect()->back()->with('errors', '设置失败');
-        }
+        $sc_obj = new ShopConfig();
+        $sc_obj->set_config($Data);
+
+        return redirect()->back()->with('success', '设置成功');
+
     }
 }

@@ -10,7 +10,6 @@
     <link href='/admin/css/shop.css' rel='stylesheet' type='text/css' />
 
     <script src="/static/js/plugins/jQuery/jQuery-2.2.0.min.js"></script>
-    {{--<script type='text/javascript' src='/admin/js/global.js'></script>--}}
 
     <style type="text/css">
         #config_form img{width:100px; height:100px; font-size: 14px}
@@ -55,6 +54,14 @@
                                 </div>
 
                                 <div class="rows">
+                                    <label>充值积分比例</label>
+                                    <span class="input">
+                                      1元等于多少积分 <input type="number" name="moneytoscore" size="5" value="{{$rsConfig['moneytoscore']}}"/> 积分
+                                    </span>
+                                    <div class="clear"></div>
+                                </div>
+
+                                <div class="rows">
                                     <label>签到获取积分是否启用</label>
                                     <span class="input">
                                       开启 <input type="radio" name="Is_Sign" value="1" @if($rsConfig['Is_Sign'] == 1) checked @endif />
@@ -68,6 +75,14 @@
                                     <span class="input">
                                         会员每日签到获得
                                         <input type="number" name="Integral_Sign" size="5" value="{{$rsConfig['Integral_Sign']}}"/> 积分
+                                    </span>
+                                    <div class="clear"></div>
+                                </div>
+                                <div class="rows">
+                                    <label>推广下线积分设置</label>
+                                    <span class="input">
+                                        推广下线互得
+                                        <input type="number" name="Popularize_Integral" size="5" value="{{$rsConfig['Popularize_Integral']}}"/> 积分
                                     </span>
                                     <div class="clear"></div>
                                 </div>

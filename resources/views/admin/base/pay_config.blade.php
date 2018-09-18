@@ -259,6 +259,15 @@
                 });
             });
         });
+
+            function show_pay_ment(id) {
+                if (document.getElementById('check_' + id).checked == false) {
+                    document.getElementById('pay_' + id).style.display = 'none';
+                } else {
+                    document.getElementById('pay_' + id).style.display = 'block';
+                }
+            }
+
     </script>
 
 @endsection

@@ -83,9 +83,15 @@
                                         <label><input type="radio"  name="Bottom_Style" value="1"  @if($rsConfig["Bottom_Style"] == 1) checked @endif /> 图片</label>
                                     </div>
                                 </td>
-                                <td>
-                                    <h1><strong>充值积分比例(1元等于多少积分)</strong></h1>
-                                    <input type="text" class="input" name="moneytoscore" style="width:50px" value="@if(empty($rsConfig["moneytoscore"])) 1 @else {{$rsConfig["moneytoscore"]}} @endif" />
+                                <td width="50%" valign="top">
+                                    <h1>
+                                        <strong>会员转移开关</strong>
+                                        <span class="tips" style="color:#f00;">（默认为关闭状态,开启此开关后,会员在成为分销商之前如果扫描其他分销商二维码会变成其他分销商下级）</span>
+                                    </h1>
+                                    <div class="input">
+                                        <label>开启<input type="radio" @if($rsConfig["user_trans_switch"] == 1) checked @endif value="1" name="user_trans_switch"></label>&nbsp;&nbsp;
+                                        <label>关闭<input type="radio" @if($rsConfig["user_trans_switch"] == 0) checked @endif value="0" name="user_trans_switch"></label>
+                                    </div>
                                 </td>
                             </tr>
                             <tr>
@@ -148,25 +154,16 @@
                                     <input type="text" class="input" name="DefaultLng" value="{{$rsConfig["DefaultLng"]}}" size="10"/>
                                 </td>
                             </tr>
-                            <tr>
-                                <td width="50%" valign="top">
-                                    <h1>
-                                        <strong>会员转移开关</strong>
-                                        <span class="tips" style="color:#f00;">（默认为关闭状态,开启此开关后,会员在成为分销商之前如果扫描其他分销商二维码会变成其他分销商下级）</span>
-                                    </h1>
-                                    <div class="input">
-                                        <label>开启<input type="radio" @if($rsConfig["user_trans_switch"] == 1) checked @endif value="1" name="user_trans_switch"></label>&nbsp;&nbsp;
-                                        <label>关闭<input type="radio" @if($rsConfig["user_trans_switch"] == 0) checked @endif value="0" name="user_trans_switch"></label>
-                                    </div>
-                                </td>
-                            </tr>
                         </table>
 
-                        <div class="submit">
-                            <input type="submit" name="submit_button" value="提交保存" />
+                        <div style="margin: 20px auto 20px 0">
+                            <input type="submit" name="submit_button" class="btn_green" value="提交保存" />
                         </div>
+
+                        <div class="clearfix"></div>
                     </form>
                 </div>
+
             </div>
         </div>
 
