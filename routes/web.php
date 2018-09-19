@@ -148,6 +148,20 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
         $route->get('/back_update/{id}', 'ProductOrderBackController@update')->name('admin.product.back_update');
     });
 
+    //分销管理
+    Route::group(['prefix' => 'distribute', 'namespace' => 'Distribute'], function ($route) {
+        $route->get('/base_config_index', 'BaseConfigController@index')->name('admin.distribute.base_config_index');
+        $route->get('/dis_level', 'BaseConfigController@get_dis_level')->name('admin.distribute.dis_level');
+        $route->get('/get_product', 'BaseConfigController@get_product')->name('admin.distribute.get_product');
+        $route->get('/level', 'BaseConfigController@level')->name('admin.distribute.level');
+        $route->get('/level_add', 'BaseConfigController@level_add')->name('admin.distribute.level_add');
+        $route->post('/level_store', 'BaseConfigController@level_store')->name('admin.distribute.level_store');
+        $route->get('/level_edit/{id}', 'BaseConfigController@level_edit')->name('admin.distribute.level_edit');
+        $route->post('/level_update/{id}', 'BaseConfigController@level_update')->name('admin.distribute.level_update');
+        $route->get('/level_del/{id}', 'BaseConfigController@level_del')->name('admin.distribute.level_del');
+        $route->post('/base_config_update', 'BaseConfigController@update')->name('admin.distribute.base_config_update');
+    });
+
     //活动管理
     Route::group(['prefix' => 'active', 'namespace' => 'Active'], function ($route) {
         $route->get('/index', 'ActiveController@index')->name('admin.active.index');

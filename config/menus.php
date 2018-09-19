@@ -145,6 +145,19 @@ return json_encode([                                    // modules
         ],
     ],
     [
+        'name' => '分销管理',
+        'icon' => 'sitemap',
+        'route' => null,
+        'items' => [
+            [
+                'name' => '基础设置',
+                'route' => 'admin.distribute.base_config_index',
+                'description' => null,
+                'items' => null,
+            ],
+        ],
+    ],
+    [
         'name' => '活动管理',
         'icon' => 'rocket',
         'route' => null,

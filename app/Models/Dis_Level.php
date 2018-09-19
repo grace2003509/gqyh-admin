@@ -6,9 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class Dis_Level extends Model
 {
-    protected  $primaryKey = "Users_ID";
+    protected  $primaryKey = "Level_ID";
     protected  $table = "distribute_level";
     public $timestamps = false;
+
+    protected $fillable = [
+        'Users_ID','Level_Name','Level_Sort','Level_LimitType','Level_PresentValue','Level_LimitValue',
+        'Level_PeopleLimit','Level_Distributes','Level_CreateTime','Level_ImgPath','Level_UpdateType','Update_switch',
+        'Level_UpdateValue','Level_UpdateDistributes','Level_PresentUpdateValue','Present_type','Level_Form',
+        'Level_Description','Level_DistributesLSX','Level_UpDistributesLSX'
+    ];
 
     //获取会员的分销商等级
     function shop_distribute_level($fields = array()){
