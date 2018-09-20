@@ -97,97 +97,7 @@ class BaseConfigController extends Controller
             $lists = $dl_obj->all();
             $html = '<table width="100%" cellpadding="0" cellspacing="0">';
             $i = 0;
-            if ($type == 0) {//直接购买
-                $html .= '<tr>
-                    <th width="10%" nowrap="nowrap">序号</th>
-                    <th width="18%" nowrap="nowrap">级别名称</th>
-                    <th width="18%" nowrap="nowrap">门槛</th>
-                    <th width="18%" nowrap="nowrap">价格</th>
-                    <th width="18%" nowrap="nowrap">人数限制</th>
-                    <th width="18%" nowrap="nowrap" class="last">佣金明细</th>
-                  </tr>';
-                foreach ($lists as $key => $value) {
-                    $i++;
-                    $PeopleLimit = json_decode($value['Level_PeopleLimit'], true);
-                    if ($i == 1 && $value['Level_LimitType'] == 3) {//第一个无门槛
-                        $Distributes = array();
-                        $value["Level_LimitValue"] = '';
-                    } elseif ($value['Level_LimitType'] != 0) {
-                        $Distributes = array();
-                        $value["Level_LimitValue"] = '';
-                    } else {
-                        $Distributes = json_decode($value['Level_Distributes'], true);
-                    }
-                    $html .= '<tr>
-                        <td nowrap="nowrap">' . $i . '</td>
-                        <td nowrap="nowrap">' . $value["Level_Name"] . '</td>
-                        <td nowrap="nowrap">' . ($i == 1 ? $_TYPE[$value["Level_LimitType"]] : $_TYPE[$type]) . '</td>
-                        <td nowrap="nowrap"><font style="color:#F60">' . $value["Level_LimitValue"] . '</font></td>
-                        <td nowrap="nowrap">';
-                    foreach ($PeopleLimit as $k => $v) {
-                        if ($k > 1) {
-                            $html .= '<br />';
-                        }
-                        $html .= $arr[$k - 1] . '级&nbsp;&nbsp;';
-                        if ($v == 0) {
-                            $html .= '无限制';
-                        } elseif ($v == -1) {
-                            $html .= '禁止';
-                        } else {
-                            $html .= $v . '&nbsp;个';
-                        }
-                    }
-                    $html .= '</td>
-                        <td nowrap="nowrap" class="last">';
-                    foreach ($Distributes as $k => $v) {
-                        if ($k > 1) {
-                            $html .= '<br />';
-                        }
-                        $html .= $arr[$k - 1] . '级&nbsp;&nbsp;' . $v . '&nbsp;元';
-                    }
-                    $html .= '</td></tr>';
-                }
-            } elseif ($type == 1) {//消费额
-                $html .= '<tr>
-                    <th width="12%" nowrap="nowrap">序号</th>
-                    <th width="22%" nowrap="nowrap">级别名称</th>
-                    <th width="22%" nowrap="nowrap">门槛</th>
-                    <th width="22%" nowrap="nowrap">消费额</th>
-                    <th width="22%" nowrap="nowrap" class="last">人数限制</th>
-                  </tr>';
-                foreach ($lists as $key => $value) {
-                    $i++;
-                    $PeopleLimit = json_decode($value['Level_PeopleLimit'], true);
-                    if ($i == 1 && $value['Level_LimitType'] == 3) {//第一个无门槛
-                        $limit = '';
-                    } elseif ($value['Level_LimitType'] != 1) {
-                        $limit = '';
-                    } else {
-                        $limit_arr = explode('|', $value['Level_LimitValue']);
-                        $limit = $limit_arr[0] == 0 ? '商城总消费' . $limit_arr[1] . '元' : '一次性消费' . $limit_arr[1] . '元';
-                    }
-                    $html .= '<tr>
-                        <td nowrap="nowrap">' . $i . '</td>
-                        <td nowrap="nowrap">' . $value["Level_Name"] . '</td>
-                        <td nowrap="nowrap">' . ($i == 1 ? $_TYPE[$value["Level_LimitType"]] : $_TYPE[$type]) . '</td>
-                        <td nowrap="nowrap"><font style="color:#F60">' . $limit . '</font></td>
-                        <td nowrap="nowrap" class="last">';
-                    foreach ($PeopleLimit as $k => $v) {
-                        if ($k > 1) {
-                            $html .= '<br />';
-                        }
-                        $html .= $arr[$k - 1] . '级&nbsp;&nbsp;';
-                        if ($v == 0) {
-                            $html .= '无限制';
-                        } elseif ($v == -1) {
-                            $html .= '禁止';
-                        } else {
-                            $html .= $v . '&nbsp;个';
-                        }
-                    }
-                    $html .= '</td></tr>';
-                }
-            } elseif ($type == 2) {//购买商品
+            if ($type == 2) {//购买商品
                 $html .= '<tr>
                     <th width="12%" nowrap="nowrap">序号</th>
                     <th width="22%" nowrap="nowrap">级别名称</th>
@@ -253,7 +163,6 @@ class BaseConfigController extends Controller
 
         $dl_obj = new Dis_Level();
         $sp_obj = new ShopProduct();
-        $complete = array();
 
         $level = $input['level'];
         $type = $input['type'];
@@ -262,33 +171,6 @@ class BaseConfigController extends Controller
         $lists = $dl_obj->orderBy('Level_ID', 'asc')->get();
         foreach ($lists as $key => $value) {
             $value['PeopleLimit'] = json_decode($value['Level_PeopleLimit'], true);
-
-            if ($key == 0) {//第一个级别可以无门槛
-                if ($level == count($value['PeopleLimit']) && ($value['Level_LimitType'] == $type || $value['Level_LimitType'] == 3)) {
-                    $complete[] = $value['Level_ID'];
-                }
-            } else {
-                if ($level == count($value['PeopleLimit']) && $value['Level_LimitType'] == $type) {//查询已经更新过的分销商级别ID
-                    $complete[] = $value['Level_ID'];
-                }
-            }
-
-            if ($type == 0) {//购买级别
-                if (($key == 0 && $value['Level_LimitType'] == 3) || $value['Level_LimitType'] != 0) {//第一个无门槛
-                    $value["Level_LimitValue"] = '';
-                } else {
-                    $value['Distributes'] = json_decode($value['Level_Distributes'], true);
-                }
-            }
-
-            if ($type == 1) {//消费额
-                if (($key == 0 && $value['Level_LimitType'] == 3) || $value['Level_LimitType'] != 1) {//第一个无门槛
-                    $limit[$key] = '';
-                } else {
-                    $limit_arr = explode('|', $value['Level_LimitValue']);
-                    $limit[$key] = $limit_arr[0] == 0 ? '商城总消费' . $limit_arr[1] . '元' : '一次性消费' . $limit_arr[1] . '元';
-                }
-            }
 
             if ($type == 2) {//购买商品
                 if (($key == 0 && $value['Level_LimitType'] == 3) || $value['Level_LimitType'] != 2) {//第一个无门槛
@@ -315,7 +197,7 @@ class BaseConfigController extends Controller
         $_TYPE = array('直接购买', '消费额', '购买商品', '无门槛');
 
         return view('admin.distribute.level', compact(
-            'lists', 'arr', '_TYPE', 'type', 'level', 'complete', 'limit'));
+            'lists', 'arr', '_TYPE', 'type', 'level', 'limit'));
 
     }
 

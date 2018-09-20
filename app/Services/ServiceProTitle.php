@@ -37,8 +37,10 @@ class ServiceProTitle
         //过滤不启用的爵位(名称为空)
         $protitless = array();
         foreach ($protitles_temp as $pk => $pv) {
-            if (!empty($pv['Name'])) {
-                $protitless[$pk] = $pv;
+            if ($pk != 'Level_Num') {
+                if (!empty($pv['Name'])) {
+                    $protitless[$pk] = $pv;
+                }
             }
         }
 

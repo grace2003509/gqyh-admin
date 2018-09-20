@@ -150,7 +150,7 @@ return json_encode([                                    // modules
         'route' => null,
         'items' => [
             [
-                'name' => '基础设置',
+                'name' => '分销设置',
                 'route' => 'admin.distribute.base_config_index',
                 'description' => null,
                 'items' => null,

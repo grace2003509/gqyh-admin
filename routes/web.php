@@ -150,16 +150,28 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
 
     //分销管理
     Route::group(['prefix' => 'distribute', 'namespace' => 'Distribute'], function ($route) {
+        //基础设置
         $route->get('/base_config_index', 'BaseConfigController@index')->name('admin.distribute.base_config_index');
         $route->get('/dis_level', 'BaseConfigController@get_dis_level')->name('admin.distribute.dis_level');
-        $route->get('/get_product', 'BaseConfigController@get_product')->name('admin.distribute.get_product');
+        $route->post('/base_config_update', 'BaseConfigController@update')->name('admin.distribute.base_config_update');
+        //分销级别设置
         $route->get('/level', 'BaseConfigController@level')->name('admin.distribute.level');
         $route->get('/level_add', 'BaseConfigController@level_add')->name('admin.distribute.level_add');
         $route->post('/level_store', 'BaseConfigController@level_store')->name('admin.distribute.level_store');
         $route->get('/level_edit/{id}', 'BaseConfigController@level_edit')->name('admin.distribute.level_edit');
         $route->post('/level_update/{id}', 'BaseConfigController@level_update')->name('admin.distribute.level_update');
         $route->get('/level_del/{id}', 'BaseConfigController@level_del')->name('admin.distribute.level_del');
-        $route->post('/base_config_update', 'BaseConfigController@update')->name('admin.distribute.base_config_update');
+        //搜索获取商品信息
+        $route->get('/get_product', 'BaseConfigController@get_product')->name('admin.distribute.get_product');
+        //首页设置
+        $route->get('/home_config_index', 'HomeConfigController@index')->name('admin.distribute.home_config_index');
+        $route->post('/home_config_update', 'HomeConfigController@update')->name('admin.distribute.home_config_update');
+        //提现设置
+        $route->get('/withdraw_config_index', 'WithdrawConfigController@index')->name('admin.distribute.withdraw_config_index');
+        $route->post('/withdraw_config_update', 'WithdrawConfigController@update')->name('admin.distribute.withdraw_config_update');
+        //爵位设置
+        $route->get('/protitle_config_index', 'ProtitleConfigController@index')->name('admin.distribute.protitle_config_index');
+        $route->post('/protitle_config_update', 'ProtitleConfigController@update')->name('admin.distribute.protitle_config_update');
     });
 
     //活动管理

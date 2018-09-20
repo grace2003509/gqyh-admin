@@ -59,11 +59,11 @@ var config_obj={
 
         config_obj.products_select();
 
-        $('#distribute_config_form').submit(function(){
+        /*$('#distribute_config_form').submit(function(){
             if(global_obj.check_form($('*[notnull]'))){return false};
             $('#distribute_config_form input:submit').attr('disabled', true);
             return true;
-        });
+        });*/
     },
 
     other_config:function(){
@@ -186,53 +186,6 @@ var config_obj={
             }
         });
 
-        $("input[name=Sha_Agent_Type]").click(function(){
-            var shaenable_open = "<input type=\"radio\" id=\"q_0\" name=\"Sha_Rate[Shaenable]\" value=\"1\" checked><label for=\"q_0\">开启</label>&nbsp;&nbsp;<input type=\"radio\" id=\"q_1\" name=\"Sha_Rate[Shaenable]\" value=\"0\"><label for=\"q_1\">关闭</label>";
-            var regwhere_shaaget ='';
-            var type = $(this).attr('value');
-            if(type == 0){
-                $("#Agent_Ratf_Row").hide();
-                $("#Agent_Ratg_Row").hide();
-                $("#Agent_Ratf_Input").html('');
-                $("#Agent_Ratg_Input").html('');
-                $("#Sha_People input").val(0);
-                $("#Sha_Money input").val(0.00);
-                $("#Sha_People").hide();
-                $("#Sha_Money").hide();
-            }else if(type == 1){
-                if(level != null){
-                    regwhere_shaaget += "等级<select name=\"Sha_Rate[sha][Level]\"><option value=\"0\" selected>---选择等级---</option>";
-                    $.each(level,function(key,val){
-                        regwhere_shaaget += "<option value=\""+val['Level_ID']+"\">"+val['Level_Name']+"</option>";
-                    });
-                    regwhere_shaaget += "</select>";
-                }
-                if(title != null){
-                    regwhere_shaaget += "&nbsp;&nbsp;&nbsp;爵位<select name=\"Sha_Rate[sha][Protitle]\"><option value=\"0\" selected>---选择爵位---</option>";
-                    $.each(title,function(key,val){
-                        regwhere_shaaget += "<option value=\""+key+"\">"+val['Name']+"</option>";
-                    });
-                    regwhere_shaaget += "</select>";
-                }
-                regwhere_shaaget += "&nbsp;&nbsp;&nbsp;自费金额<strong class=\"red\">（元）</strong><input type=\"text\" name=\"Sha_Rate[sha][Selfpro]\" value=\"0\" class=\"form_input\" size=\"3\" maxlength=\"10\" notnull>&nbsp;&nbsp;&nbsp;团队销售额<strong class=\"red\">（元）</strong><input type=\"text\" name=\"Sha_Rate[sha][Teampro]\" value=\"0\" class=\"form_input\" size=\"3\" maxlength=\"10\" notnull>&nbsp;&nbsp;&nbsp;申请价格<strong class=\"red\">（元）</strong><input type=\"text\" name=\"Sha_Rate[sha][price]\" value=\"0\" class=\"form_input\" size=\"3\" maxlength=\"10\" notnull />";
-
-                $("#Agent_Ratf_Row").show();
-                $("#Agent_Ratg_Row").show();
-                $("#Agent_Ratf_Input").html(regwhere_shaaget);
-                $("#Agent_Ratg_Input").html(shaenable_open);
-                $("#Sha_People").show();
-                $("#Sha_Money").show();
-            }
-        });
-
-        $('#distribute_config_form').submit(function(){
-            if(global_obj.check_form($('*[notnull]'))){return false};
-            $('#distribute_config_form input:submit').attr('disabled', true);
-            return true;
-        });
-    },
-
-    protitle_config:function(){
         $('#distribute_config_form').submit(function(){
             if(global_obj.check_form($('*[notnull]'))){return false};
             $('#distribute_config_form input:submit').attr('disabled', true);
@@ -243,7 +196,7 @@ var config_obj={
     products_select:function(){
         //商品选择模块
         $("input[name=Fanwei]").click(function(){
-            if($(this).attr("value") == 0){
+            if($(this).attr("value") === 0){
                 $(this).parent().children(".products_option").hide();
             }else{
                 $(this).parent().children(".products_option").show();
@@ -256,7 +209,7 @@ var config_obj={
             var keyword = object.children("input").val();
 
             var param = {cate_id:catid,keyword:keyword,action:'get_product'};
-            $.get('?',param,function(data){
+            $.get('/admin/distribute/get_product',param,function(data){
                 object.parent().children(".select_items").children(".select_product0").html(data);
             });
         });
