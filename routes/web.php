@@ -172,6 +172,12 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
         //爵位设置
         $route->get('/protitle_config_index', 'ProtitleConfigController@index')->name('admin.distribute.protitle_config_index');
         $route->post('/protitle_config_update', 'ProtitleConfigController@update')->name('admin.distribute.protitle_config_update');
+        //区域代理设置
+        $route->get('/agent_config_index', 'AgentConfigController@index')->name('admin.distribute.agent_config_index');
+        $route->post('/agent_config_update', 'AgentConfigController@update')->name('admin.distribute.agent_config_update');
+        //其他设置
+        $route->get('/other_config_index', 'OtherConfigController@index')->name('admin.distribute.other_config_index');
+        $route->post('/other_config_update', 'OtherConfigController@update')->name('admin.distribute.other_config_update');
     });
 
     //活动管理

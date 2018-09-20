@@ -33,7 +33,8 @@
                         <a href="{{route('admin.distribute.home_config_index')}}" class="btn_green btn_w_120">分销首页设置</a>
                         <a href="{{route('admin.distribute.withdraw_config_index')}}" class="btn_green btn_w_120">提现设置</a>
                         <a href="{{route('admin.distribute.protitle_config_index')}}" class="btn_green btn_w_120">爵位设置</a>
-                        <a href="" class="btn_green btn_w_120">其他设置</a>
+                        <a href="{{route('admin.distribute.agent_config_index')}}" class="btn_green btn_w_120">区域代理设置</a>
+                        <a href="{{route('admin.distribute.other_config_index')}}" class="btn_green btn_w_120">其他设置</a>
                     </div>
                     <form id="distribute_config_form" class="r_con_form" method="post" action="{{route('admin.distribute.base_config_update')}}">
                         {{csrf_field()}}
