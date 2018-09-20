@@ -45,7 +45,20 @@
                                 </span>
                                 <div class="clear"></div>
                             </div>
-
+                            <div class="rows"  @if($rsConfig["Dis_Agent_Type"]>0) style="display:block" @else style="display:none" @endif >
+                                <label>区域代理总级</label>
+                                <span class="input">
+                                    <input type="number" name="Agent_Level_Count" value="4" @if($rsConfig["Dis_Agent_Type"] == 1) required @endif /> 级
+                                </span>
+                                <div class="clear"></div>
+                            </div>
+                            <div class="rows"  @if($rsConfig["Dis_Agent_Type"]>0 && $rsConfig['Agent_Level_count'] > 0 ) style="display:block" @else style="display:none" @endif >
+                                <label>区域级别名称</label>
+                                <span class="input">
+                                    <input type="text" name="Agent_Level_Name" value="" @if($rsConfig["Dis_Agent_Type"] == 1) required @endif />
+                                </span>
+                                <div class="clear"></div>
+                            </div>
                             <!--edit in 20160409-->
                             <!-- 代理省级设置begin -->
                             <div  class="rows" id="Agent_Rate_Row" @if($rsConfig["Dis_Agent_Type"]>0) style="display:block" @else style="display:none" @endif >
@@ -100,43 +113,58 @@
                                     <div class="level_for_level">
                                         <div>省级</div>
                                         <div>
-                                            @if(isset($Agent_Rate_Commi_list['pro']['pro']))
-                                                @foreach($Agent_Rate_Commi_list['pro']['pro'] as $ak => $av)
-                                                    <input type="text" name="Agent_Rate_Commi[pro][pro][]" value="{{$av}}" class="form_input" size="7" maxlength="10" required /><br>
-                                                @endforeach
-                                            @endif
+                                            @for($i=0;$i<3;$i++)
+                                                <input type="text" name="Agent_Rate_Commi[pro][pro][]"
+                                                       @if(isset($Agent_Rate_Commi_list['pro']['pro']))
+                                                               value="{{$Agent_Rate_Commi_list['pro']['pro'][$i]}}"
+                                                       @else
+                                                               value="0"
+                                                       @endif class="form_input" size="7" maxlength="10" required /><br>
+                                            @endfor
                                         </div>
                                         <div>省会级</div>
                                         <div>
-                                            @if(isset($Agent_Rate_Commi_list['pro']['procit']))
-                                                @foreach($Agent_Rate_Commi_list['pro']['procit'] as $ak => $av)
-                                                    <input type="text" name="Agent_Rate_Commi[pro][procit][]" value="{{$av}}" class="form_input" size="7" maxlength="10" required /><br>
-                                                @endforeach
-                                            @endif
+                                            @for($i=0;$i<3;$i++)
+                                                <input type="text" name="Agent_Rate_Commi[pro][procit][]"
+                                                       @if(isset($Agent_Rate_Commi_list['pro']['procit']))
+                                                       value="{{$Agent_Rate_Commi_list['pro']['procit'][$i]}}"
+                                                       @else
+                                                       value="0"
+                                                       @endif class="form_input" size="7" maxlength="10" required /><br>
+                                            @endfor
                                         </div>
                                         <div>市级</div>
                                         <div>
-                                            @if(isset($Agent_Rate_Commi_list['pro']['cit']))
-                                                @foreach($Agent_Rate_Commi_list['pro']['cit'] as $ak => $av)
-                                                    <input type="text" name="Agent_Rate_Commi[pro][cit][]" value="{{$av}}" class="form_input" size="7" maxlength="10" required /><br>
-                                                @endforeach
-                                            @endif
+                                            @for($i=0;$i<3;$i++)
+                                                <input type="text" name="Agent_Rate_Commi[pro][cit][]"
+                                                       @if(isset($Agent_Rate_Commi_list['pro']['cit']))
+                                                       value="{{$Agent_Rate_Commi_list['pro']['cit'][$i]}}"
+                                                       @else
+                                                       value="0"
+                                                       @endif class="form_input" size="7" maxlength="10" required /><br>
+                                            @endfor
                                         </div>
                                         <div>县(区)级</div>
                                         <div>
-                                            @if(isset($Agent_Rate_Commi_list['pro']['cou']))
-                                                @foreach($Agent_Rate_Commi_list['pro']['cou'] as $ak => $av)
-                                                    <input type="text" name="Agent_Rate_Commi[pro][cou][]" value="{{$av}}" class="form_input" size="7" maxlength="10" required /><br>
-                                                @endforeach
-                                            @endif
+                                            @for($i=0;$i<3;$i++)
+                                                <input type="text" name="Agent_Rate_Commi[pro][cou][]"
+                                                       @if(isset($Agent_Rate_Commi_list['pro']['cou']))
+                                                       value="{{$Agent_Rate_Commi_list['pro']['cou'][$i]}}"
+                                                       @else
+                                                       value="0"
+                                                       @endif class="form_input" size="7" maxlength="10" required /><br>
+                                            @endfor
                                         </div>
                                         <div>@if(empty($hige_distribute_level['Level_Name'])) 总 @else {{$hige_distribute_level['Level_Name']}} @endif </div>
                                         <div>
-                                            @if(isset($Agent_Rate_Commi_list['pro']['zong']))
-                                                @foreach($Agent_Rate_Commi_list['pro']['zong'] as $ak => $av)
-                                                    <input type="text" name="Agent_Rate_Commi[pro][zong][]" value="{{$av}}" class="form_input" size="7" maxlength="10" required /><br>
-                                                @endforeach
-                                            @endif
+                                            @for($i=0;$i<3;$i++)
+                                                <input type="text" name="Agent_Rate_Commi[pro][zong][]"
+                                                       @if(isset($Agent_Rate_Commi_list['pro']['zong']))
+                                                       value="{{$Agent_Rate_Commi_list['pro']['zong'][$i]}}"
+                                                       @else
+                                                       value="0"
+                                                       @endif class="form_input" size="7" maxlength="10" required /><br>
+                                            @endfor
                                         </div>
                                     </div>
         	                    </span>
@@ -151,14 +179,14 @@
                                     销售额%
                                     <input type="text" name="Agent_Rate[procit][Province]"
                                            @if(isset($Agent_Rate_list['procit']['Province']))
-                                           value="{{isset($Agent_Rate_list['procit']['Province'])}}"
+                                           value="{{$Agent_Rate_list['procit']['Province']}}"
                                            @else
                                            value=""
                                            @endif class="form_input" size="3" maxlength="10" required />&nbsp;&nbsp;&nbsp;
 				                    代理价格<strong class="red">（元）</strong>
                                     <input type="text" name="Agent_Rate[procit][Provincepro]"
                                            @if(isset($Agent_Rate_list['procit']['Provincepro']))
-                                           value="{{isset($Agent_Rate_list['procit']['Provincepro'])}}"
+                                           value="{{$Agent_Rate_list['procit']['Provincepro']}}"
                                            @else
                                            value=""
                                            @endif class="form_input" size="10" maxlength="10" required />
@@ -184,14 +212,14 @@
                                     自费金额<strong class="red">（元）</strong>
                                     <input type="text" name="Agent_Rate[procit][Selfpro]"
                                            @if(isset($Agent_Rate_list['procit']['Selfpro']))
-                                                   value="{{isset($Agent_Rate_list['procit']['Selfpro'])}}"
+                                                   value="{{$Agent_Rate_list['procit']['Selfpro']}}"
                                            @else
                                                    value=""
                                            @endif class="form_input" size="10" maxlength="10" required />&nbsp;&nbsp;&nbsp;
 				                    团队销售额<strong class="red">（元）</strong>
                                     <input type="text" name="Agent_Rate[procit][Teampro]"
                                            @if(isset($Agent_Rate_list['procit']['Teampro']))
-                                           value="{{isset($Agent_Rate_list['procit']['Teampro'])}}"
+                                           value="{{$Agent_Rate_list['procit']['Teampro']}}"
                                            @else
                                            value=""
                                            @endif class="form_input" size="10" maxlength="10" required />
@@ -199,43 +227,58 @@
                                     <div class="level_for_level">
                                         <div>省级</div>
                                         <div>
-                                            @if(isset($Agent_Rate_Commi_list['procit']['pro']))
-                                                @foreach($Agent_Rate_Commi_list['procit']['pro'] as $ak => $av)
-                                                    <input type="text" name="Agent_Rate_Commi[procit][pro][]" value="{{$av}}" class="form_input" size="7" maxlength="10" required /><br>
-                                                @endforeach
-                                            @endif
+                                            @for($i=0;$i<3;$i++)
+                                                <input type="text" name="Agent_Rate_Commi[procit][pro][]"
+                                                       @if(isset($Agent_Rate_Commi_list['procit']['pro']))
+                                                       value="{{$Agent_Rate_Commi_list['procit']['pro'][$i]}}"
+                                                       @else
+                                                       value="0"
+                                                       @endif class="form_input" size="7" maxlength="10" required /><br>
+                                            @endfor
                                         </div>
                                         <div>省会级</div>
                                         <div>
-                                            @if(isset($Agent_Rate_Commi_list['procit']['procit']))
-                                                @foreach($Agent_Rate_Commi_list['procit']['procit'] as $ak => $av)
-                                                    <input type="text" name="Agent_Rate_Commi[procit][procit][]" value="{{$av}}" class="form_input" size="7" maxlength="10" required /><br>
-                                                @endforeach
-                                            @endif
+                                            @for($i=0;$i<3;$i++)
+                                                <input type="text" name="Agent_Rate_Commi[procit][procit][]"
+                                                       @if(isset($Agent_Rate_Commi_list['procit']['procit']))
+                                                       value="{{$Agent_Rate_Commi_list['procit']['procit'][$i]}}"
+                                                       @else
+                                                       value="0"
+                                                       @endif class="form_input" size="7" maxlength="10" required /><br>
+                                            @endfor
                                         </div>
                                         <div>市级</div>
                                         <div>
-                                            @if(isset($Agent_Rate_Commi_list['procit']['cit']))
-                                                @foreach($Agent_Rate_Commi_list['procit']['cit'] as $ak => $av)
-                                                    <input type="text" name="Agent_Rate_Commi[procit][cit][]" value="{{$av}}" class="form_input" size="7" maxlength="10" required /><br>
-                                                @endforeach
-                                            @endif
+                                            @for($i=0;$i<3;$i++)
+                                                <input type="text" name="Agent_Rate_Commi[procit][cit][]"
+                                                       @if(isset($Agent_Rate_Commi_list['procit']['cit']))
+                                                       value="{{$Agent_Rate_Commi_list['procit']['cit'][$i]}}"
+                                                       @else
+                                                       value="0"
+                                                       @endif class="form_input" size="7" maxlength="10" required /><br>
+                                            @endfor
                                         </div>
                                         <div>县(区)级</div>
                                         <div>
-                                            @if(isset($Agent_Rate_Commi_list['procit']['cou']))
-                                                @foreach($Agent_Rate_Commi_list['procit']['cou'] as $ak => $av)
-                                                    <input type="text" name="Agent_Rate_Commi[procit][cou][]" value="{{$av}}" class="form_input" size="7" maxlength="10" required /><br>
-                                                @endforeach
-                                            @endif
+                                            @for($i=0;$i<3;$i++)
+                                                <input type="text" name="Agent_Rate_Commi[procit][cou][]"
+                                                       @if(isset($Agent_Rate_Commi_list['procit']['cou']))
+                                                       value="{{$Agent_Rate_Commi_list['procit']['cou'][$i]}}"
+                                                       @else
+                                                       value="0"
+                                                       @endif class="form_input" size="7" maxlength="10" required /><br>
+                                            @endfor
                                         </div>
                                         <div>@if(empty($hige_distribute_level['Level_Name'])) 总 @else {{$hige_distribute_level['Level_Name']}} @endif </div>
                                         <div>
-                                            @if(isset($Agent_Rate_Commi_list['procit']['zong']))
-                                                @foreach($Agent_Rate_Commi_list['procit']['zong'] as $ak => $av)
-                                                    <input type="text" name="Agent_Rate_Commi[procit][zong][]" value="{{$av}}" class="form_input" size="7" maxlength="10" required /><br>
-                                                @endforeach
-                                            @endif
+                                            @for($i=0;$i<3;$i++)
+                                                <input type="text" name="Agent_Rate_Commi[procit][zong][]"
+                                                       @if(isset($Agent_Rate_Commi_list['procit']['zong']))
+                                                       value="{{$Agent_Rate_Commi_list['procit']['zong'][$i]}}"
+                                                       @else
+                                                       value="0"
+                                                       @endif class="form_input" size="7" maxlength="10" required /><br>
+                                            @endfor
                                         </div>
                                     </div>
                                 </span>
@@ -250,14 +293,14 @@
                                     销售额%
                                     <input type="text" name="Agent_Rate[cit][Province]"
                                            @if(isset($Agent_Rate_list['cit']['Province']))
-                                           value="{{isset($Agent_Rate_list['cit']['Province'])}}"
+                                           value="{{$Agent_Rate_list['cit']['Province']}}"
                                            @else
                                            value=""
                                            @endif class="form_input" size="3" maxlength="10" required />&nbsp;&nbsp;&nbsp;
 				                    代理价格<strong class="red">（元）</strong>
                                     <input type="text" name="Agent_Rate[cit][Provincepro]"
                                            @if(isset($Agent_Rate_list['cit']['Provincepro']))
-                                           value="{{isset($Agent_Rate_list['cit']['Provincepro'])}}"
+                                           value="{{$Agent_Rate_list['cit']['Provincepro']}}"
                                            @else
                                            value=""
                                            @endif class="form_input" size="10" maxlength="10" required />
@@ -283,14 +326,14 @@
                                     自费金额<strong class="red">（元）</strong>
                                     <input type="text" name="Agent_Rate[cit][Selfpro]"
                                            @if(isset($Agent_Rate_list['cit']['Selfpro']))
-                                                   value="{{isset($Agent_Rate_list['cit']['Selfpro'])}}"
+                                                   value="{{$Agent_Rate_list['cit']['Selfpro']}}"
                                            @else
                                                    value=""
                                            @endif class="form_input" size="10" maxlength="10" required />&nbsp;&nbsp;&nbsp;
 				                    团队销售额<strong class="red">（元）</strong>
                                     <input type="text" name="Agent_Rate[cit][Teampro]"
                                            @if(isset($Agent_Rate_list['cit']['Teampro']))
-                                           value="{{isset($Agent_Rate_list['cit']['Teampro'])}}"
+                                           value="{{$Agent_Rate_list['cit']['Teampro']}}"
                                            @else
                                            value=""
                                            @endif class="form_input" size="10" maxlength="10" required />
@@ -298,43 +341,58 @@
                                     <div class="level_for_level">
                                         <div>省级</div>
                                         <div>
-                                            @if(isset($Agent_Rate_Commi_list['cit']['pro']))
-                                                @foreach($Agent_Rate_Commi_list['cit']['pro'] as $ak => $av)
-                                                    <input type="text" name="Agent_Rate_Commi[cit][pro][]" value="{{$av}}" class="form_input" size="7" maxlength="10" required /><br>
-                                                @endforeach
-                                            @endif
+                                            @for($i=0;$i<3;$i++)
+                                                <input type="text" name="Agent_Rate_Commi[cit][pro][]"
+                                                       @if(isset($Agent_Rate_Commi_list['cit']['pro']))
+                                                       value="{{$Agent_Rate_Commi_list['cit']['pro'][$i]}}"
+                                                       @else
+                                                       value="0"
+                                                       @endif class="form_input" size="7" maxlength="10" required /><br>
+                                            @endfor
                                         </div>
                                         <div>省会级</div>
                                         <div>
-                                            @if(isset($Agent_Rate_Commi_list['cit']['procit']))
-                                                @foreach($Agent_Rate_Commi_list['cit']['procit'] as $ak => $av)
-                                                    <input type="text" name="Agent_Rate_Commi[cit][procit][]" value="{{$av}}" class="form_input" size="7" maxlength="10" required /><br>
-                                                @endforeach
-                                            @endif
+                                            @for($i=0;$i<3;$i++)
+                                                <input type="text" name="Agent_Rate_Commi[cit][procit][]"
+                                                       @if(isset($Agent_Rate_Commi_list['cit']['procit']))
+                                                       value="{{$Agent_Rate_Commi_list['cit']['procit'][$i]}}"
+                                                       @else
+                                                       value="0"
+                                                       @endif class="form_input" size="7" maxlength="10" required /><br>
+                                            @endfor
                                         </div>
                                         <div>市级</div>
                                         <div>
-                                           @if(isset($Agent_Rate_Commi_list['cit']['cit']))
-                                                @foreach($Agent_Rate_Commi_list['cit']['cit'] as $ak => $av)
-                                                    <input type="text" name="Agent_Rate_Commi[cit][cit][]" value="{{$av}}" class="form_input" size="7" maxlength="10" required /><br>
-                                                @endforeach
-                                            @endif
+                                            @for($i=0;$i<3;$i++)
+                                                <input type="text" name="Agent_Rate_Commi[cit][cit][]"
+                                                       @if(isset($Agent_Rate_Commi_list['cit']['cit']))
+                                                       value="{{$Agent_Rate_Commi_list['cit']['cit'][$i]}}"
+                                                       @else
+                                                       value="0"
+                                                       @endif class="form_input" size="7" maxlength="10" required /><br>
+                                            @endfor
                                         </div>
                                         <div>县(区)级</div>
                                         <div>
-                                            @if(isset($Agent_Rate_Commi_list['cit']['cou']))
-                                                @foreach($Agent_Rate_Commi_list['cit']['cou'] as $ak => $av)
-                                                    <input type="text" name="Agent_Rate_Commi[cit][cou][]" value="{{$av}}" class="form_input" size="7" maxlength="10" required /><br>
-                                                @endforeach
-                                            @endif
+                                            @for($i=0;$i<3;$i++)
+                                                <input type="text" name="Agent_Rate_Commi[cit][cou][]"
+                                                       @if(isset($Agent_Rate_Commi_list['cit']['cou']))
+                                                       value="{{$Agent_Rate_Commi_list['cit']['cou'][$i]}}"
+                                                       @else
+                                                       value="0"
+                                                       @endif class="form_input" size="7" maxlength="10" required /><br>
+                                            @endfor
                                         </div>
                                         <div>@if(empty($hige_distribute_level['Level_Name'])) 总 @else {{$hige_distribute_level['Level_Name']}} @endif </div>
                                         <div>
-                                            @if(isset($Agent_Rate_Commi_list['cit']['zong']))
-                                                @foreach($Agent_Rate_Commi_list['cit']['zong'] as $ak => $av)
-                                                    <input type="text" name="Agent_Rate_Commi[cit][zong][]" value="{{$av}}" class="form_input" size="7" maxlength="10" required /><br>
-                                                @endforeach
-                                            @endif
+                                            @for($i=0;$i<3;$i++)
+                                                <input type="text" name="Agent_Rate_Commi[cit][zong][]"
+                                                       @if(isset($Agent_Rate_Commi_list['cit']['zong']))
+                                                       value="{{$Agent_Rate_Commi_list['cit']['zong'][$i]}}"
+                                                       @else
+                                                       value="0"
+                                                       @endif class="form_input" size="7" maxlength="10" required /><br>
+                                            @endfor
                                         </div>
                                     </div>
                                 </span>
@@ -349,14 +407,14 @@
                                     销售额%
                                     <input type="text" name="Agent_Rate[cou][Province]"
                                            @if(isset($Agent_Rate_list['cou']['Province']))
-                                                   value="{{isset($Agent_Rate_list['cou']['Province'])}}"
+                                                   value="{{$Agent_Rate_list['cou']['Province']}}"
                                            @else
                                                    value=""
                                            @endif class="form_input" size="3" maxlength="10" required />&nbsp;&nbsp;&nbsp;
 				                    代理价格<strong class="red">（元）</strong>
                                     <input type="text" name="Agent_Rate[cou][Provincepro]"
                                            @if(isset($Agent_Rate_list['cou']['Provincepro']))
-                                           value="{{isset($Agent_Rate_list['cou']['Provincepro'])}}"
+                                           value="{{$Agent_Rate_list['cou']['Provincepro']}}"
                                            @else
                                            value=""
                                            @endif class="form_input" size="10" maxlength="10" required />
@@ -382,14 +440,14 @@
 			                        &nbsp;&nbsp;&nbsp;自费金额<strong class="red">（元）</strong>
                                     <input type="text" name="Agent_Rate[cou][Selfpro]"
                                            @if(isset($Agent_Rate_list['cou']['Selfpro']))
-                                                   value="{{isset($Agent_Rate_list['cou']['Selfpro'])}}"
+                                                   value="{{$Agent_Rate_list['cou']['Selfpro']}}"
                                            @else
                                                    value=""
                                            @endif class="form_input" size="10" maxlength="10" required />
 				                    &nbsp;&nbsp;&nbsp;团队销售额<strong class="red">（元）</strong>
                                     <input type="text" name="Agent_Rate[cou][Teampro]"
                                            @if(isset($Agent_Rate_list['cou']['Teampro']))
-                                           value="{{isset($Agent_Rate_list['cou']['Teampro'])}}"
+                                           value="{{$Agent_Rate_list['cou']['Teampro']}}"
                                            @else
                                            value=""
                                            @endif class="form_input" size="10" maxlength="10" required />
@@ -397,43 +455,58 @@
                                     <div class="level_for_level">
                                         <div>省级</div>
                                         <div>
-                                            @if(isset($Agent_Rate_Commi_list['cou']['pro']))
-                                                @foreach($Agent_Rate_Commi_list['cou']['pro'] as $ak => $av)
-                                                    <input type="text" name="Agent_Rate_Commi[cou][pro][]" value="{{$av}}" class="form_input" size="7" maxlength="10" required /><br>
-                                                @endforeach
-                                            @endif
+                                            @for($i=0;$i<3;$i++)
+                                                <input type="text" name="Agent_Rate_Commi[cou][pro][]"
+                                                       @if(isset($Agent_Rate_Commi_list['cou']['pro']))
+                                                       value="{{$Agent_Rate_Commi_list['cou']['pro'][$i]}}"
+                                                       @else
+                                                       value="0"
+                                                       @endif class="form_input" size="7" maxlength="10" required /><br>
+                                            @endfor
                                         </div>
                                         <div>省会级</div>
                                         <div>
-                                            @if(isset($Agent_Rate_Commi_list['cou']['procit']))
-                                                @foreach($Agent_Rate_Commi_list['cou']['procit'] as $ak => $av)
-                                                    <input type="text" name="Agent_Rate_Commi[cou][procit][]" value="{{$av}}" class="form_input" size="7" maxlength="10" required /><br>
-                                                @endforeach
-                                            @endif
+                                            @for($i=0;$i<3;$i++)
+                                                <input type="text" name="Agent_Rate_Commi[cou][procit][]"
+                                                       @if(isset($Agent_Rate_Commi_list['cou']['procit']))
+                                                       value="{{$Agent_Rate_Commi_list['cou']['procit'][$i]}}"
+                                                       @else
+                                                       value="0"
+                                                       @endif class="form_input" size="7" maxlength="10" required /><br>
+                                            @endfor
                                         </div>
                                         <div>市级</div>
                                         <div>
-                                            @if(isset($Agent_Rate_Commi_list['cou']['cit']))
-                                                @foreach($Agent_Rate_Commi_list['cou']['cit'] as $ak => $av)
-                                                    <input type="text" name="Agent_Rate_Commi[cou][cit][]" value="{{$av}}" class="form_input" size="7" maxlength="10" required /><br>
-                                                @endforeach
-                                            @endif
+                                            @for($i=0;$i<3;$i++)
+                                                <input type="text" name="Agent_Rate_Commi[cou][cit][]"
+                                                       @if(isset($Agent_Rate_Commi_list['cou']['cit']))
+                                                       value="{{$Agent_Rate_Commi_list['cou']['cit'][$i]}}"
+                                                       @else
+                                                       value="0"
+                                                       @endif class="form_input" size="7" maxlength="10" required /><br>
+                                            @endfor
                                         </div>
                                         <div>县(区)级</div>
                                         <div>
-                                            @if(isset($Agent_Rate_Commi_list['cou']['cou']))
-                                                @foreach($Agent_Rate_Commi_list['cou']['cou'] as $ak => $av)
-                                                    <input type="text" name="Agent_Rate_Commi[cou][cou][]" value="{{$av}}" class="form_input" size="7" maxlength="10" required /><br>
-                                                @endforeach
-                                            @endif
+                                            @for($i=0;$i<3;$i++)
+                                                <input type="text" name="Agent_Rate_Commi[cou][cou][]"
+                                                       @if(isset($Agent_Rate_Commi_list['cou']['cou']))
+                                                       value="{{$Agent_Rate_Commi_list['cou']['cou'][$i]}}"
+                                                       @else
+                                                       value="0"
+                                                       @endif class="form_input" size="7" maxlength="10" required /><br>
+                                            @endfor
                                         </div>
                                         <div>@if(empty($hige_distribute_level['Level_Name'])) 总 @else {{$hige_distribute_level['Level_Name']}} @endif </div>
                                         <div>
-                                            @if(isset($Agent_Rate_Commi_list['cou']['zong']))
-                                                @foreach($Agent_Rate_Commi_list['cou']['zong'] as $ak => $av)
-                                                    <input type="text" name="Agent_Rate_Commi[cou][zong][]" value="{{$av}}" class="form_input" size="7" maxlength="10" required /><br>
-                                                @endforeach
-                                            @endif
+                                            @for($i=0;$i<3;$i++)
+                                                <input type="text" name="Agent_Rate_Commi[cou][zong][]"
+                                                       @if(isset($Agent_Rate_Commi_list['cou']['zong']))
+                                                       value="{{$Agent_Rate_Commi_list['cou']['zong'][$i]}}"
+                                                       @else
+                                                       value="0"
+                                                       @endif class="form_input" size="7" maxlength="10" required /><br>
+                                            @endfor
                                         </div>
                                     </div>
                                 </span>
