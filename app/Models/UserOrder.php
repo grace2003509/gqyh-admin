@@ -229,4 +229,85 @@ class UserOrder extends Model
         $this->where('Order_ID', $orderid)->update($data);
     }
 
+
+    /**
+     * 团队累计销售额
+     * @param $UsersID
+     * @param $UserID
+     * @param $posterity
+     * @param int $time
+     * @param int $type
+     * @return float|int
+     */
+    public function get_my_leiji_vip_sales($UserID, $posterity, $time = 0, $type = 0)
+    {
+        $dc_obj = new Dis_Config();
+        $dl_obj = new Dis_Level();
+
+        $obj = $this->where('Is_Backup', 0);
+
+        //当月第一天时间戳
+        $first_date_str = date('Y-m-01', time());
+        $first_date_unix = strtotime($first_date_str);
+        //当月最后一天时间戳
+        $end_date_unix = strtotime("$first_date_str +1 month -1 day");
+        $time_where = '';
+        if ($time == 1) {
+            $obj = $obj->where('Order_CreateTime', '>=', $first_date_unix);
+            $obj = $obj->where('Order_CreateTime', '<=', $end_date_unix);
+        }
+
+        $total_sales = 0;
+
+        //计算本店下属分销商作为用户所购买门槛商品销售额
+        $posterityids = array();
+        if (count($posterity) > 0) {
+            $posterityids = $posterity->map(function ($node) {
+                return $node->User_ID;
+            })->toArray();
+        }
+        $posterityids[] = $UserID;
+
+
+        //获取所有门槛商品
+        $dis_arr = $dl_obj->where('Level_LimitType', 2)
+            ->where('Level_ID','<', 3)
+            ->get();
+        $all_vip_productid_arr = array();
+        foreach($dis_arr as $k => $v){
+            $ids_arr = explode('|', $v['Level_LimitValue']);
+            if($ids_arr[0] == 1){
+                $all_vip_productid_arr[] = $ids_arr[1];
+            }
+        }
+        $all_vip_productid_str = implode(',', $all_vip_productid_arr);
+        $all_vip_productid = explode(',', $all_vip_productid_str);
+
+        //获取爵位计入状态设置
+        if($type == 1){
+            $status = $dc_obj->select('Pro_Title_Status')->first();
+        }
+        if(isset($status) && $status['Pro_Title_Status'] == 4){
+            $obj = $obj->where('Order_Status', 4);
+        }else{
+            $obj = $obj->where('Order_Status', '>=', 2);
+        }
+
+        $r2 = $obj->select('Order_CartList')->whereIn('Owner_ID', $posterityids);
+        $money = 0;
+        foreach($r2 as $k => $v){
+            $cart_list = json_decode($v['Order_CartList'], true);
+            foreach($cart_list as $key => $value){
+                if(count($all_vip_productid) > 0 && in_array($key, $all_vip_productid)){
+                    $money += $value[0]['ProductsPriceX'] * $value[0]['Qty'];
+                }
+            }
+        }
+
+        $total_sales = $total_sales + $money;
+
+        return $total_sales;
+
+    }
+
 }

@@ -155,6 +155,12 @@ return json_encode([                                    // modules
                 'description' => null,
                 'items' => null,
             ],
+            [
+                'name' => '分销账号管理',
+                'route' => 'admin.distribute.account_index',
+                'description' => null,
+                'items' => null,
+            ],
         ],
     ],
     [

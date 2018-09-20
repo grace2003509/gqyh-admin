@@ -178,6 +178,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
         //其他设置
         $route->get('/other_config_index', 'OtherConfigController@index')->name('admin.distribute.other_config_index');
         $route->post('/other_config_update', 'OtherConfigController@update')->name('admin.distribute.other_config_update');
+        //分销账号管理
+        $route->get('/account_index', 'DisAccountController@index')->name('admin.distribute.account_index');
+        $route->get('/account_update/{id}', 'DisAccountController@update')->name('admin.distribute.account_update');
+        $route->get('/account_del/{id}', 'DisAccountController@del')->name('admin.distribute.account_del');
     });
 
     //活动管理

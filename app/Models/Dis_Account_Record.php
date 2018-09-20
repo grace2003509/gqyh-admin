@@ -58,58 +58,7 @@ class Dis_Account_Record extends Model
 
         return $sum;
     }
-    /*edit数据统计20160408--start--*/
-    //已付款佣金
-    public function recordMoneySum2($Begin_Time, $End_Time, $Record_Status = '')
-    {
-        $builder = $this->whereBetween('Record_CreateTime', [$Begin_Time, $End_Time]);
-        $builder->where('Record_Type', 0);
-        if (strlen($Record_Status) > 0) {
-            $builder->where('Record_Status', '>=', $Record_Status);
-        }
 
-        $sum = $builder->sum('Record_Money');
-
-        return $sum;
-    }
-
-    //提现佣金
-    public function recordMoneySum3($Begin_Time, $End_Time, $Record_Status = '')
-    {
-        $builder = $this->whereBetween('Record_CreateTime', [$Begin_Time, $End_Time]);
-        $builder->where('Record_Type', 1);
-        if (strlen($Record_Status) > 0) {
-            $builder->where('Record_Status', $Record_Status);
-        }
-
-        $sum = $builder->sum('Record_Money');
-
-        return $sum;
-    }
-
-    public function recordMoneySum4($Begin_Time, $End_Time, $Record_Type, $Record_Status = '')
-    {
-        $builder = $this->whereBetween('Record_CreateTime', [$Begin_Time, $End_Time]);
-        $builder->where('Record_Type', $Record_Type);
-        if (strlen($Record_Status) > 0) {
-            $builder->where('Record_Status', '>=', $Record_Status);
-        }
-        $sum = $builder->sum('Record_Money');
-        return $sum;
-    }
-
-
-    public function recordMoneySum5($Begin_Time, $End_Time, $Record_Type, $Record_Status = '')
-    {
-        $builder = $this->whereBetween('Record_CreateTime', [$Begin_Time, $End_Time]);
-        $builder->where('Record_Money', '<', 0);
-        if (strlen($Record_Status) > 0) {
-            $builder->where('Record_Status', '>=', $Record_Status);
-        }
-        $sum = $builder->sum('Record_Money');
-        return $sum;
-    }
-    /*edit数据统计20160408--end--*/
 
     /**
      * 指定时间内的记录
@@ -133,17 +82,6 @@ class Dis_Account_Record extends Model
     }
 
     /**
-     * 批量添加分销账号记录
-     * @param  Collection $records 分销账号记录
-     * @return bool        记录是否添加成功
-     */
-    public function batchAdd($records)
-    {
-        $flag = Capsule::table($this->table)->insert($records);
-        return $flag;
-    }
-
-    /**
      * 通过订单ID更改分销账号记录
      * @param  int $orderID 订单ID
      * @param  int $Status 分销账号记录的状态
@@ -159,6 +97,19 @@ class Dis_Account_Record extends Model
             $flag = $disAccountRecord->rawUpdate(array('Record_Status' => $Status));
         }
         return $flag;
+    }
+
+
+    /**
+     *获取我的累计佣金收入
+     */
+    public function get_my_leiji_income($UserID)
+    {
+        $total = $this->where(['User_ID' => $UserID, 'Record_Type' => 0])
+            ->where('Record_Status', '>=', 1)
+            ->sum('Record_Money');
+        $total_income = floor($total * 100) / 100;
+        return $total_income;
     }
 
 }
