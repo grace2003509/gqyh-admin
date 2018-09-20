@@ -34,7 +34,38 @@ class DisAccountController extends Controller
         $dis_title_level = !$dis_title_level ? [] : $dis_title_level;
         $rsDis_Level = $dl_obj->select('Level_ID','Level_Name')->get();
 
-        //todo 搜索
+        //搜索
+        $input = $request->input();
+        if(isset($input["search"]) && $input["search"] == 1){
+
+            if(!empty($input["Keyword"])&&strlen(trim($input["Keyword"]))>0){
+                $a_user = $m_obj->select('User_ID')
+                    ->where('User_Mobile','like','%'. $input['Keyword'].'%')
+                    ->get();
+                $aids = [];
+                foreach($a_user as $k => $v){
+                    $aids[] = $v['User_ID'];
+                }
+                $da_obj = $da_obj->whereIn("invite_id",$aids);
+            }
+            if(!empty($input["Mobile"])&& strlen(trim($input["Mobile"]))>0){
+                $a_user = $m_obj->select('User_ID')
+                    ->where('User_Mobile','like','%'. $input['Mobile'].'%')
+                    ->get();
+                $aids = [];
+                foreach($a_user as $k => $v){
+                    $aids[] = $v['User_ID'];
+                }
+                $da_obj = $da_obj->whereIn("User_ID",$aids);
+            }
+            if($input['level'] != 'all'){
+                $da_obj = $da_obj->where('Professional_Title',$input['level']);
+            }
+            if(!empty($input['dis_level'])){
+                $da_obj = $da_obj->where('Level_ID',$input['dis_level']);
+            }
+
+        }
 
         $account_list = $da_obj->orderBy('Account_CreateTime', 'desc')->paginate(15);
         foreach($account_list as $key => $account){
@@ -56,7 +87,8 @@ class DisAccountController extends Controller
             $account['nobi_Total'] = $dpr_obj->where(['User_ID'=> $account['User_ID'], 'type' => 4])->sum('money');
 
             //团队销售额
-            $posterity = $da_obj->getPosterity();
+            $da_obj1 = new Dis_Account();
+            $posterity = $da_obj1->getPosterity();
             $account['Sales_Group'] = $uo_obj->get_my_leiji_vip_sales($account['User_ID'],$posterity, 0, 1);
         }
 
@@ -79,6 +111,15 @@ class DisAccountController extends Controller
      * 删除分销账号
      */
     public function del($id)
+    {
+
+    }
+
+
+    /**
+     * 获得代理区域信息
+     */
+    public function get_agent_info(Request $request)
     {
 
     }

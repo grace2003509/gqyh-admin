@@ -6,6 +6,7 @@ var account_obj={
             if(o.children('select').size()){return false;}
 
             var s_html='<select>';
+            var i;
             for(i=0;i<level_ary.length;i++){
                 var selected=o.html()==level_ary[i]?'selected':'';
                 s_html+='<option value="'+i+'" '+selected+'>'+level_ary[i]+'</option>';
@@ -45,8 +46,8 @@ var account_obj={
         $(".agent_info").click(function(){
             var account_id = $(this).attr('agent-id');
             $("#agent-info-modal").modal('show');
-            var param = {account_id:account_id,action:'get_dis_agent_form'};
-            $.get('ajax.php',param,function(data){
+            var param = {account_id:account_id};
+            $.get('/admin/distribute/get_dis_agent_area',param,function(data){
                 if(data.status == 1){
                     $("#agent-info-modal").find('div.modal-body').html(data.content);
                     //展开城市列表
@@ -92,10 +93,9 @@ var account_obj={
             var param = {JProvinces:JProvinces,
                 KCitys:KCitys,
                 KCountys:KCountys,
-                account_id:account_id,
-                action:'save_dis_agent_area'};
-            $.post('ajax.php',param,function(data){
-                if(data.status == 1){
+                account_id:account_id};
+            $.post('/admin/distribute/save_dis_agent_area',param,function(data){
+                if(data.status === 1){
                     $("#agent-info-modal").modal('hide');
                 }
             },'json');

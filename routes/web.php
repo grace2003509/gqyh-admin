@@ -182,6 +182,11 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
         $route->get('/account_index', 'DisAccountController@index')->name('admin.distribute.account_index');
         $route->get('/account_update/{id}', 'DisAccountController@update')->name('admin.distribute.account_update');
         $route->get('/account_del/{id}', 'DisAccountController@del')->name('admin.distribute.account_del');
+        //下属
+        $route->get('/account_posterity/{id}', 'DisAccountController@posterity')->name('admin.distribute.account_posterity');
+        //获取保存区域代理信息
+        $route->get('/get_dis_agent_area', 'DisAccountController@get_dis_agent_area')->name('admin.distribute.get_dis_agent_area');
+        $route->post('/save_dis_agent_area', 'DisAccountController@save_dis_agent_area')->name('admin.distribute.save_dis_agent_area');
     });
 
     //活动管理
