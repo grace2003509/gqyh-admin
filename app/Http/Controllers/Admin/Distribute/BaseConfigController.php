@@ -6,7 +6,6 @@ use App\Models\Dis_Account;
 use App\Models\Dis_Config;
 use App\Models\Dis_Level;
 use App\Models\ShopCategory;
-use App\Models\ShopConfig;
 use App\Models\ShopProduct;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -63,10 +62,7 @@ class BaseConfigController extends Controller
         $dis_config->Dis_Level = $input['Dis_Level'];
         $dis_config->Dis_Mobile_Level = $input['Dis_Mobile_Level'];
         $dis_config->Dis_Self_Bonus = !empty($input['Dis_Self_Bonus']) ? $input['Dis_Self_Bonus'] : 0;
-        //购买协议
-        $dis_config->Distribute_Agreement = htmlspecialchars($input['Agreement'], ENT_QUOTES);
-        $dis_config->Distribute_AgreementTitle = htmlspecialchars($input['AgreementTitle'], ENT_QUOTES);
-        $dis_config->Distribute_AgreementOpen = $input['AgreementOpen'];
+        //分销商升级方式
         $dis_config->Distribute_UpgradeWay = $input['Distribute_UpgradeWay'];
 
         $dis_config->save();

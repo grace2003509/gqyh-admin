@@ -103,35 +103,6 @@
                             </span>
                             <div class="clear"></div>
                         </div>
-
-                        <div class="rows">
-                            <label>购买协议</label>
-                            <span class="input">
-                              <input name="AgreementOpen" value="0" type="radio" id="agree_0" @if($rsConfig['Distribute_AgreementOpen']==0) checked @endif />
-                                <label for="agree_0">关闭</label>&nbsp;&nbsp;
-                              <input name="AgreementOpen" value="1" type="radio" id="agree_1" @if($rsConfig['Distribute_AgreementOpen']==1) checked @endif />
-                                <label for="agree_1">开启</label>
-                            </span>
-                            <div class="clear"></div>
-                        </div>
-
-                        <div class="rows">
-                            <label>购买协议标题</label>
-                            <span class="input">
-                              <input name="AgreementTitle" value="{{$rsConfig["Distribute_AgreementTitle"]}}" type="text" class="form_input" size="30" />
-                            </span>
-                            <div class="clear"></div>
-                        </div>
-
-                        <div class="rows">
-                            <label>购买协议内容</label>
-                            <span class="input">
-                              <textarea name="Agreement" style="width:100%;height:400px;visibility:hidden;">{{$rsConfig["Distribute_Agreement"]}}</textarea>
-                              <div class="tips">此协议仅在购买成为分销商页面显示</div>
-                            </span>
-                            <div class="clear"></div>
-                        </div>
-
                         <div class="rows">
                             <label></label>
                             <span class="input">
