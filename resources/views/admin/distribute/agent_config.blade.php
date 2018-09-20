@@ -45,22 +45,123 @@
                                 </span>
                                 <div class="clear"></div>
                             </div>
-                            <div class="rows"  @if($rsConfig["Dis_Agent_Type"]>0) style="display:block" @else style="display:none" @endif >
-                                <label>区域代理总级</label>
-                                <span class="input">
-                                    <input type="number" name="Agent_Level_Count" value="4" @if($rsConfig["Dis_Agent_Type"] == 1) required @endif /> 级
-                                </span>
-                                <div class="clear"></div>
-                            </div>
-                            <div class="rows"  @if($rsConfig["Dis_Agent_Type"]>0 && $rsConfig['Agent_Level_count'] > 0 ) style="display:block" @else style="display:none" @endif >
-                                <label>区域级别名称</label>
-                                <span class="input">
-                                    <input type="text" name="Agent_Level_Name" value="" @if($rsConfig["Dis_Agent_Type"] == 1) required @endif />
-                                </span>
-                                <div class="clear"></div>
-                            </div>
                             <!--edit in 20160409-->
                             <!-- 代理省级设置begin -->
+                            @if($rsConfig['Agent_Level_Name'])
+                                @foreach($Agent_Rate_list as $key => $Agent)
+                                    <div  class="rows" id="Agent_Rate_Row" >
+                                        <label>省级设置</label>
+                                        <span class="input" id="Agent_Rate_Input">
+                                            销售额%<input type="text" name="Agent_Rate[pro][Province]"
+                                                       @if(isset($Agent_Rate_list['pro']['Province']))
+                                                       value="{{$Agent_Rate_list['pro']['Province']}}"
+                                                       @else
+                                                       value=""
+                                                       @endif class="form_input" size="3" maxlength="10" required />&nbsp;&nbsp;&nbsp;
+                                            代理价格<strong class="red">（元）</strong>
+                                            <input type="text" name="Agent_Rate[pro][Provincepro]"
+                                                   @if(isset($Agent_Rate_list['pro']['Provincepro']))
+                                                   value="{{$Agent_Rate_list['pro']['Provincepro']}}"
+                                                   @else
+                                                   value=""
+                                                   @endif class="form_input" size="10" maxlength="10" required />
+                                            认证条件：等级
+                                            <select name="Agent_Rate[pro][Level]">
+                                                <option value="0" @if(isset($Agent_Rate_list['pro']['Level']) && $Agent_Rate_list['pro']['Level']== 0) selected @endif >---选择等级---</option>
+                                                @if(!empty($distribute_level))
+                                                    @foreach($distribute_level as $key=>$level)
+                                                        <option value="{{$level['Level_ID']}}" @if(isset($Agent_Rate_list['pro']['Level']) && $level['Level_ID']==$Agent_Rate_list['pro']['Level']) selected @endif >{{$level['Level_Name']}}</option>
+                                                    @endforeach
+                                                @endif
+                                            </select>&nbsp;&nbsp;&nbsp;
+                                            爵位
+                                            <select name="Agent_Rate[pro][Protitle]">
+                                                <option value="0" @if(isset($Agent_Rate_list['pro']['Protitle']) && $Agent_Rate_list['pro']['Protitle']== 0 ) selected @endif >---选择爵位---</option>
+                                                @if(!empty($dis_title_level))
+                                                    @foreach($dis_title_level as $key=>$title)
+                                                        <option value="{{$key}}" @if(isset($Agent_Rate_list['pro']['Protitle']) && $key==$Agent_Rate_list['pro']['Protitle']) selected @endif >{{$title['Name']}}</option>
+                                                    @endforeach
+                                                @endif
+                                            </select>&nbsp;&nbsp;&nbsp;
+                                            自费金额<strong class="red">（元）</strong>
+                                            <input type="text" name="Agent_Rate[pro][Selfpro]"
+                                                   @if(isset($Agent_Rate_list['pro']['Selfpro']))
+                                                   value="{{$Agent_Rate_list['pro']['Selfpro']}}"
+                                                   @else
+                                                   value=""
+                                                   @endif class="form_input" size="10" maxlength="10" required />&nbsp;&nbsp;&nbsp;
+                                            团队销售额<strong class="red">（元）</strong>
+                                            <input type="text" name="Agent_Rate[pro][Teampro]"
+                                                   @if(isset($Agent_Rate_list['pro']['Teampro']))
+                                                   value="{{$Agent_Rate_list['pro']['Teampro']}}"
+                                                   @else
+                                                   value=""
+                                                   @endif class="form_input" size="10" maxlength="10" required />
+                                            <br>
+                                            <div class="level_for_level">
+                                                <div>省级</div>
+                                                <div>
+                                                    @for($i=0;$i<3;$i++)
+                                                        <input type="text" name="Agent_Rate_Commi[pro][pro][]"
+                                                               @if(isset($Agent_Rate_Commi_list['pro']['pro']))
+                                                               value="{{$Agent_Rate_Commi_list['pro']['pro'][$i]}}"
+                                                               @else
+                                                               value="0"
+                                                               @endif class="form_input" size="7" maxlength="10" required /><br>
+                                                    @endfor
+                                                </div>
+                                                <div>省会级</div>
+                                                <div>
+                                                    @for($i=0;$i<3;$i++)
+                                                        <input type="text" name="Agent_Rate_Commi[pro][procit][]"
+                                                               @if(isset($Agent_Rate_Commi_list['pro']['procit']))
+                                                               value="{{$Agent_Rate_Commi_list['pro']['procit'][$i]}}"
+                                                               @else
+                                                               value="0"
+                                                               @endif class="form_input" size="7" maxlength="10" required /><br>
+                                                    @endfor
+                                                </div>
+                                                <div>市级</div>
+                                                <div>
+                                                    @for($i=0;$i<3;$i++)
+                                                        <input type="text" name="Agent_Rate_Commi[pro][cit][]"
+                                                               @if(isset($Agent_Rate_Commi_list['pro']['cit']))
+                                                               value="{{$Agent_Rate_Commi_list['pro']['cit'][$i]}}"
+                                                               @else
+                                                               value="0"
+                                                               @endif class="form_input" size="7" maxlength="10" required /><br>
+                                                    @endfor
+                                                </div>
+                                                <div>县(区)级</div>
+                                                <div>
+                                                    @for($i=0;$i<3;$i++)
+                                                        <input type="text" name="Agent_Rate_Commi[pro][cou][]"
+                                                               @if(isset($Agent_Rate_Commi_list['pro']['cou']))
+                                                               value="{{$Agent_Rate_Commi_list['pro']['cou'][$i]}}"
+                                                               @else
+                                                               value="0"
+                                                               @endif class="form_input" size="7" maxlength="10" required /><br>
+                                                    @endfor
+                                                </div>
+                                                <div>@if(empty($hige_distribute_level['Level_Name'])) 总 @else {{$hige_distribute_level['Level_Name']}} @endif </div>
+                                                <div>
+                                                    @for($i=0;$i<3;$i++)
+                                                        <input type="text" name="Agent_Rate_Commi[pro][zong][]"
+                                                               @if(isset($Agent_Rate_Commi_list['pro']['zong']))
+                                                               value="{{$Agent_Rate_Commi_list['pro']['zong'][$i]}}"
+                                                               @else
+                                                               value="0"
+                                                               @endif class="form_input" size="7" maxlength="10" required /><br>
+                                                    @endfor
+                                                </div>
+                                            </div>
+                                        </span>
+                                        <div class="clear"></div>
+                                    </div>
+                                @endforeach
+                            @endif
+
+
                             <div  class="rows" id="Agent_Rate_Row" @if($rsConfig["Dis_Agent_Type"]>0) style="display:block" @else style="display:none" @endif >
                                 <label>省级设置</label>
                                 <span class="input" id="Agent_Rate_Input">
@@ -68,14 +169,14 @@
                                                @if(isset($Agent_Rate_list['pro']['Province']))
                                                        value="{{$Agent_Rate_list['pro']['Province']}}"
                                                @else
-                                                       value=""
+                                                       value="0"
                                                @endif class="form_input" size="3" maxlength="10" required />&nbsp;&nbsp;&nbsp;
                                     代理价格<strong class="red">（元）</strong>
                                     <input type="text" name="Agent_Rate[pro][Provincepro]"
                                            @if(isset($Agent_Rate_list['pro']['Provincepro']))
                                                    value="{{$Agent_Rate_list['pro']['Provincepro']}}"
                                            @else
-                                                   value=""
+                                                   value="0"
                                            @endif class="form_input" size="10" maxlength="10" required />
                                     认证条件：等级
                                     <select name="Agent_Rate[pro][Level]">
@@ -100,14 +201,14 @@
                                            @if(isset($Agent_Rate_list['pro']['Selfpro']))
                                                    value="{{$Agent_Rate_list['pro']['Selfpro']}}"
                                            @else
-                                                   value=""
+                                                   value="0"
                                            @endif class="form_input" size="10" maxlength="10" required />&nbsp;&nbsp;&nbsp;
 				                    团队销售额<strong class="red">（元）</strong>
                                     <input type="text" name="Agent_Rate[pro][Teampro]"
                                            @if(isset($Agent_Rate_list['pro']['Teampro']))
                                                    value="{{$Agent_Rate_list['pro']['Teampro']}}"
                                            @else
-                                                   value=""
+                                                   value="0"
                                            @endif class="form_input" size="10" maxlength="10" required />
                                     <br>
                                     <div class="level_for_level">
@@ -181,14 +282,14 @@
                                            @if(isset($Agent_Rate_list['procit']['Province']))
                                            value="{{$Agent_Rate_list['procit']['Province']}}"
                                            @else
-                                           value=""
+                                           value="0"
                                            @endif class="form_input" size="3" maxlength="10" required />&nbsp;&nbsp;&nbsp;
 				                    代理价格<strong class="red">（元）</strong>
                                     <input type="text" name="Agent_Rate[procit][Provincepro]"
                                            @if(isset($Agent_Rate_list['procit']['Provincepro']))
                                            value="{{$Agent_Rate_list['procit']['Provincepro']}}"
                                            @else
-                                           value=""
+                                           value="0"
                                            @endif class="form_input" size="10" maxlength="10" required />
                                     认证条件：
                                     等级
@@ -214,14 +315,14 @@
                                            @if(isset($Agent_Rate_list['procit']['Selfpro']))
                                                    value="{{$Agent_Rate_list['procit']['Selfpro']}}"
                                            @else
-                                                   value=""
+                                                   value="0"
                                            @endif class="form_input" size="10" maxlength="10" required />&nbsp;&nbsp;&nbsp;
 				                    团队销售额<strong class="red">（元）</strong>
                                     <input type="text" name="Agent_Rate[procit][Teampro]"
                                            @if(isset($Agent_Rate_list['procit']['Teampro']))
                                            value="{{$Agent_Rate_list['procit']['Teampro']}}"
                                            @else
-                                           value=""
+                                           value="0"
                                            @endif class="form_input" size="10" maxlength="10" required />
                                     <br>
                                     <div class="level_for_level">
@@ -295,14 +396,14 @@
                                            @if(isset($Agent_Rate_list['cit']['Province']))
                                            value="{{$Agent_Rate_list['cit']['Province']}}"
                                            @else
-                                           value=""
+                                           value="0"
                                            @endif class="form_input" size="3" maxlength="10" required />&nbsp;&nbsp;&nbsp;
 				                    代理价格<strong class="red">（元）</strong>
                                     <input type="text" name="Agent_Rate[cit][Provincepro]"
                                            @if(isset($Agent_Rate_list['cit']['Provincepro']))
                                            value="{{$Agent_Rate_list['cit']['Provincepro']}}"
                                            @else
-                                           value=""
+                                           value="0"
                                            @endif class="form_input" size="10" maxlength="10" required />
                                     认证条件：
                                     等级
@@ -328,14 +429,14 @@
                                            @if(isset($Agent_Rate_list['cit']['Selfpro']))
                                                    value="{{$Agent_Rate_list['cit']['Selfpro']}}"
                                            @else
-                                                   value=""
+                                                   value="0"
                                            @endif class="form_input" size="10" maxlength="10" required />&nbsp;&nbsp;&nbsp;
 				                    团队销售额<strong class="red">（元）</strong>
                                     <input type="text" name="Agent_Rate[cit][Teampro]"
                                            @if(isset($Agent_Rate_list['cit']['Teampro']))
                                            value="{{$Agent_Rate_list['cit']['Teampro']}}"
                                            @else
-                                           value=""
+                                           value="0"
                                            @endif class="form_input" size="10" maxlength="10" required />
                                     <br>
                                     <div class="level_for_level">
@@ -409,14 +510,14 @@
                                            @if(isset($Agent_Rate_list['cou']['Province']))
                                                    value="{{$Agent_Rate_list['cou']['Province']}}"
                                            @else
-                                                   value=""
+                                                   value="0"
                                            @endif class="form_input" size="3" maxlength="10" required />&nbsp;&nbsp;&nbsp;
 				                    代理价格<strong class="red">（元）</strong>
                                     <input type="text" name="Agent_Rate[cou][Provincepro]"
                                            @if(isset($Agent_Rate_list['cou']['Provincepro']))
                                            value="{{$Agent_Rate_list['cou']['Provincepro']}}"
                                            @else
-                                           value=""
+                                           value="0"
                                            @endif class="form_input" size="10" maxlength="10" required />
                                     认证条件：
                                     @if(!empty($distribute_level))
@@ -442,14 +543,14 @@
                                            @if(isset($Agent_Rate_list['cou']['Selfpro']))
                                                    value="{{$Agent_Rate_list['cou']['Selfpro']}}"
                                            @else
-                                                   value=""
+                                                   value="0"
                                            @endif class="form_input" size="10" maxlength="10" required />
 				                    &nbsp;&nbsp;&nbsp;团队销售额<strong class="red">（元）</strong>
                                     <input type="text" name="Agent_Rate[cou][Teampro]"
                                            @if(isset($Agent_Rate_list['cou']['Teampro']))
                                            value="{{$Agent_Rate_list['cou']['Teampro']}}"
                                            @else
-                                           value=""
+                                           value="0"
                                            @endif class="form_input" size="10" maxlength="10" required />
                                     <br>
                                     <div class="level_for_level">
@@ -543,5 +644,11 @@
             </div>
         </div>
     </div>
+
+    <script>
+        @if($rsConfig["Dis_Agent_Type"] <= 0)
+            $("input[type='text']").attr('disabled', true);
+        @endif
+    </script>
 
 @endsection

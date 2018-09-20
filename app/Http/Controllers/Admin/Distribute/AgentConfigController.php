@@ -50,8 +50,8 @@ class AgentConfigController extends Controller
             $Agent_Rate = '';
             $Agent_Rate_Commi = '';
         }elseif($input['Dis_Agent_Type'] == 1){
-            $Agent_Rate = json_encode($input['Agent_Rate'],JSON_UNESCAPED_UNICODE);
-            $Agent_Rate_Commi = json_encode($input['Agent_Rate_Commi'],JSON_UNESCAPED_UNICODE);
+            $Agent_Rate = isset($input['Agent_Rate']) ? json_encode($input['Agent_Rate'],JSON_UNESCAPED_UNICODE) : '';
+            $Agent_Rate_Commi = isset($input['Agent_Rate_Commi']) ? json_encode($input['Agent_Rate_Commi'],JSON_UNESCAPED_UNICODE) : '';
         }
         $distribute_config->Agent_Rate = $Agent_Rate;
         $distribute_config->Agent_Rate_Commi = $Agent_Rate_Commi;
