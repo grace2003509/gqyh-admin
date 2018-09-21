@@ -11,6 +11,7 @@ use App\Models\Dis_Level;
 use App\Models\Dis_Point_Record;
 use App\Models\Member;
 use App\Models\UserOrder;
+use App\Services\ServicePagination;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -106,15 +107,88 @@ class DisAccountController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $input = $request->input();
+        $da_obj = new Dis_Account();
+        $Flag = false;
 
+
+        if($input["action"] == "disable"){//禁用账号
+            $Flag = $da_obj->find($id)->update(array('status'=>0));
+        }
+        if($input["action"] == "enable"){//开启账号
+            $Flag = $da_obj->find($id)->update(array('status'=>1));
+        }
+        if($input["action"] == "dongjie"){//冻结账号
+            $Flag = $da_obj->find($id)->update(array('Is_Dongjie'=>1));
+        }
+        if($input["action"] == "jiedong"){//解冻账号
+            $Flag = $da_obj->find($id)->update(array('Is_Dongjie'=>0));
+        }
+        if($input["action"] == "delete"){//删除账号
+            $Flag = $da_obj->find($id)->update(array('Is_Delete'=>1));
+        }
+        if($input["action"] == "undelete"){//恢复账号
+            $Flag = $da_obj->find($id)->update(array('Is_Delete'=>0));
+        }
+
+        if($Flag){
+            return redirect()->back()->with('success', '操作成功');
+        }else{
+            return redirect()->back()->with('errors', '操作失败');
+        }
     }
 
-    /**
-     * 删除分销账号
-     */
-    public function del($id)
-    {
 
+
+    /**
+     * 分销商下属列表
+     */
+    public function posterity(Request $request, $id)
+    {
+        $da_obj = new Dis_Account();
+        $m_obj = new Member();
+
+        $userid = $id;
+        $rsAccount = $da_obj->where('User_ID', $userid)->first();
+
+        $posterity = $rsAccount->getPosterity(0);
+        $posterity_count = $posterity->count();//下属分销商个数
+
+        //获取此分销商下属层数
+        $dis_level = [];
+        foreach($posterity as $k => $v){
+            $dis_level[] = $v['level'];
+        }
+        $max_level = empty($dis_level) ? 0 : max($dis_level);//数组中最大的值
+
+        $level = intval($request->input('level',1));
+        $account_list = $posterity->where('level',$level);
+
+        foreach($account_list as $key => $value){
+            $user = $m_obj->find($value['User_ID']);
+            $value['user'] = $user;
+        }
+
+        //初始化分页类
+        $records_per_page = 15;
+        $total_num = $account_list->count();
+        $pagination = new ServicePagination();
+        $pagination->records($total_num);
+        $pagination->records_per_page($records_per_page);
+
+        $account_list = array_slice(
+            $account_list->toArray(),                                             //  from the original array we extract
+            (($pagination->get_page() - 1) * $records_per_page),    //  starting with these records
+            $records_per_page                                       //  this many records
+        );
+
+        $total_pages = $pagination->_properties['total_pages'];
+        $cur_page = $pagination->_properties['page'];
+        $href_template = '/admin/distribute/account_posterity/'.$userid.'?level='.$level.'&page={{number}}';
+
+        return view('admin.distribute.account_posterity', compact(
+            'posterity_count', 'max_level', 'userid', 'account_list', 'total_num',
+            'total_pages', 'href_template', 'cur_page'));
     }
 
 

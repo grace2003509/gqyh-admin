@@ -100,25 +100,25 @@
                                 @endif
                                 <!-- 代理开关end -->
                                 @if($account['Is_Audit'] == 0)
-                                <a href="?action=pass&AccountID={{$account['Account_ID']}}">通过</a>
+                                <a href="/admin/distribute/account_update/{{$account['Account_ID']}}?action=pass">通过</a>
                                 @endif
                                 @if($account['status'] == 1)
-                                    <a href="/admin/distribute/account_upate/{{$account['Account_ID']}}?action=disable"
+                                    <a href="/admin/distribute/account_update/{{$account['Account_ID']}}?action=disable"
                                        onClick="if(!confirm('禁用后此分销商不可分销,你确定要禁用么？')){return false};">禁用</a>|
                                 @else
-                                    <a href="/admin/distribute/account_upate/{{$account['Account_ID']}}?action=enable" title="开启" >开启</a>|
+                                    <a href="/admin/distribute/account_update/{{$account['Account_ID']}}?action=enable" title="开启" >开启</a>|
                                 @endif
                                 @if($account['Is_Dongjie'] == 0)
-                                    <a href="/admin/distribute/account_upate/{{$account['Account_ID']}}?action=dongjie"
+                                    <a href="/admin/distribute/account_update/{{$account['Account_ID']}}?action=dongjie"
                                        onClick="if(!confirm('冻结后此分销商不可分销,你确定要冻结么？')){return false};">冻结</a>|
                                 @else
-                                    <a href="/admin/distribute/account_upate/{{$account['Account_ID']}}?action=jiedong" title="解冻" >解冻</a>|
+                                    <a href="/admin/distribute/account_update/{{$account['Account_ID']}}?action=jiedong" title="解冻" >解冻</a>|
                                 @endif
                                 @if($account['Is_Delete'] == 0)
-                                    <a href="/admin/distribute/account_upate/{{$account['Account_ID']}}?action=delete"
+                                    <a href="/admin/distribute/account_update/{{$account['Account_ID']}}?action=delete"
                                        onClick="if(!confirm('删除后此分销商不可分销,你确定要删除么？')){return false};">删除</a>|
                                 @else
-                                    <a href="/admin/distribute/account_upate/{{$account['Account_ID']}}?action=undelete" title="恢复" >恢复</a>|
+                                    <a href="/admin/distribute/account_update/{{$account['Account_ID']}}?action=undelete" title="恢复" >恢复</a>|
                                 @endif
                                 @if($account['status']==1&&$account['Is_Delete']==0&&$account['Is_Dongjie']==0)
                                 <a href="/admin/distribute/account_posterity/{{$account['User_ID']}}" >下属</a>
