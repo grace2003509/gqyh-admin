@@ -8,13 +8,14 @@
     <link href='/admin/css/global.css' rel='stylesheet' type='text/css' />
     <link href='/admin/css/main.css' rel='stylesheet' type='text/css' />
     <link href='/admin/css/shop.css' rel='stylesheet' type='text/css' />
-    <link href='/admin/css/area_content.css?data=041607' rel='stylesheet' type='text/css' />
-    <link href='/admin/css/distribute.css?data=041607' rel='stylesheet' type='text/css' />
+    <link href='/admin/css/area_content.css' rel='stylesheet' type='text/css' />
+    <link href='/admin/css/distribute.css' rel='stylesheet' type='text/css' />
     <link href='/static/js/plugins/lean-modal/style.css' rel='stylesheet' type='text/css' />
 
     <script src="/static/js/plugins/jQuery/jQuery-2.2.0.min.js"></script>
-    <script type='text/javascript' src='/admin/js/account.js'></script>
-
+    <style>
+        li {list-style-type: none;}
+    </style>
 
     <div class="box">
         <div id="iframe_page">
@@ -140,7 +141,7 @@
     <div class="container">
         <div class="row">
             <div class="modal"  role="dialog" id="agent-info-modal">
-                <div class="modal-dialog">
+                <div class="modal-dialog" style="width: 780px">
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
@@ -151,8 +152,8 @@
                             <div class="clearfix"></div>
                         </div>
                         <div class="modal-footer">
-                            <a class="btn btn-default" id="confirm_dis_area_agent_btn">确定</a>
-                            <a class="btn btn-danger" id="cancel_shipping_btn close" data-dismiss="modal">取消</a>
+                            {{--<a class="btn btn-default" id="confirm_dis_area_agent_btn">确定</a>--}}
+                            <a class="btn btn-danger" id="cancel_shipping_btn close" data-dismiss="modal">关闭</a>
                         </div>
                     </div>
                 </div>
@@ -161,12 +162,28 @@
     </div>
 
     <script language="javascript">
-        var  base_url = '{{$base_url}}'
-        var level_ary=Array();
-        level_ary[0] = '无';
-        <?php foreach($dis_title_level as $k=>$v){
-            echo 'level_ary['.$k.']="'.$v['Name'].'";';
-        }?>
-        $(document).ready(function(){account_obj.account_init();});
+        //弹出代理信息对话框
+        $(".agent_info").click(function(){
+            var account_id = $(this).attr('agent-id');
+            $("#agent-info-modal").modal('show');
+            var param = {account_id:account_id};
+            $.get('/admin/distribute/get_dis_agent_area',param,function(data){
+
+                if(data.status === 1){
+                    $("#agent-info-modal").find('div.modal-body').html(data.content);
+                    //展开城市列表
+                    $("img.trigger").click(function() {
+                        $('div.ecity ').removeClass('showCityPop');
+                        $(this).parent().parent().addClass('showCityPop');
+                    });
+
+                    //关闭城市列表
+                    $("input.close_button").click(function() {
+                        $(this).parent().parent().parent().removeClass('showCityPop');
+                    });
+
+                }
+            },'json');
+        });
     </script>
 @endsection

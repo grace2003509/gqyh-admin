@@ -97,7 +97,7 @@
 .dcity{vertical-align:middle;display:block;z-index:1}
 .ecity{position:relative;float:left;margin-right:1px;padding-right:8px;height:30px;width:80px;}
 .ecitys{position:relative;float:left;margin-right:1px;padding-right:8px;height:30px;width:180px}
-.gcity,.province-list{display:inline-block}
+.gcity,.province-list{display:inline-block; width:100px;}
 .province-list{width:730px;}
 .trigger{width:10px;height:10px;padding:2px;cursor:pointer}
 .dialog-areas li span.areas{margin-right:3px;padding:4px 0 1px 4px;display:inline-block;border:1px solid #f00}

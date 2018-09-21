@@ -124,9 +124,8 @@ if(!function_exists('sdate')){
 }
 
 if(!function_exists('ldate')){
-    /*
+    /**
      *return short format date,not incluing hour,minutes,seconds
-     *
      */
     function ldate($time = '')
     {
@@ -268,4 +267,23 @@ if( ! function_exists('virtual_randchar'))
         }
         return $temchars;
     }
+}
+
+
+if(!function_exists('get_dropdown_list')){
+    //生成dropdown数组
+    function get_dropdown_list($data,$id_field,$value_field = ''){
+        $drop_down = array();
+
+        foreach($data as $key=>$item){
+            if(strlen($value_field) > 0 ){
+                $drop_down[$item[$id_field]] = $item[$value_field];
+            }else{
+                $drop_down[$item[$id_field]] = $item;
+            }
+        }
+
+        return $drop_down;
+    }
+
 }
