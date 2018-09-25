@@ -36,6 +36,7 @@
 <div class="box">
     <div id="iframe_page">
         <div class="iframe_content">
+            <div id="update_post_tips"></div>
             <div id="user" class="r_con_wrap">
                 <form class="search" id="search_form" method="get" action="{{route('admin.member.user_list')}}">
                     <div class="l">
