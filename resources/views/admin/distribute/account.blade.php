@@ -100,7 +100,7 @@
                                 @endif
                                 <!-- 代理开关end -->
                                 @if($account['Is_Audit'] == 0)
-                                <a href="/admin/distribute/account_update/{{$account['Account_ID']}}?action=pass">通过</a>
+                                <a href="/admin/distribute/account_update/{{$account['Account_ID']}}?action=pass">通过</a>|
                                 @endif
                                 @if($account['status'] == 1)
                                     <a href="/admin/distribute/account_update/{{$account['Account_ID']}}?action=disable"

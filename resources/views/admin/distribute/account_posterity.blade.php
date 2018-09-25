@@ -43,7 +43,7 @@
                     <!-- level filter begin -->
                     <div class="btn-group" id="level_filter">
                         @for($i=1;$i<=$max_level;$i++)
-                        <a  class="btn btn-default @if($posterity_count != $i) cur @endif " href="/admin/distribute/account_posterity/{{$userid}}?level={{$i}}">{{$i}}级分销商</a>
+                        <a  class="btn btn-default @if($level == $i) cur @endif " href="/admin/distribute/account_posterity/{{$userid}}?level={{$i}}">{{$i}}级分销商</a>
                         @endfor
                     </div>
                     <p>共{{$total_pages}}页,{{$total_num}}个,当前第{{$cur_page}}页</p>
@@ -95,6 +95,7 @@
 
     <script type='text/javascript'>
         $(document).ready(function(){
+            @if($total_pages > 0)
             $('#pagination').twbsPagination({
                 totalPages:'{{$total_pages}}',
                 visiblePages: 7,
@@ -103,6 +104,7 @@
                     $('#page-content').text('Page ' + page);
                 }
             });
+            @endif
         });
     </script>
 

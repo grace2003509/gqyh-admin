@@ -188,7 +188,7 @@ class DisAccountController extends Controller
 
         return view('admin.distribute.account_posterity', compact(
             'posterity_count', 'max_level', 'userid', 'account_list', 'total_num',
-            'total_pages', 'href_template', 'cur_page'));
+            'total_pages', 'href_template', 'cur_page', 'level'));
     }
 
 

@@ -154,7 +154,7 @@ class UserController extends Controller
                     'User_ID'=>$input["UserID"]
                 );
                 $uir_obj = new UserIntegralRecord();
-                $Add = $uir_obj->create($Data);
+                $uir_obj->create($Data);
                 if($input['Value']>0){
                     $Data=array(
                         "User_Integral"=>$rsUser['User_Integral']+$input['Value'],
@@ -194,7 +194,7 @@ class UserController extends Controller
                         'CreateTime'=>time()
                     );
                     $uc_obj = new UserCharge();
-                    $Add = $uc_obj->create($Data);
+                    $uc_obj->create($Data);
                 }
                 //增加资金流水
                 $Data=array(
@@ -207,7 +207,7 @@ class UserController extends Controller
                     'CreateTime'=>time()
                 );
                 $umr_obj = new UserMoneyRecord();
-                $Add = $umr_obj->create($Data);
+                $umr_obj->create($Data);
 
                 //更新用户余额
                 $Data=array(
@@ -220,6 +220,77 @@ class UserController extends Controller
                     $Data=array("status"=>0,"msg"=>"写入数据库失败");
                 }
             }
+            echo json_encode($Data,JSON_UNESCAPED_UNICODE);
+            exit;
+        }
+
+        if(isset($input['action']) && $input['action'] == "user_mod") {
+            $user_data = $m_obj->find($input['UserID']);
+            $da_obj = new Dis_Account();
+            $dis_account = $da_obj->where('User_ID', $input['UserID'])->first();
+            if(!$dis_account && $input['Value'] > 0){
+                //若此分销账户不存在，只需将其通过审核 Is_Audit
+                //创建新的Dis_Account对象
+                $disAccount = new Dis_Account();
+
+                $disAccount->Users_ID = USERSID;
+                $disAccount->Level_ID = $input['Value'];
+                $disAccount->User_ID = $input['UserID'];
+                $disAccount->Real_Name = $user_data['User_Name'] ? $user_data['User_Name'] : $user_data['User_NickName'];
+                $disAccount->Shop_Name = $user_data['User_NickName'];
+                $disAccount->Shop_Logo = $user_data['User_HeadImg'];
+                $disAccount->balance = 0;
+                $disAccount->status = 1;
+                $disAccount->Is_Audit = 1;
+                $disAccount->Account_Mobile = $user_data['User_Mobile'];
+                $disAccount->Account_CreateTime = time();
+                $disAccount->Group_Num = 1;
+                $disAccount->invite_id = $user_data["Owner_Id"];
+                $Dis_Path = $disAccount->generateDisPath();
+                $disAccount->Dis_Path = $Dis_Path;
+
+                $Flag = $disAccount->save();
+
+                if($Flag){
+                    $Data=array("status"=>1);
+                }else{
+                    $Data=array("status"=>0,"msg"=>"写入数据库失败");
+                }
+            }else{
+                if($input['Value'] <= 0){
+                    if ($dis_account->Is_Delete == 0) {
+                        $dis_account->Is_Delete = 1;//账号标识为删除状态
+                        $dis_account->Is_Dongjie = 1;
+                    }
+                    if ($dis_account->Is_Audit == 1) {//审核
+                        $dis_account->Is_Audit = 0;
+                    }
+                    $dis_account->Level_ID = 0;
+                    $dis_account->save();
+
+                    if ($user_data["Is_Distribute"] == 1) {
+                        $user_data->Is_Distribute = 0;
+                        $user_data->save();
+                    }
+                }else{
+                    if ($dis_account->Is_Delete == 1) {//账号已被标识为删除状态
+                        $dis_account->Is_Delete = 0;
+                        $dis_account->Is_Dongjie = 0;
+                    }
+                    if ($dis_account->Is_Audit == 0) {//未审核
+                        $dis_account->Is_Audit = 1;
+                    }
+                    $dis_account->Level_ID = $input['Value'];
+                    $dis_account->save();
+
+                    if ($user_data["Is_Distribute"] == 0) {
+                        $user_data->Is_Distribute = 1;
+                        $user_data->save();
+                    }
+                }
+                $Data=array("status"=>1);
+            }
+
             echo json_encode($Data,JSON_UNESCAPED_UNICODE);
             exit;
         }
