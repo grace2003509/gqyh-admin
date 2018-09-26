@@ -331,7 +331,7 @@ var user_obj={
                     }
                     $('#update_post_tips').html('数据提交中...').css({left:$(window).width()/2-100}).show();
 
-                    $.post('/admin/member/user_update?', "action=user_mod&UserID="+o.parent().parent().attr('UserID')+'&field='+o.parent().attr('field')+'&Value='+value, function(data){
+                    $.post('/admin/member/user_update?', "action=user_info&UserID="+o.parent().parent().attr('UserID')+'&field='+o.parent().attr('field')+'&Value='+value, function(data){
                         if(data.status==1){
                             var msg='修改成功！';
                             o.html(value);

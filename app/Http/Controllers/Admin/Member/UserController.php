@@ -229,7 +229,6 @@ class UserController extends Controller
             $da_obj = new Dis_Account();
             $dis_account = $da_obj->where('User_ID', $input['UserID'])->first();
             if(!$dis_account && $input['Value'] > 0){
-                //若此分销账户不存在，只需将其通过审核 Is_Audit
                 //创建新的Dis_Account对象
                 $disAccount = new Dis_Account();
 
@@ -258,20 +257,9 @@ class UserController extends Controller
                 }
             }else{
                 if($input['Value'] <= 0){
-                    if ($dis_account->Is_Delete == 0) {
-                        $dis_account->Is_Delete = 1;//账号标识为删除状态
-                        $dis_account->Is_Dongjie = 1;
-                    }
-                    if ($dis_account->Is_Audit == 1) {//审核
-                        $dis_account->Is_Audit = 0;
-                    }
-                    $dis_account->Level_ID = 0;
-                    $dis_account->save();
-
-                    if ($user_data["Is_Distribute"] == 1) {
-                        $user_data->Is_Distribute = 0;
-                        $user_data->save();
-                    }
+                    $Data=array("status"=>0,"msg"=>"分销商不能改为普通用户");
+                    echo json_encode($Data,JSON_UNESCAPED_UNICODE);
+                    exit;
                 }else{
                     if ($dis_account->Is_Delete == 1) {//账号已被标识为删除状态
                         $dis_account->Is_Delete = 0;
@@ -288,6 +276,79 @@ class UserController extends Controller
                         $user_data->save();
                     }
                 }
+                $Data=array("status"=>1);
+            }
+
+            echo json_encode($Data,JSON_UNESCAPED_UNICODE);
+            exit;
+        }
+
+        if(isset($input['action']) && $input['action'] == "user_info") {
+            $da_obj = new Dis_Account();
+            $FieldName=array("User_No","User_Name","User_Mobile","User_Integral","","User_Level");
+            //修改手机号
+            if ($input['field'] == 2) {
+                $rsUsermobile = $m_obj->select('User_Mobile')->where('User_Mobile', $input['Value'])->first();
+                if ($rsUsermobile) {
+                    $Data=array("status"=>0,"msg"=>"手机号已绑定请换个手机号");
+                    echo json_encode($Data,JSON_UNESCAPED_UNICODE);
+                    exit;
+                }
+                $Data=array(
+                    $FieldName[$input['field']] => $input['Value']
+                );
+                $m_obj->where('User_ID', $input['UserID'])->update($Data);
+                $Data=array("status"=>1);
+            }
+            //修改推荐人
+            if($input['field'] == 1){
+                $user_self = $m_obj->find($input["UserID"]);
+                $recommend = $m_obj->where('User_Mobile', $input['Value'])->first();//更改的推荐人
+                $down_ids = $m_obj->getDownUser($input["UserID"]);
+
+                if(!$recommend){
+                    $Data=array("status"=>0,"msg"=>"此推荐人不存在");
+                    echo json_encode($Data,JSON_UNESCAPED_UNICODE);
+                    exit;
+                }
+
+                if(in_array($recommend->User_ID, $down_ids)){
+                    $Data=array("status"=>0,"msg"=>"推荐人不能是此用户下级");
+                    echo json_encode($Data,JSON_UNESCAPED_UNICODE);
+                    exit;
+                }
+
+                if(!$recommend->disAccount){
+                    $Data=array("status"=>0,"msg"=>"推荐人必需是分销商");
+                    echo json_encode($Data,JSON_UNESCAPED_UNICODE);
+                    exit;
+                }
+
+                $root_id = $recommend['Root_ID'] == 0 ? $recommend['User_ID'] : $recommend['Root_ID'];
+                $user_self->Owner_ID = $recommend['User_ID'];
+                $user_self->Root_ID = $root_id;
+                $user_self->save();
+
+                if(count($down_ids) > 0){
+                    $m_obj->whereIn('User_ID', $down_ids)->update(['Root_ID' => $root_id]);
+                }
+
+                //更改分销账号
+                if($user_self->disAccount && $recommend->disAccount){
+                    $dis_path = !$recommend->disAccount->Dis_Path ?  ',' : $recommend->disAccount->Dis_Path;
+                    $replace_path = $dis_path.$recommend->User_ID.',';
+                    $invite_id = $recommend->disAccount->invite_id == 0 ? $recommend->User_ID : $recommend->disAccount->invite_id;
+                    $down_accounts = $da_obj->select('Account_ID', 'User_ID', 'Dis_Path', 'invite_id')
+                        ->where('Dis_Path', 'like', '%'.$user_self->disAccount->Dis_Path.'%')
+                        ->get();
+                    foreach($down_accounts as $key => $value){
+                        $path = str_replace($user_self->disAccount->Dis_Path, $replace_path, $value->Dis_Path);
+                        $value->Dis_Path = $path;
+                        $value->invite_id = $invite_id;
+                        $value->save();
+                    }
+                }
+
                 $Data=array("status"=>1);
             }
 

@@ -79,9 +79,13 @@
                     @foreach($lists as $key=>$rsUser)
                     <tr UserID="{{$rsUser['User_ID']}}">
                         <td nowrap="nowrap">{{$key+1}}</td>
-                        <td nowrap="nowrap">{{$rsUser['upuser']['User_Mobile']}}</td>
+                        <td nowrap="nowrap" class="upd_rows" field="1">
+                            <span class="upd_txt">{{$rsUser['upuser']['User_Mobile']}}</span>
+                        </td>
                         <td nowrap="nowrap">{{$rsUser['User_No']}}</td>
-                        <td nowrap="nowrap">{{$rsUser['User_Mobile']}}</td>
+                        <td nowrap="nowrap" class="upd_rows" field="2">
+                            <span class="upd_txt">{{$rsUser['User_Mobile']}}</span>
+                        </td>
                         <td nowrap="nowrap">&yen;&nbsp;{{$rsUser['User_Cost']}}</td>
                         <td nowrap="nowrap" class="upd_select" field="5">
                             <span class="upd_txt">{{$UserLevel[$rsUser["Dis_Level"]]}}</span>

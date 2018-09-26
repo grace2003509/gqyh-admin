@@ -15,23 +15,27 @@ class Member extends Model {
 	protected $fillable = array('Is_Distribute');
 
 	//一个用户对应一个分销账号
-	public function disAccount() {
+	public function disAccount()
+    {
 		return $this->hasOne(Dis_Account::class, 'User_ID', 'User_ID');
 	}
 
 	//一个用户拥有多个订单
-	public function UserOrder() {
-		return $this->hasMany('UserOrder', 'Order_ID', 'User_ID');
+	public function UserOrder()
+    {
+		return $this->hasMany(UserOrder::class, 'Order_ID', 'User_ID');
 	}
 	
 	//一个用户作为购买者拥有多个分销账户
-	public function BuyerDisRecord(){
-		return $this->hasMany('UserOrder', 'Buyder_ID', 'User_ID');
+	public function BuyerDisRecord()
+    {
+		return $this->hasMany(UserOrder::class, 'Buyder_ID', 'User_ID');
 	}
 	
 	//一个用户作为店主拥有多个分销账户
-	public function OwnerDisRecord(){
-		return $this->hasMany('UserOrder', 'Owner_ID', 'User_ID');
+	public function OwnerDisRecord()
+    {
+		return $this->hasMany(UserOrder::class, 'Owner_ID', 'User_ID');
 	}
 
 	public function MoneyRecord()
@@ -43,11 +47,14 @@ class Member extends Model {
     function clearUser(array $UserID = [])
     {
         $flag = true;
+        $ssp_obj = new ShopSalesPayment();
+        $da_obj = new Dis_Account();
+        $uo_obj = new UserOrder();
         if(!empty($UserID)){
             $result = $this->whereIn('User_ID', $UserID)->get(['User_ID'])->toArray();
         }else{
             $result = $this->get(['User_ID'])->toArray();
-            $ssp_obj = new ShopSalesPayment();
+
             $flag &= $ssp_obj->delete();
         }
 
@@ -55,12 +62,12 @@ class Member extends Model {
             $uid = array_map(function($val){
                 return $val['User_ID'];
             }, $result);
-            $result = DB::table('distribute_account')->whereIn('User_ID', $uid)->get(['Account_ID']);
+            $result = $da_obj->whereIn('User_ID', $uid)->get(['Account_ID']);
             $Account_list = [];
             foreach($result as $value){
                 $Account_list[] = $value->Account_ID;
             }
-            $result = DB::table('user_order')->whereIn('User_ID', $uid)->get(['Order_ID']);
+            $result = $uo_obj->whereIn('User_ID', $uid)->get(['Order_ID']);
             $orderlist = [];
             foreach($result as $value){
                 $orderlist[] = $value->Order_ID;
@@ -87,11 +94,11 @@ class Member extends Model {
             if (!empty($orderlist)) {
                 $item[] = 'Order_ID';
             }
-            $sql = "";
+
             foreach ($item as $it) {
                 if ($it == 'Account_ID') {
                     $kid = $Account_list;
-                    $itemarray = array('distribute_agent_areas', 'distribute_agent_rec', 'distribute_sha_rec');
+                    $itemarray = array('distribute_agent_areas', 'distribute_agent_rec');
                 } elseif ($it == 'Order_ID') {
                     $kid = $orderlist;
                     $itemarray = array('distribute_record', 'shop_sales_record');
@@ -113,7 +120,7 @@ class Member extends Model {
                     }
                 }
             }
-            $sql = trim($sql, ';');
+
             foreach ($uid as $v){
                 $str = USERSID;
                 $file = $_SERVER["DOCUMENT_ROOT"] . '/data/avatar/' . $str . $v . '.jpg';
@@ -135,6 +142,23 @@ class Member extends Model {
             }
         }
         return $flag;
+    }
+
+    /**
+     * 获取用户所有下级ids
+     * @param $userid
+     */
+    public function getDownUser($userid)
+    {
+        $dusers = $this->select('User_ID')->where('Owner_ID', $userid)->get();
+        $ids = [];
+        if($dusers){
+            foreach($dusers as $key => $value){
+                $ids[] = $value['User_ID'];
+                $ids[] = $this->getDownUser($value['User_ID']);
+            }
+        }
+        return $ids;
     }
 
 
