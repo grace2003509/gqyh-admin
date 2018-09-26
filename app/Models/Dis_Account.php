@@ -402,6 +402,30 @@ class Dis_Account extends Model {
         }
     }
 
+
+
+    /**
+     * 获取此账号的祖先id列表(爵位奖专用)
+     * @param $user_id $users_id
+     * @return array
+     */
+    public function getUserAncestorIds($owner_id, $ids = '', $level = 0)
+    {
+        $user = Member::select('Users_ID','Owner_Id', 'User_ID', 'User_Level')->find($owner_id);
+        //只识别vip会员和总代
+        $ids = '';
+        if(@$user->disAccount->status == 1 && @$user->disAccount->Level_ID >= 2) {
+            $ids .= $user['User_ID'].',';
+        }
+        if($user['Owner_Id'] > 0){
+
+            $ids .= $this->getUserAncestorIds($user['Owner_Id'], $ids, 0);
+        }
+
+        return $ids;
+
+    }
+
 	
 
 }

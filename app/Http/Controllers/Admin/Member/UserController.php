@@ -337,16 +337,17 @@ class UserController extends Controller
                 if($user_self->disAccount && $recommend->disAccount){
                     $dis_path = !$recommend->disAccount->Dis_Path ?  ',' : $recommend->disAccount->Dis_Path;
                     $replace_path = $dis_path.$recommend->User_ID.',';
-                    $invite_id = $recommend->disAccount->invite_id == 0 ? $recommend->User_ID : $recommend->disAccount->invite_id;
-                    $down_accounts = $da_obj->select('Account_ID', 'User_ID', 'Dis_Path', 'invite_id')
-                        ->where('Dis_Path', 'like', '%'.$user_self->disAccount->Dis_Path.'%')
-                        ->get();
-                    foreach($down_accounts as $key => $value){
-                        $path = str_replace($user_self->disAccount->Dis_Path, $replace_path, $value->Dis_Path);
-                        $value->Dis_Path = $path;
-                        $value->invite_id = $invite_id;
-                        $value->save();
+                    foreach($down_ids as $key => $value){
+                        $account = $da_obj->where('User_ID', $value)->first();
+                        if($account){
+                            $path = str_replace($user_self->disAccount->Dis_Path, $replace_path, $account->Dis_Path);
+                            $account->Dis_Path = $path;
+                            $account->save();
+                        }
                     }
+                    $user_self->disAccount->Dis_Path = $replace_path;
+                    $user_self->disAccount->invite_id = $user_self->Owner_ID;
+                    $user_self->disAccount->save();
                 }
 
                 $Data=array("status"=>1);

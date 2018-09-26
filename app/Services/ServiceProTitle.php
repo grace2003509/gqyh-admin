@@ -12,6 +12,9 @@ namespace App\Services;
 use App\Models\Dis_Account;
 use App\Models\Dis_Config;
 use App\Models\Dis_Level;
+use App\Models\Dis_Point_Record;
+use App\Models\Member;
+use App\Models\User_Message;
 use App\Models\UserOrder;
 
 class ServiceProTitle
@@ -177,6 +180,114 @@ class ServiceProTitle
         $total_sales = $total_sales + $money;
 
         return $total_sales;
+
+    }
+
+
+
+
+    /**
+     * 爵位奖金发放(会员提现审核通过后，其上级提取爵位奖)
+     * @param $amount
+     * @param $UsersID
+     * @param $UserID
+     */
+    public function send_pro_bouns($amount)
+    {
+        $m_obj = new Member();
+        $da_obj = new Dis_Account();
+        $dc_obj = new Dis_Config();
+        $um_obj = new User_Message();
+        $dpr_obj = new Dis_Point_Record();
+
+        $rsUser = $m_obj->find($this->User_ID);
+        $rsDisAccount = $da_obj->where('User_ID', $this->User_ID)->first();
+
+        $rsDisConfig = $dc_obj->select('Pro_Title_Rate')->find(1);
+        $rsDisConfig = json_decode($rsDisConfig['Pro_Title_Rate'], true);
+        $pro_record_arr = array();
+        //提现用户必需有上级
+        if (isset($rsUser) && $rsUser['Owner_Id'] > 0) {
+            $ownerLast = $da_obj->where('User_ID', $rsUser['Owner_Id'])->first();
+
+            if (isset($ownerLast)) {
+                //一级会员被提奖励
+                if ($ownerLast['Professional_Title'] > 0) {
+                    //上级符合奖励条件，不管提现用户是什么爵位都按一级奖励
+                    $strRate = $rsDisConfig[$ownerLast['Professional_Title']]['check_rate'];
+                    $arrRate = explode(',', $strRate);
+                    $pro_record_arr[] = [
+                        'name' => $rsDisConfig[$ownerLast['Professional_Title']]['Name'],
+                        'user_id' => $ownerLast['User_ID'],
+                        'money' => $amount * ($arrRate[0] / 100)
+                    ];
+                }
+                //一级以上有爵位的分销商提奖励
+                $last_user = $m_obj->find($ownerLast['User_ID']);
+                if (isset($last_user) && $last_user['Owner_Id'] > 0) {
+
+                    //查找上级所有用户只限vip和总代
+                    $ancestorids_str = $da_obj->getUserAncestorIds($last_user['Owner_Id']);
+                    $ancestorids = explode(',', $ancestorids_str);
+                    $ancestorids = array_unique($ancestorids);
+                    $ancestorids = array_filter($ancestorids);
+
+                    foreach ($ancestorids as $k => $v) {
+                        $ownerAccount = $da_obj->where('User_ID', $v)->first();
+
+                        //一级以上提现用户本身爵位级别要比奖励用户低
+                        if (isset($rsDisAccount) && isset($ownerAccount) && $rsDisAccount['Professional_Title'] > 0 && $ownerAccount['Professional_Title'] > 0) {
+                            $strRate = $rsDisConfig[$ownerAccount['Professional_Title']]['check_rate'];
+                            $arrRate = explode(',', $strRate);
+                            if ($rsDisAccount['Professional_Title'] < $ownerAccount['Professional_Title']) {
+                                $pro_record_arr[] = [
+                                    'name' => $rsDisConfig[$ownerAccount['Professional_Title']]['Name'],
+                                    'user_id' => $ownerAccount['User_ID'],
+                                    'money' => $amount * ($arrRate[$rsDisAccount['Professional_Title']] / 100)
+                                ];
+                            }
+                        }
+
+                    }
+
+                }
+            }
+        }
+
+        $record = array();
+        $record_account_flag = true;
+        foreach ($pro_record_arr as $key => $value) {
+            $record_account_flag = $da_obj->where('User_ID', $value['user_id'])
+                ->increment('balance', $value['money']);
+            $record[] = [
+                'Users_ID' => USERSID,
+                'User_ID' => $value['user_id'],
+                'orderid' => 0,
+                'type' => 4,
+                'money' => $value['money'],
+                'status' => 2,
+                'descr' => $value['name'] . '--团队业绩发放',
+                'created_at' => time()
+            ];
+
+            //循环发送得奖消息
+            $Data=array(
+                "Message_Title"=>'恭喜您获取团队奖'.$value['money'].'元',
+                "Message_Description"=>'下级有会员提现,您获取团队奖'.$value['money'].'元',
+                "Message_CreateTime"=>time(),
+                "Users_ID"=>USERSID,
+                "User_ID"=>$value['user_id']
+            );
+            $um_obj->create($Data);
+
+        }
+
+        $flag_pro_record = $dpr_obj->insert($record);
+
+        if ($flag_pro_record && $record_account_flag) {
+            return true;
+        }
+        return false;
 
     }
 }

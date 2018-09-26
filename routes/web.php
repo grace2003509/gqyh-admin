@@ -186,6 +186,17 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
         //获取保存区域代理信息
         $route->get('/get_dis_agent_area', 'DisAccountController@get_dis_agent_area')->name('admin.distribute.get_dis_agent_area');
         $route->post('/save_dis_agent_area', 'DisAccountController@save_dis_agent_area')->name('admin.distribute.save_dis_agent_area');
+        //提现方法管理
+        $route->get('withdraw_method_index', 'WithdrawMethodController@index')->name('admin.distribute.withdraw_method_index');
+        $route->get('withdraw_method_create', 'WithdrawMethodController@create')->name('admin.distribute.withdraw_method_create');
+        $route->post('withdraw_method_store', 'WithdrawMethodController@store')->name('admin.distribute.withdraw_method_store');
+        $route->get('withdraw_method_edit/{id}', 'WithdrawMethodController@edit')->name('admin.distribute.withdraw_method_edit');
+        $route->post('withdraw_method_update/{id}', 'WithdrawMethodController@update')->name('admin.distribute.withdraw_method_update');
+        $route->get('withdraw_method_del/{id}', 'WithdrawMethodController@del')->name('admin.distribute.withdraw_method_del');
+        //提现记录
+        $route->get('withdraw_index', 'WithdrawController@index')->name('admin.distribute.withdraw_index');
+        $route->get('withdraw_update/{id}', 'WithdrawController@update')->name('admin.distribute.withdraw_update');
+        $route->get('withdraw_output', 'WithdrawController@output')->name('admin.distribute.withdraw_output');
     });
 
     //活动管理

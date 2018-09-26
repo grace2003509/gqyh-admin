@@ -161,6 +161,18 @@ return json_encode([                                    // modules
                 'description' => null,
                 'items' => null,
             ],
+            [
+                'name' => '提现管理',
+                'route' => 'admin.distribute.withdraw_method_index',
+                'description' => null,
+                'items' => null,
+            ],
+            [
+                'name' => '提现记录',
+                'route' => 'admin.distribute.withdraw_index',
+                'description' => null,
+                'items' => null,
+            ],
         ],
     ],
     [
