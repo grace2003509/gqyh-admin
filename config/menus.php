@@ -174,7 +174,7 @@ return json_encode([                                    // modules
                 'items' => null,
             ],
             [
-                'name' => '代理人管理',
+                'name' => '区域代理管理',
                 'route' => 'admin.distribute.agent_index',
                 'description' => null,
                 'items' => null,

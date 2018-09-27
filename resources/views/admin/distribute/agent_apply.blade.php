@@ -2,7 +2,7 @@
 @section('ancestors')
     <li>分销管理</li>
 @endsection
-@section('page', '区域代理列表')
+@section('page', '区域代理申请列表')
 @section('subcontent')
 
     <link href='/admin/css/global.css' rel='stylesheet' type='text/css' />
@@ -23,18 +23,21 @@
                         <a href="{{route('admin.distribute.agent_index')}}" class="btn_green btn_w_120">区域代理列表</a>
                         <a href="{{route('admin.distribute.agent_apply')}}" class="btn_green btn_w_120">区域代理申请列表</a>
                     </div>
-                    <form class="search" id="search_form" method="get" action="{{route('admin.distribute.agent_index')}}">
+                    <form class="search" id="search_form" method="get" action="{{route('admin.distribute.agent_apply')}}">
                         <select name="Fields">
-                            <option value='area_name'>代理区域</option>
-                            <option value='Account_ID'>分销商ID</option>
+                            <option value='Applyfor_Name'>申请人</option>
+                            <option value='Applyfor_Mobile'>申请人电话</option>
                         </select>
                         <input type="text" name="Keyword" value="" class="form_input" size="15" />&nbsp;
-                        代理类型：
+                        订单号：<input type="text" name="OrderNo" value="" class="form_input" size="15" />&nbsp;
+                        订单状态：
                         <select name="Status">
                             <option value="all">--请选择--</option>
-                            <option value='1'>省代理</option>
-                            <option value='2'>市代理</option>
-                            <option value='3'>县（区）代理</option>
+                            <option value='0'>待审核</option>
+                            <option value='1'>待付款</option>
+                            <option value='2'>已付款</option>
+                            <option value='3'>已取消</option>
+                            <option value='4'>已拒绝</option>
                         </select>
                         时间：
                         <span id="reportrange">
@@ -47,31 +50,42 @@
                     <table width="100%" align="center" border="0" cellpadding="5" cellspacing="0" class="r_con_table">
                         <thead>
                         <tr>
-                            <td width="5%" nowrap="nowrap">序号</td>
-                            <td width="10%" nowrap="nowrap">分销商ID</td>
-                            <td width="15%" nowrap="nowrap">分销商</td>
-                            <td width="25%" nowrap="nowrap">代理区域</td>
-                            <td width="10%" nowrap="nowrap">代理区域所获金额</td>
-                            <td width="10%" nowrap="nowrap">代理类型</td>
-                            <td width="15%">时间</td>
+                            <td width="8%" nowrap="nowrap">序号</td>
+                            <td width="10%" nowrap="nowrap">订单号</td>
+                            <td width="10%" nowrap="nowrap">申请人</td>
+                            <td width="8%" nowrap="nowrap">申请人电话</td>
+                            <td width="10%" nowrap="nowrap">金额</td>
+                            <td width="10%" nowrap="nowrap">申请类型</td>
+                            <td width="10%" nowrap="nowrap">申请地域</td>
+                            <td width="10%" nowrap="nowrap">状态</td>
+                            <td width="12%" nowrap="nowrap">申请时间</td>
+                            <td width="10%" nowrap="nowrap" class="last">操作</td>
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($agent_list as $key=>$area)
+                        @foreach($agent_order_list as $key=>$rsOrder)
                         <tr>
                             <td nowrap="nowrap">{{$key+1}}</td>
-                            <td nowrap="nowrap">{{$area['Account_ID']}}</td>
-                            <td nowrap="nowrap">{{$area['user']['User_Mobile']}}</td>
-                            <td nowrap="nowrap">{{$area['area']}}</td>
-                            <td nowrap="nowrap">{{$area['money']}}</td>
-                            <td nowrap="nowrap">{{$area['type']}}</td>
-                            <td nowrap="nowrap">{{date("Y-m-d H:i:s",$area['create_at'])}}</td>
+                            <td nowrap="nowrap">{{$rsOrder["order_no"]}}</td>
+                            <td>{{$rsOrder["Applyfor_Name"]}}</td>
+                            <td>{{$rsOrder["Applyfor_Mobile"]}}</td>
+                            <td>{{$rsOrder["Order_TotalPrice"]}}</td>
+                            <td>{{$rsOrder["AreaMark"]}}</td>
+                            <td>{{$rsOrder["Area_Concat"]}}</td>
+                            <td nowrap="nowrap">{{$rsOrder["status"]}}</td>
+                            <td nowrap="nowrap">{{date("Y-m-d H:i:s",$rsOrder["Order_CreateTime"])}}</td>
+                            <td class="last" nowrap="nowrap">
+                                @if($rsOrder["Order_Status"] == 0)
+                                    <a href="{{route('admin.distribute.agent_apply_view', ['id' => $rsOrder["Order_ID"]])}}">[审核]</a>
+                                @else
+                                    <a href="{{route('admin.distribute.agent_apply_view', ['id'=>$rsOrder["Order_ID"]])}}">[详情]</a>
+                                @endif
                             </td>
                         </tr>
                         @endforeach
                         </tbody>
                     </table>
-                    <div class="page">{{$agent_list->links()}}</div>
+                    <div class="page">{{$agent_order_list->links()}}</div>
                 </div>
 
             </div>

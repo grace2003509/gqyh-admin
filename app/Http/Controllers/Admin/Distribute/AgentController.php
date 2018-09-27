@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Admin\Distribute;
 
+use App\Models\Agent_Order;
 use App\Models\Area;
 use App\Models\Dis_Agent_Area;
 use App\Models\Dis_Agent_Record;
 use App\Models\Member;
+use App\Models\UserOrder;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -70,8 +72,98 @@ class AgentController extends Controller
     /**
      * 区域代理人申请列表
      */
-    public function agent_applay()
+    public function agent_apply(Request $request)
     {
+        $ao_obj = new Agent_Order();
+        $input = $request->input();
+
+        $Order_Status=array("待审核","待付款","已付款",'已取消','已拒绝');
+
+        //搜索
+        if(isset($input["search"]) && $input["search"]==1){
+            if(!empty($input["Keyword"])){
+                $ao_obj = $ao_obj->where($input["Fields"], 'like', '%'.$input["Keyword"].'%');
+            }
+            if(!empty($input["OrderNo"])){
+                $OrderID = substr($input["OrderNo"],8);
+                $OrderID =  empty($OrderID) ? 0 : intval($OrderID);
+                $ao_obj = $ao_obj->where('Order_ID', $OrderID);
+            }
+            if($input["Status"] != 'all'){
+                $ao_obj = $ao_obj->where('Order_Status', $input["Status"]);
+            }
+            if(!empty($input["date-range-picker"])){
+                $timer = explode('-', $input["date-range-picker"]);
+                $ao_obj = $ao_obj->where('Order_CreateTime', '>=', strtotime($timer[0]));
+                $ao_obj = $ao_obj->where('Order_CreateTime', '<=', strtotime($timer[1]));
+            }
+        }
+
+        $agent_order_list = $ao_obj->orderBy('Order_ID', 'desc')->paginate(15);
+        foreach($agent_order_list as $key => $value){
+            $value['order_no'] = date("Ymd",$value["Order_CreateTime"]).$value["Order_ID"];
+            $value['status'] = $Order_Status[$value['Order_Status']];
+        }
+
+        return view('admin.distribute.agent_apply', compact('agent_order_list'));
+    }
+
+
+    /**
+     * 区域代理申请详情
+     */
+    public function agent_apply_view($id)
+    {
+        $ao_obj = new Agent_Order();
+
+        $Order_Status = array("待审核","待付款","已付款",'已取消','已拒绝');
+
+        $rsOrder = $ao_obj->find($id);
+        $rsOrder["order_no"] = date("Ymd",$rsOrder["Order_CreateTime"]).$rsOrder["Order_ID"];
+        $rsOrder["status"] = $Order_Status[$rsOrder['Order_Status']];
+        if(empty($rsOrder["Order_PaymentMethod"]) || $rsOrder["Order_PaymentMethod"]=="0"){
+            $rsOrder["Order_PaymentMethod"] = "暂无";
+        }
+
+        return view('admin.distribute.agent_apply_view', compact('rsOrder'));
 
     }
+
+
+    /**
+     * 区域代理审核
+     * @param Request $request
+     * @param $id
+     */
+    public function agent_apply_audit(Request $request, $id)
+    {
+        $input = $request->input();
+        $ao_obj = new Agent_Order();
+
+        if($input["refuse"] == 1){
+            $Data=array(
+                "Order_Status"=>1
+            );
+        }else{
+            $Data=array(
+                "Order_Status"=>4,
+                "Refuse_Be"=>$input["refusebe"]
+            );
+        }
+
+        $Flag=$ao_obj->where('Order_ID', $id)->update($Data);
+
+        if($Flag){
+            if($input["refuse"] == 1){
+                return redirect()->route('admin.distribute.agent_apply')->with('success', '申请已通过');
+            }else{
+                return redirect()->route('admin.distribute.agent_apply')->with('success', '申请已回绝');
+            }
+        }else{
+            return redirect()->back()->with('errors', '审核出错');
+        }
+
+    }
+
+
 }

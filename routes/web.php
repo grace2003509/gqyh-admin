@@ -195,6 +195,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
         $route->get('/withdraw_method_del/{id}', 'WithdrawMethodController@del')->name('admin.distribute.withdraw_method_del');
         //区域代理管理
         $route->get('/agent_index', 'AgentController@index')->name('admin.distribute.agent_index');
+        $route->get('/agent_apply', 'AgentController@agent_apply')->name('admin.distribute.agent_apply');
+        $route->get('/agent_apply_view/{id}', 'AgentController@agent_apply_view')->name('admin.distribute.agent_apply_view');
+        $route->post('/agent_apply_audit/{id}', 'AgentController@agent_apply_audit')->name('admin.distribute.agent_apply_audit');
         //提现记录
         $route->get('/withdraw_index', 'WithdrawController@index')->name('admin.distribute.withdraw_index');
         $route->get('/withdraw_update/{id}', 'WithdrawController@update')->name('admin.distribute.withdraw_update');
