@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Distribute;
 
 use App\Models\Dis_Account_Record;
+use App\Models\Dis_Agent_Record;
 use App\Models\Dis_Point_Record;
 use App\Models\Member;
 use App\Models\ShopProduct;
@@ -150,6 +151,32 @@ class DisRecordController extends Controller
             $value['status'] = $value['status'] == 2 ? '已完成' : '未完成';
         }
         return view('admin.distribute.point_record', compact('rsRecordList'));
+    }
+
+
+    /**
+     * 区域代理奖记录
+     */
+    public function agent_record(Request $request)
+    {
+        $dpr_obj = new Dis_Point_Record();
+        $input = $request->input();
+
+        if (isset($input["search"]) && $input["search"] == 1) {
+            if (!empty($input["date-range-picker"])) {
+                $timer = explode('-', $input['date-range-picker']);
+                $dpr_obj = $dpr_obj->where('created_at', '>=', strtotime($timer[0]));
+                $dpr_obj = $dpr_obj->where('created_at', '<=', strtotime($timer[1]));
+            }
+        }
+
+        $rsRecordList = $dpr_obj->where('type', 3)
+            ->orderBy('created_at', 'desc')
+            ->paginate(15);
+        foreach ($rsRecordList as $key => $value) {
+            $value['status'] = $value['status'] == 2 ? '已完成' : '未完成';
+        }
+        return view('admin.distribute.agent_record', compact('rsRecordList'));
     }
 
 

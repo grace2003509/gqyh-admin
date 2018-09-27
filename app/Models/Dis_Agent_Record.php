@@ -12,19 +12,18 @@ class Dis_Agent_Record extends Model
 	protected  $primaryKey = "Record_ID";
 	protected  $table = "distribute_agent_rec";
 	public $timestamps = false;
+
+	protected $fillable = [
+	    'Users_ID','Account_ID','Real_Name','Account_Mobile','Record_Money','Record_Type','area_id','Record_CreateTime',
+        'Order_ID','Order_CreateTime','Products_Name','Products_Qty','Products_PriceX','area_Proxy_Reward'
+    ];
 	
-	// 多where
-	public function scopeMultiwhere($query, $arr)
-	{
-		if (!is_array($arr)) {
-			return $query;
-		}
-	
-		foreach ($arr as $key => $value) {
-			$query = $query->where($key, $value);
-		}
-		return $query;
-	}
-	
-	
+	//记录所属分销商
+	public function DisAccount()
+    {
+        return $this->belongsTo(Dis_Account::class, 'Account_ID', 'Account_ID');
+    }
+
+
+
 }

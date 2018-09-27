@@ -174,6 +174,12 @@ return json_encode([                                    // modules
                 'items' => null,
             ],
             [
+                'name' => '代理人管理',
+                'route' => 'admin.distribute.agent_index',
+                'description' => null,
+                'items' => null,
+            ],
+            [
                 'name' => '佣金记录',
                 'route' => 'admin.distribute.account_record',
                 'description' => null,

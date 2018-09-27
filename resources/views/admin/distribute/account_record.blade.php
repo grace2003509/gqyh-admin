@@ -23,6 +23,7 @@
                         <a href="{{route('admin.distribute.account_record')}}" class="btn_green btn_w_120">分销佣金记录</a>
                         <a href="{{route('admin.distribute.point_record')}}" class="btn_green btn_w_120">重消奖记录</a>
                         <a href="{{route('admin.distribute.protitle_record')}}" class="btn_green btn_w_120">团队奖记录</a>
+                        <a href="{{route('admin.distribute.agent_record')}}" class="btn_green btn_w_120">区域代理奖记录</a>
                     </div>
 
                     <form class="search" id="search_form" method="get" action="{{route('admin.distribute.account_record')}}">

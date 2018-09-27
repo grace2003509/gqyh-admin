@@ -2,7 +2,7 @@
 @section('ancestors')
     <li>分销管理</li>
 @endsection
-@section('page', '团队奖记录')
+@section('page', '区域代理奖记录')
 @section('subcontent')
 
     <link href='/admin/css/global.css' rel='stylesheet' type='text/css' />
@@ -26,7 +26,7 @@
                         <a href="{{route('admin.distribute.agent_record')}}" class="btn_green btn_w_120">区域代理奖记录</a>
                     </div>
 
-                    <form class="search" id="search_form" method="get" action="{{route('admin.distribute.point_record')}}">
+                    <form class="search" id="search_form" method="get" action="{{route('admin.distribute.agent_record')}}">
                         时间：
                         <span id="reportrange">
                             <input type="text" id="reportrange-input" name="date-range-picker" value="" placeholder="日期间隔">

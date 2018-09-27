@@ -187,20 +187,23 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
         $route->get('/get_dis_agent_area', 'DisAccountController@get_dis_agent_area')->name('admin.distribute.get_dis_agent_area');
         $route->post('/save_dis_agent_area', 'DisAccountController@save_dis_agent_area')->name('admin.distribute.save_dis_agent_area');
         //提现方法管理
-        $route->get('withdraw_method_index', 'WithdrawMethodController@index')->name('admin.distribute.withdraw_method_index');
-        $route->get('withdraw_method_create', 'WithdrawMethodController@create')->name('admin.distribute.withdraw_method_create');
-        $route->post('withdraw_method_store', 'WithdrawMethodController@store')->name('admin.distribute.withdraw_method_store');
-        $route->get('withdraw_method_edit/{id}', 'WithdrawMethodController@edit')->name('admin.distribute.withdraw_method_edit');
-        $route->post('withdraw_method_update/{id}', 'WithdrawMethodController@update')->name('admin.distribute.withdraw_method_update');
-        $route->get('withdraw_method_del/{id}', 'WithdrawMethodController@del')->name('admin.distribute.withdraw_method_del');
+        $route->get('/withdraw_method_index', 'WithdrawMethodController@index')->name('admin.distribute.withdraw_method_index');
+        $route->get('/withdraw_method_create', 'WithdrawMethodController@create')->name('admin.distribute.withdraw_method_create');
+        $route->post('/withdraw_method_store', 'WithdrawMethodController@store')->name('admin.distribute.withdraw_method_store');
+        $route->get('/withdraw_method_edit/{id}', 'WithdrawMethodController@edit')->name('admin.distribute.withdraw_method_edit');
+        $route->post('/withdraw_method_update/{id}', 'WithdrawMethodController@update')->name('admin.distribute.withdraw_method_update');
+        $route->get('/withdraw_method_del/{id}', 'WithdrawMethodController@del')->name('admin.distribute.withdraw_method_del');
+        //区域代理管理
+        $route->get('/agent_index', 'AgentController@index')->name('admin.distribute.agent_index');
         //提现记录
-        $route->get('withdraw_index', 'WithdrawController@index')->name('admin.distribute.withdraw_index');
-        $route->get('withdraw_update/{id}', 'WithdrawController@update')->name('admin.distribute.withdraw_update');
-        $route->get('withdraw_output', 'WithdrawController@output')->name('admin.distribute.withdraw_output');
+        $route->get('/withdraw_index', 'WithdrawController@index')->name('admin.distribute.withdraw_index');
+        $route->get('/withdraw_update/{id}', 'WithdrawController@update')->name('admin.distribute.withdraw_update');
+        $route->get('/withdraw_output', 'WithdrawController@output')->name('admin.distribute.withdraw_output');
         //分销记录
-        $route->get('account_record', 'DisRecordController@account_record')->name('admin.distribute.account_record');//分销佣金记录
-        $route->get('point_record', 'DisRecordController@point_record')->name('admin.distribute.point_record');//重消奖记录
-        $route->get('protitle_record', 'DisRecordController@protitle_record')->name('admin.distribute.protitle_record');//团队奖记录
+        $route->get('/account_record', 'DisRecordController@account_record')->name('admin.distribute.account_record');//分销佣金记录
+        $route->get('/point_record', 'DisRecordController@point_record')->name('admin.distribute.point_record');//重消奖记录
+        $route->get('/protitle_record', 'DisRecordController@protitle_record')->name('admin.distribute.protitle_record');//团队奖记录
+        $route->get('/agent_record', 'DisRecordController@agent_record')->name('admin.distribute.agent_record');//区域代理奖记录
 
     });
 
