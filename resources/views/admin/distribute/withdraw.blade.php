@@ -109,6 +109,7 @@
                 <label></label>
                 <span class="submit">
                     <input type="submit" class="btn_green" value="确定提交" name="submit_btn">
+                    <input type="hidden" value="1" name="reject_btn">
                 </span>
                 <div class="clear"></div>
             </div>

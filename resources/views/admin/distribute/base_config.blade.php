@@ -74,17 +74,6 @@
                         </div>
 
                         <div class="rows">
-                            <label>分销商升级方式</label>
-                            <span class="input">
-                                <input type="radio" id="zhuji" name="Distribute_UpgradeWay" @if($rsConfig['Distribute_UpgradeWay']==0) checked @endif value="0">
-                                <label for="zhuji">逐级升级</label>
-                                <input type="radio" id="tiaoji" name="Distribute_UpgradeWay" @if($rsConfig['Distribute_UpgradeWay']==1) checked @endif value="1">
-                                <label for="tiaoji">跳级升级</label>
-                            </span>
-                            <div class="clear"></div>
-                        </div>
-
-                        <div class="rows">
                             <label>成为分销商门槛</label>
                             <span class="input">
                               <select name="Distribute_Type">

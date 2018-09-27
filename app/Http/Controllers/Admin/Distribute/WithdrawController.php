@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Distribute;
 
+use App\Models\Dis_Account;
 use App\Models\Dis_Withdraw_Record;
 use App\Models\Member;
 use App\Models\UserMoneyRecord;
@@ -56,6 +57,7 @@ class WithdrawController extends Controller
         $umr_obj = new UserMoneyRecord();
         $dwr_obj = new Dis_Withdraw_Record();
         $m_obj = new Member();
+        $da_obj = new Dis_Account();
         $input = $request->input();
 
         $withdraw_data = $dwr_obj->find($id);
@@ -71,6 +73,7 @@ class WithdrawController extends Controller
             return redirect()->back()->with('errors', '相应的会员不存在');
         }
 
+        //执行
         if(isset($input['action']) && $input['action'] == "fullfill"){
             DB::beginTransaction();
             if($withdraw_data['Method_Name'] == '余额提现'){
@@ -133,6 +136,38 @@ class WithdrawController extends Controller
                 return redirect()->back()->with('errors', '更新失败');
             }
         }
+
+        //驳回
+        if(isset($input['reject_btn']) && $input['reject_btn'] == 1){
+            //获取此次提现记录内容
+            $rsRecord = $dwr_obj->find($id);
+
+            if($rsRecord["Record_Status"]==2){
+                return redirect()->back()->with('errors', '已驳回,请勿重复驳回');
+            }
+
+            DB::beginTransaction();
+
+            //将钱退回
+            $money = $rsRecord['Record_Total'];
+            $rsAccount = $da_obj->where('User_ID', $rsRecord['User_ID'])->first();
+            $rsAccount->balance +=$money;
+            $SET = $rsAccount->save();
+
+            $rsRecord->Record_Status = 2;
+            $rsRecord->No_Record_Desc = $input['Reject_Reason'];
+            $Flag = $rsRecord->save();
+
+            if($Flag && $SET){
+                DB::commit();
+                return redirect()->back()->with('success', '成功驳回');
+            }else{
+                DB::rollBack();
+                return redirect()->back()->with('errors', '驳回失败，出现未知错误');
+            }
+
+        }
+
     }
 
 
