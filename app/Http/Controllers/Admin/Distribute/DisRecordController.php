@@ -66,16 +66,6 @@ class DisRecordController extends Controller
                         $value['money_des'] .= '获' . $level_name[$value['level']];
                     }
                 }
-                /*$yformatarr = json_decode($value['yformat'], true);
-                if (!empty($yformatarr)) {
-                    foreach ($yformatarr as $k => $v) {
-                        foreach ($v as $val) {
-                            $yformatstr = '(' . $k . '号商品网站提成比:' . $val . ')';
-                        }
-                    }
-                } else {
-                    $yformatstr = '';
-                }*/
 
                 if ($value['Record_Money'] >= 0) {
                     $value['money_des'] .= '奖金￥' . round_pad_zero($value['Record_Money'], 2) . '('.$value['Record_Description'].')';
