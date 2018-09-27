@@ -197,6 +197,11 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
         $route->get('withdraw_index', 'WithdrawController@index')->name('admin.distribute.withdraw_index');
         $route->get('withdraw_update/{id}', 'WithdrawController@update')->name('admin.distribute.withdraw_update');
         $route->get('withdraw_output', 'WithdrawController@output')->name('admin.distribute.withdraw_output');
+        //分销记录
+        $route->get('account_record', 'DisRecordController@account_record')->name('admin.distribute.account_record');//分销佣金记录
+        $route->get('point_record', 'DisRecordController@point_record')->name('admin.distribute.point_record');//重消奖记录
+        $route->get('protitle_record', 'DisRecordController@protitle_record')->name('admin.distribute.protitle_record');//团队奖记录
+
     });
 
     //活动管理
