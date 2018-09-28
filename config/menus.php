@@ -204,6 +204,12 @@ return json_encode([                                    // modules
                 'description' => null,
                 'items' => null,
             ],
+            [
+                'name' => '行业分类',
+                'route' => 'admin.business.biz_category_index',
+                'description' => null,
+                'items' => null,
+            ],
         ],
     ],
     [
