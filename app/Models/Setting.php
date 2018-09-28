@@ -15,24 +15,24 @@ class Setting extends Model
 
     protected $fillable = ['sys_name','sys_logo','sys_copyright','sys_baidukey','sys_dommain'];
 
-
-    // 多where
-    public function scopeMultiwhere($query, $arr)
-    {
-        if (!is_array($arr)) {
-            return $query;
+    //
+    public function set_homejson_array($array){
+        $data = array();
+        if (empty($array)) {
+            return 110;
         }
-
-        foreach ($arr as $key => $value) {
-            $query = $query->where($key, $value);
+        foreach($array as $value){
+            if(is_array($value['Title'])){
+                $value['Title'] = json_encode($value['Title']);
+            }
+            if(is_array($value['ImgPath'])){
+                $value['ImgPath'] = json_encode($value['ImgPath']);
+            }
+            if(is_array($value['Url'])){
+                $value['Url'] = json_encode($value['Url']);
+            }
+            $data[] = $value;
         }
-        return $query;
-    }
-
-
-    //无需日期转换
-    public function getDates()
-    {
-        return array();
+        return $data;
     }
 }

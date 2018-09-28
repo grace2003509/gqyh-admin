@@ -3,11 +3,43 @@
 namespace App\Http\Controllers\Admin\Business;
 
 use App\Models\Biz_Config;
+use App\Models\Biz_Union_Home;
+use App\Models\Setting;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class BizConfigController extends Controller
 {
+    /**
+     * 商家列表首页设置页面
+     */
+    public function home_describe()
+    {
+        $buh_obj = new Biz_Union_Home();
+        $s_obj = new Setting();
+
+        $rsHome = $buh_obj->find(1);
+        if(!$rsHome){
+            $Data = array(
+                "Users_ID"=>USERSID,
+                "Home_Json"=>'[{"ContentsType":"1","Title":["","",""],"ImgPath":["/uploadfiles/i719b43jsa/image/5806d1f4dd.jpg","/uploadfiles/i719b43jsa/image/5806d13c8f.jpg","/uploadfiles/i719b43jsa/image/5806d140c9.jpg"],"Url":["","",""],"Postion":"t01","Width":"640","Height":"294","NeedLink":"1"},{"ContentsType":"0","Title":"","ImgPath":"/api/shop/union/i1.jpg","Url":"","Postion":"t02","Width":"320","Height":"140","NeedLink":"1"},{"ContentsType":"0","Title":"","ImgPath":"/api/shop/union/i2.jpg","Url":"","Postion":"t03","Width":"320","Height":"140","NeedLink":"1"},{"ContentsType":"0","Title":"","ImgPath":"/api/shop/union/i3.jpg","Url":"","Postion":"t04","Width":"320","Height":"140","NeedLink":"1"},{"ContentsType":"0","Title":"","ImgPath":"/api/shop/union/i4.jpg","Url":"","Postion":"t05","Width":"320","Height":"140","NeedLink":"1"}]'
+            );
+            $rsHome = $buh_obj->create($Data);
+        }
+
+        $Home_Json=json_decode($rsHome['Home_Json'],true);
+        $json=$s_obj->set_homejson_array($Home_Json);
+
+        if ($json == 110) {
+            return redirect()->back()->with('errors', '模版设置有误！联系管理员！');
+        }
+
+        return view('admin.business.home_describe', compact('json'));
+
+    }
+
+
+
     /**
      * 商家入驻描述设置页面
      */
@@ -75,7 +107,38 @@ class BizConfigController extends Controller
     public function describe_update(Request $request)
     {
         $bc_obj = new Biz_Config();
+        $buh_obj = new Biz_Union_Home();
         $input = $request->input();
+
+        if(isset($input['submit_home']) && $input['submit_home'] == 1){
+            $rsHome = $buh_obj->find(1);
+            $Home_Json=json_decode($rsHome['Home_Json'],true);
+            $no=intval($_POST["no"])+1;
+            $is_array = is_array($Home_Json[$no-1]['Title']) ? 1 : 0;
+            if($is_array==1){
+                $_POST["TitleList"]=array();
+                foreach($_POST["ImgPathList"] as $key=>$value){
+                    $_POST["TitleList"][$key]="";
+                    if(empty($value)){
+                        unset($_POST["TitleList"][$key]);
+                        unset($_POST["ImgPathList"][$key]);
+                        unset($_POST["UrlList"][$key]);
+                    }
+                }
+            }
+            if(!empty($Home_Json[$no-1])){
+                $Home_Json[$no-1]['Title'] = $is_array==1 ? $_POST["TitleList"] : $_POST['Title'];
+                $Home_Json[$no-1]['ImgPath'] = $is_array==1 ? $_POST["ImgPathList"] : $_POST['ImgPath'];
+                $Home_Json[$no-1]['Url'] = $is_array==1 ? $_POST["UrlList"] : $_POST['Url'];
+
+                $Data=array(
+                    "Home_Json"=>json_encode($Home_Json,JSON_UNESCAPED_UNICODE),
+                );
+
+                $buh_obj->where('Home_ID', 1)->update($Data);
+
+            }
+        }
 
         if(isset($input['submit_enter']) && $input['submit_enter'] == 1){
             $Data = array(
