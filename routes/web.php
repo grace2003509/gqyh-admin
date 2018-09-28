@@ -212,11 +212,18 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
 
     //商家管理
     Route::group(['prefix' => 'business', 'namespace' => 'Business'], function ($route) {
-        //入驻描述设置
+        //商家设置
         $route->get('/enter_describe', 'BizConfigController@enter_describe')->name('admin.business.enter_describe');
         $route->get('/register_describe', 'BizConfigController@register_describe')->name('admin.business.register_describe');
         $route->get('/fee_describe', 'BizConfigController@fee_describe')->name('admin.business.fee_describe');
         $route->post('/describe_update', 'BizConfigController@describe_update')->name('admin.business.describe_update');
+        //商家分组
+        $route->get('/group_index', 'BizGroupController@index')->name('admin.business.group_index');
+        $route->get('/group_create', 'BizGroupController@create')->name('admin.business.group_create');
+        $route->post('/group_store', 'BizGroupController@store')->name('admin.business.group_store');
+        $route->get('/group_edit/{id}', 'BizGroupController@edit')->name('admin.business.group_edit');
+        $route->post('/group_update/{id}', 'BizGroupController@update')->name('admin.business.group_update');
+        $route->get('/group_del/{id}', 'BizGroupController@del')->name('admin.business.group_del');
     });
 
     //活动管理

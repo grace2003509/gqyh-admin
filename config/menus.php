@@ -198,6 +198,12 @@ return json_encode([                                    // modules
                 'description' => null,
                 'items' => null,
             ],
+            [
+                'name' => '商家分组',
+                'route' => 'admin.business.group_index',
+                'description' => null,
+                'items' => null,
+            ],
         ],
     ],
     [
