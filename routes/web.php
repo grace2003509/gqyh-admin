@@ -210,6 +210,15 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
 
     });
 
+    //商家管理
+    Route::group(['prefix' => 'business', 'namespace' => 'Business'], function ($route) {
+        //入驻描述设置
+        $route->get('/enter_describe', 'BizConfigController@enter_describe')->name('admin.business.enter_describe');
+        $route->get('/register_describe', 'BizConfigController@register_describe')->name('admin.business.register_describe');
+        $route->get('/fee_describe', 'BizConfigController@fee_describe')->name('admin.business.fee_describe');
+        $route->post('/describe_update', 'BizConfigController@describe_update')->name('admin.business.describe_update');
+    });
+
     //活动管理
     Route::group(['prefix' => 'active', 'namespace' => 'Active'], function ($route) {
         $route->get('/index', 'ActiveController@index')->name('admin.active.index');

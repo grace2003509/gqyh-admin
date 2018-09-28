@@ -188,6 +188,19 @@ return json_encode([                                    // modules
         ],
     ],
     [
+        'name' => '商家管理',
+        'icon' => 'gift',
+        'route' => null,
+        'items' => [
+            [
+                'name' => '商家设置',
+                'route' => 'admin.business.enter_describe',
+                'description' => null,
+                'items' => null,
+            ],
+        ],
+    ],
+    [
         'name' => '活动管理',
         'icon' => 'rocket',
         'route' => null,

@@ -5,7 +5,8 @@
 @section('page', '在线客服设置')
 @section('subcontent')
 
-    <link href='/static/css/bootstrap.min.css' rel='stylesheet' type='text/css'/>
+    <link href='/admin/css/global.css' rel='stylesheet' type='text/css' />
+    <link href='/admin/css/main.css' rel='stylesheet' type='text/css' />
     <link href='/admin/css/kf.css' rel='stylesheet' type='text/css'/>
 
     <script src="/static/js/plugins/jQuery/jQuery-2.2.0.min.js"></script>
@@ -19,39 +20,10 @@
                     <table width="100%" align="center" border="0" cellpadding="5" cellspacing="0" class="kftable_first">
                         <tr>
                             <td class="lefttd">客服类型</td>
-                            <td class="righttd">
+                            <td class="righttd" style="text-indent: 15px">
                                 <input type="radio" name="kftype" value="2" @if($rsConfig['kftype'] == 2) checked
                                        @endif class="kftype2" onclick="aftershow(this)">
                                 <label>第三方客服</label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="lefttd">功能模块</td>
-                            <td class="righttd" id="kf_web">
-                                <table class="kftable_first">
-                                    <tr>
-                                        {{--<td class="sonlefttd">
-                                            <label>微官网</label>
-                                            <input type="checkbox" name="KF_IsWeb" value="1"
-                                                   @if($rsConfig['KF_IsWeb'] == 1) checked @endif >
-                                        </td>--}}
-                                        <td class="sonlefttd">
-                                            <label>微商城</label>
-                                            <input type="checkbox" name="KF_IsShop" value="1"
-                                                   @if($rsConfig['KF_IsShop'] == 1) checked @endif >
-                                        </td>
-                                        <td class="sonlefttd">
-                                            <label>会员中心</label>
-                                            <input type="checkbox" value="1" name="KF_IsUser"
-                                                   @if($rsConfig['KF_IsUser'] == 1) checked @endif >
-                                        </td>
-                                        {{--<td class="sonlefttd">
-                                            <label>微砍价</label>
-                                            <input type="checkbox" value="1"  name="KF_kanjia"
-                                            @if($rsConfig['KF_kanjia'] == 1) checked @endif >
-                                        </td>--}}
-                                    </tr>
-                                </table>
                             </td>
                         </tr>
                     </table>
@@ -118,7 +90,7 @@
                         <tr>
                             <td class="lefttd">第三方客服链接</td>
                             <td class="righttd">
-                                <input type="text" name="CodeLink" value="{{$rsConfig['KF_Link']}}" size="180" >
+                                <input type="text" name="CodeLink" value="{{$rsConfig['KF_Link']}}" >
                             </td>
                         </tr>
                         <tr>

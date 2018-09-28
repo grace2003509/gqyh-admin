@@ -17,15 +17,20 @@
 }
 
 .kftable_first .righttd textarea {
-    width:90%;
+    width:50%;
     height:87px;
     margin: 15px;
+    border-radius: 3px;
+    border: 1px #ddd solid;
 }
 
 .kftable_first .righttd input[type=text] {
-    width:90%;
+    width:50%;
     height:30px;
     margin: 15px;
+    border-radius: 3px;
+    border: 1px #ddd solid;
+    text-indent: 10px;
 }
 
 .kftable_first .sonlefttd {
@@ -49,4 +54,5 @@
     color:#FFF;
     width:145px;
     border-radius:3px;
+    margin-left: 15px;
 }
