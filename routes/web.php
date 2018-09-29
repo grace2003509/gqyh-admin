@@ -233,6 +233,13 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
         $route->get('/biz_category_edit/{id}', 'BizCategoryController@edit')->name('admin.business.biz_category_edit');
         $route->post('/biz_category_update/{id}', 'BizCategoryController@update')->name('admin.business.biz_category_update');
         $route->get('/biz_category_del/{id}', 'BizCategoryController@del')->name('admin.business.biz_category_del');
+        //普通商家列表
+        $route->get('/biz_index', 'BizController@index')->name('admin.business.biz_index');
+        $route->get('/biz_create', 'BizController@create')->name('admin.business.biz_create');
+        $route->post('/biz_store', 'BizController@store')->name('admin.business.biz_store');
+        $route->get('/biz_edit/{id}', 'BizController@edit')->name('admin.business.biz_edit');
+        $route->post('/biz_update/{id}', 'BizController@update')->name('admin.business.biz_update');
+        $route->get('/biz_del/{id}', 'BizController@del')->name('admin.business.biz_del');
     });
 
     //活动管理

@@ -210,6 +210,12 @@ return json_encode([                                    // modules
                 'description' => null,
                 'items' => null,
             ],
+            [
+                'name' => '普通商家列表',
+                'route' => 'admin.business.biz_index',
+                'description' => null,
+                'items' => null,
+            ],
         ],
     ],
     [

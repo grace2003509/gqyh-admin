@@ -26,6 +26,29 @@ class AppServiceProvider extends ServiceProvider
                 return true;
             }
         });
+
+        //验证手机号
+        Validator::extend('mobile', function ($attribute, $value, $parameters, $validator) {
+            //需验证的值$value
+            $is = preg_match('/^1[3|4|5|7|8]\d{9}$/', $value);
+            if(!$is){
+                return false;
+            }else{
+                return true;
+            }
+        });
+
+        //验证电话号
+        Validator::extend('phone', function ($attribute, $value, $parameters, $validator) {
+            //需验证的值$value
+            $is1 = preg_match('/^1[34578][0-9]{9}$/', $value);
+            $is2 = preg_match('/^[0-9]{3,4}\-[0-9]{7,8}$/', $value);
+            if(!$is1 && !$is2){
+                return false;
+            }else{
+                return true;
+            }
+        });
     }
 
     /**

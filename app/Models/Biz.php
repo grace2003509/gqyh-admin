@@ -25,4 +25,10 @@ class Biz extends Model
 
     protected $hidden = ['Biz_PassWord'];
 
+    //所属分组
+    public function group()
+    {
+        return $this->belongsTo(Biz_Group::class, 'Group_ID', 'Group_ID');
+    }
+
 }
