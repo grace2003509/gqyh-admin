@@ -287,3 +287,42 @@ if(!function_exists('get_dropdown_list')){
     }
 
 }
+
+
+/**@desc生成二维码
+ *@param  String $data 要生成二维码的数据
+ *@param  String $logo 如果中间放logo,则为此logo路径
+ *@return String $filename  所生成二维码的相对路径
+ *@author JohnGuo
+ */
+function generate_qrcode($data)
+{
+    if(strlen($data) == 0){
+        echo '数据不可为空';
+        return false;
+    }
+
+    //引入phpqrcode库文件
+    require_once('/phpqrcode/phpqrcode.php');
+    // 生成的文件名
+    $PNG_TEMP_DIR = $_SERVER["DOCUMENT_ROOT"].'/data/temp/';
+    //html PNG location prefix
+    $PNG_WEB_DIR = '/data/temp/';
+    $filename = $PNG_TEMP_DIR.'test.png';
+    // 纠错级别：L、M、Q、H
+    $errorCorrectionLevel = 'H';
+    // 点的大小：1到10
+    if(strlen($data)< 15){
+        $matrixPointSize = 8;
+    }else{
+        $matrixPointSize = 5;
+    }
+
+    //创建一个二维码文件
+    $filename = $PNG_TEMP_DIR.'test'.md5($data.'|'.$errorCorrectionLevel.'|'.$matrixPointSize).'.png';
+    QRcode::png($data, $filename, $errorCorrectionLevel, $matrixPointSize, 2);
+
+    $filename = $PNG_WEB_DIR.'test'.md5($data.'|'.$errorCorrectionLevel.'|'.$matrixPointSize).'.png';
+
+    return $filename;
+}

@@ -233,6 +233,14 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
         $route->get('/biz_category_edit/{id}', 'BizCategoryController@edit')->name('admin.business.biz_category_edit');
         $route->post('/biz_category_update/{id}', 'BizCategoryController@update')->name('admin.business.biz_category_update');
         $route->get('/biz_category_del/{id}', 'BizCategoryController@del')->name('admin.business.biz_category_del');
+        //联盟商家列表
+        $route->get('/biz_union_index', 'BizUnionController@index')->name('admin.business.biz_union_index');
+        $route->get('/biz_union_create', 'BizUnionController@create')->name('admin.business.biz_union_create');
+        $route->post('/biz_union_store', 'BizUnionController@store')->name('admin.business.biz_union_store');
+        $route->get('/biz_union_edit/{id}', 'BizUnionController@edit')->name('admin.business.biz_union_edit');
+        $route->post('/biz_union_update/{id}', 'BizUnionController@update')->name('admin.business.biz_union_update');
+        $route->get('/biz_union_del/{id}', 'BizUnionController@del')->name('admin.business.biz_union_del');
+        $route->get('/get_region', 'BizUnionController@get_region')->name('admin.business.get_region');
         //普通商家列表
         $route->get('/biz_index', 'BizController@index')->name('admin.business.biz_index');
         $route->get('/biz_create', 'BizController@create')->name('admin.business.biz_create');

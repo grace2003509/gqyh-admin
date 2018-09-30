@@ -113,30 +113,29 @@ class BizConfigController extends Controller
         if(isset($input['submit_home']) && $input['submit_home'] == 1){
             $rsHome = $buh_obj->find(1);
             $Home_Json=json_decode($rsHome['Home_Json'],true);
-            $no=intval($_POST["no"])+1;
+            $no=intval($input["no"])+1;
             $is_array = is_array($Home_Json[$no-1]['Title']) ? 1 : 0;
             if($is_array==1){
-                $_POST["TitleList"]=array();
-                foreach($_POST["ImgPathList"] as $key=>$value){
-                    $_POST["TitleList"][$key]="";
+                $input["TitleList"]=array();
+                foreach($input["ImgPathList"] as $key=>$value){
+                    $input["TitleList"][$key]="";
                     if(empty($value)){
-                        unset($_POST["TitleList"][$key]);
-                        unset($_POST["ImgPathList"][$key]);
-                        unset($_POST["UrlList"][$key]);
+                        unset($input["TitleList"][$key]);
+                        unset($input["ImgPathList"][$key]);
+                        unset($input["UrlList"][$key]);
                     }
                 }
             }
             if(!empty($Home_Json[$no-1])){
-                $Home_Json[$no-1]['Title'] = $is_array==1 ? $_POST["TitleList"] : $_POST['Title'];
-                $Home_Json[$no-1]['ImgPath'] = $is_array==1 ? $_POST["ImgPathList"] : $_POST['ImgPath'];
-                $Home_Json[$no-1]['Url'] = $is_array==1 ? $_POST["UrlList"] : $_POST['Url'];
+                $Home_Json[$no-1]['Title'] = $is_array==1 ? $input["TitleList"] : $input['Title'];
+                $Home_Json[$no-1]['ImgPath'] = $is_array==1 ? $input["ImgPathList"] : $input['ImgPath'];
+                $Home_Json[$no-1]['Url'] = $is_array==1 ? $input["UrlList"] : $input['Url'];
 
                 $Data=array(
                     "Home_Json"=>json_encode($Home_Json,JSON_UNESCAPED_UNICODE),
                 );
 
                 $buh_obj->where('Home_ID', 1)->update($Data);
-
             }
         }
 
@@ -162,15 +161,15 @@ class BizConfigController extends Controller
         }
 
         if(isset($input['submit_fee']) && $input['submit_fee'] == 1){
-            if (!isset($_POST['year_fee'])) {
+            if (!isset($input['year_fee'])) {
                 return redirect()->back()->with('errors', '请增加年费设置');
             }
-            foreach ($_POST['year_fee']['name'] as $k => $v ) {
+            foreach ($input['year_fee']['name'] as $k => $v ) {
                 if (!is_numeric($v) || $v < 0) {
                     return redirect()->back()->with('errors', '时间为大于0的数字');
                 }
             }
-            foreach ($_POST['year_fee']['value'] as $k => $v ) {
+            foreach ($input['year_fee']['value'] as $k => $v ) {
                 if (!is_numeric($v) || $v < 0) {
                     return redirect()->back()->with('errors', '费用为大于0的数字');
                 }

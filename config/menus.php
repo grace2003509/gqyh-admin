@@ -211,6 +211,12 @@ return json_encode([                                    // modules
                 'items' => null,
             ],
             [
+                'name' => '联盟商家列表',
+                'route' => 'admin.business.biz_union_index',
+                'description' => null,
+                'items' => null,
+            ],
+            [
                 'name' => '普通商家列表',
                 'route' => 'admin.business.biz_index',
                 'description' => null,

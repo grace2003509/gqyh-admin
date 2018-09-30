@@ -17,9 +17,11 @@ class AreaRegion extends Model
 
     public function get_areainfo($areaid)
     {
-        $r = Area::where('area_id', $areaid)->first();
+        $a_obj = new Area();
+        $r = $a_obj->where('area_id', $areaid)->first();
         return $r ? $r : false;
     }
+
 
     public function get_areaparent($areaid)
     {

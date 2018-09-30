@@ -132,12 +132,12 @@
 .hidden {display:none;} 
 
 .redonly{color:#F45F58}
-.sctrl{height:18px;padding:2px;background:#ccc;cursor:pointer;text-align:center;font-weight:bold;}
+.sctrl{height:24px;padding:2px;background:#ccc;cursor:pointer;text-align:center;font-weight:bold;}
 .inputrol input[type='submit']{height:30px; line-height:30px; background:url(../images/ok-btn-bg.jpg); border:none; border-radius:8px; color:#fff; width:145px; font-size:14px;}
 .inputrol input[type='reset']{height:30px; line-height:30px; background:url(../images/ok-btn-bg.jpg); border:none; border-radius:8px; color:#fff; width:145px; font-size:14px;}
 .role li{list-style:none;}
-.role .sbtnp{height:30px;border:solid 1px #ccc;padding:8px 0px 0px 3px;background:#fff;}
-.role .sitemone{height:24px;border:solid 1px #51E3FD;padding:8px 0px 0px 17px;background:#caf1ff;margin-top:3px;}
+.role .sbtnp{height:40px;border:solid 1px #ccc;padding:8px 0px 0px 3px;background:#fff;}
+.role .sitemone{height:35px;border:solid 1px #51E3FD;padding:8px 0px 0px 17px;background:#caf1ff;margin-top:3px;}
 .role .sitemtwo{height:50px;border-left:solid 1px #51E3FD;border-right:solid 1px #51E3FD;border-bottom:solid 1px #51E3FD;padding:8px 0px 0px 5px;}
 .role .sitemtwo .oitem{float:left;margin-left:12px;} 
 .mousehand{cursor:pointer;}
