@@ -248,6 +248,15 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
         $route->get('/biz_edit/{id}', 'BizController@edit')->name('admin.business.biz_edit');
         $route->post('/biz_update/{id}', 'BizController@update')->name('admin.business.biz_update');
         $route->get('/biz_del/{id}', 'BizController@del')->name('admin.business.biz_del');
+        //入驻资质审核
+        $route->get('/biz_apply_index', 'BizApplyController@index')->name('admin.business.biz_apply_index');
+        $route->get('/biz_apply_show/{id}', 'BizApplyController@show')->name('admin.business.biz_apply_show');
+        $route->get('/biz_apply_del/{id}', 'BizApplyController@del')->name('admin.business.biz_apply_del');
+        //支付记录
+        $route->get('/enter_pay', 'BizPayController@enter_pay')->name('admin.business.enter_pay');
+        $route->get('/charge_pay', 'BizPayController@charge_pay')->name('admin.business.charge_pay');
+        $route->get('/bail_back', 'BizPayController@bail_back')->name('admin.business.bail_back');
+        $route->get('/bail_show/{id}', 'BizPayController@bail_show')->name('admin.business.bail_show');
     });
 
     //活动管理
