@@ -326,6 +326,15 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
 
     });
 
+    //微官网
+    Route::group(['prefix' => 'web', 'namespace' => 'Web'], function ($route) {
+        //风格设置
+        $route->get('/skin_config', 'SkinConfigController@index')->name('admin.web.skin_config');
+        //首页设置
+        $route->get('/home_config', 'HomeConfigController@index')->name('admin.web.home_config');
+        $route->post('/home_config_update', 'HomeConfigController@update')->name('admin.web.home_config_update');
+    });
+
     //上传文件
     Route::post('/upload_json', 'UploadController@upload_json')->name('admin.upload_json');
     Route::get('/file_manager_json', 'UploadController@file_manager_json')->name('admin.file_manager_json');

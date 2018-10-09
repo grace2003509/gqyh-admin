@@ -436,5 +436,24 @@ return json_encode([                                    // modules
             ],
         ],
     ],
+    [
+        'name' => '微官网',
+        'icon' => 'edge',
+        'route' => null,
+        'items' => [
+            [
+                'name' => '风格设置',
+                'route' => 'admin.web.skin_config',
+                'description' => null,
+                'items' => null,
+            ],
+            [
+                'name' => '首页设置',
+                'route' => 'admin.web.home_config',
+                'description' => null,
+                'items' => null,
+            ],
+        ],
+    ],
 
 ]);
