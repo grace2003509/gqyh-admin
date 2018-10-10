@@ -148,11 +148,9 @@ class ArticleController extends Controller
             "Article_BriefDescription" => $input['BriefDescription'],
             "Article_Description" => $input['Description'],
         );
-        $Flag = $wa_obj->where('Article_ID', $id)->update($Data);
+        $wa_obj->where('Article_ID', $id)->update($Data);
 
-        if ($Flag) {
-            return redirect()->route('admin.web.article_index')->with('success', '编辑成功');
-        }
+        return redirect()->route('admin.web.article_index')->with('success', '编辑成功');
 
     }
 

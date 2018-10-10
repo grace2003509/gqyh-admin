@@ -42,10 +42,9 @@ class LbsController extends Controller
             "Stores_PrimaryLng"=>$input["PrimaryLng"],
             "Stores_PrimaryLat"=>$input["PrimaryLat"]
         );
-        $Flag = $wc_obj->where('Users_ID', USERSID)->update($Data);
+        $wc_obj->where('Users_ID', USERSID)->update($Data);
 
-        if($Flag){
-            return redirect()->back()->with('success', '保存成功');
-        }
+        return redirect()->back()->with('success', '保存成功');
+
     }
 }

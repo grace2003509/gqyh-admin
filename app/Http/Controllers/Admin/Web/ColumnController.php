@@ -146,11 +146,9 @@ class ColumnController extends Controller
             "Column_ChildTypeID"=>empty($input['ChildTypeID'])?0:$input['ChildTypeID'],
             "Column_Description"=>$input['Description'],
         );
-        $Flag = $wc_obj->where('Column_ID', $id)->update($Data);
+        $wc_obj->where('Column_ID', $id)->update($Data);
 
-        if($Flag){
-            return redirect()->route('admin.web.column_index')->with('success', '编辑成功');
-        }
+        return redirect()->route('admin.web.column_index')->with('success', '编辑成功');
     }
 
 

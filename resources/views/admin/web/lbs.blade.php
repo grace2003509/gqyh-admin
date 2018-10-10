@@ -112,7 +112,7 @@
 
     });
 
-    $(document).ready(web_obj.lbs_init);
+    $(document).ready(global_obj.map_init());
 </script>
 
 @endsection
