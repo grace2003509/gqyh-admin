@@ -26,7 +26,7 @@
                         <div class="rows">
                             <label>栏目排序</label>
                             <span class="input">
-                              <input name="Index" value="{{$rsColumn["Column_Index"]}}" type="number" class="form_input" size="20">
+                              <input name="Index" value="{{$rsColumn["Column_Index"]}}" type="number" class="form_input" size="20" required>
                               <span class="fc_red">*</span>越大越靠后
                             </span>
                             <div class="clear"></div>
@@ -46,7 +46,7 @@
                         <div class="rows">
                             <label>栏目名称</label>
                             <span class="input">
-                              <input name="Name" value="{{$rsColumn["Column_Name"]}}" type="text" class="form_input" size="20">
+                              <input name="Name" value="{{$rsColumn["Column_Name"]}}" type="text" class="form_input" size="20" required>
                               <span class="fc_red">*</span>
                             </span>
                             <div class="clear"></div>

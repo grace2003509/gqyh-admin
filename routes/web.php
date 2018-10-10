@@ -340,6 +340,13 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
         $route->get('/column_edit/{id}', 'ColumnController@edit')->name('admin.web.column_edit');
         $route->post('/column_update/{id}', 'ColumnController@update')->name('admin.web.column_update');
         $route->get('/column_del/{id}', 'ColumnController@del')->name('admin.web.column_del');
+        //内容管理
+        $route->get('/article_index', 'ArticleController@index')->name('admin.web.article_index');
+        $route->get('/article_create', 'ArticleController@create')->name('admin.web.article_create');
+        $route->post('/article_store', 'ArticleController@store')->name('admin.web.article_store');
+        $route->get('/article_edit/{id}', 'ArticleController@edit')->name('admin.web.article_edit');
+        $route->post('/article_update/{id}', 'ArticleController@update')->name('admin.web.article_update');
+        $route->get('/article_del/{id}', 'ArticleController@del')->name('admin.web.article_del');
     });
 
     //上传文件

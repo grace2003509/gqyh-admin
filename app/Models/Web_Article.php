@@ -13,4 +13,10 @@ class Web_Article extends Model
     protected $fillable = ['Users_ID','Article_Index','Article_Title','Column_ID','Article_ImgPath',
         'Article_Link','Article_LinkUrl', 'Article_BriefDescription','Article_Description','Article_CreateTime'];
 
+    //隶属栏目
+    public function column()
+    {
+        return $this->belongsTo(Web_Column::class, 'Column_ID', 'Column_ID');
+    }
+
 }

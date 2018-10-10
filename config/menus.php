@@ -459,6 +459,12 @@ return json_encode([                                    // modules
                 'description' => null,
                 'items' => null,
             ],
+            [
+                'name' => '内容管理',
+                'route' => 'admin.web.article_index',
+                'description' => null,
+                'items' => null,
+            ],
         ],
     ],
 
