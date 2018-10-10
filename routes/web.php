@@ -333,6 +333,13 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
         //首页设置
         $route->get('/home_config', 'HomeConfigController@index')->name('admin.web.home_config');
         $route->post('/home_config_update', 'HomeConfigController@update')->name('admin.web.home_config_update');
+        //栏目管理
+        $route->get('/column_index', 'ColumnController@index')->name('admin.web.column_index');
+        $route->get('/column_create', 'ColumnController@create')->name('admin.web.column_create');
+        $route->post('/column_store', 'ColumnController@store')->name('admin.web.column_store');
+        $route->get('/column_edit/{id}', 'ColumnController@edit')->name('admin.web.column_edit');
+        $route->post('/column_update/{id}', 'ColumnController@update')->name('admin.web.column_update');
+        $route->get('/column_del/{id}', 'ColumnController@del')->name('admin.web.column_del');
     });
 
     //上传文件

@@ -453,6 +453,12 @@ return json_encode([                                    // modules
                 'description' => null,
                 'items' => null,
             ],
+            [
+                'name' => '栏目管理',
+                'route' => 'admin.web.column_index',
+                'description' => null,
+                'items' => null,
+            ],
         ],
     ],
 
