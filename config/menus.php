@@ -465,6 +465,12 @@ return json_encode([                                    // modules
                 'description' => null,
                 'items' => null,
             ],
+            [
+                'name' => '一键导航',
+                'route' => 'admin.web.lbs_index',
+                'description' => null,
+                'items' => null,
+            ],
         ],
     ],
 

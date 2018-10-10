@@ -347,6 +347,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
         $route->get('/article_edit/{id}', 'ArticleController@edit')->name('admin.web.article_edit');
         $route->post('/article_update/{id}', 'ArticleController@update')->name('admin.web.article_update');
         $route->get('/article_del/{id}', 'ArticleController@del')->name('admin.web.article_del');
+        //一键导航
+        $route->get('/lbs_index', 'LbsController@lbs_index')->name('admin.web.lbs_index');
+        $route->post('/lbs_save', 'LbsController@lbs_save')->name('admin.web.lbs_save');
     });
 
     //上传文件
