@@ -22,7 +22,6 @@ if (empty($rsSkin['Home_Json'])) {
         );
     }
 } else {
-    $Home_Json = json_decode($rsSkin['Home_Json'], true);
     for ($no = 1; $no <= count($Home_Json); $no++) {
         $json[$no - 1] = array(
             "ContentsType" => $no == 1 ? "1" : "0",

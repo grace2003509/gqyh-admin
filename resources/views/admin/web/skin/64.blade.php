@@ -8,8 +8,7 @@
 $Dwidth = array('640','63','63','63','63','168');
 $DHeight = array('1010','63','63','63','63','78');
 
-$Home_Json=json_decode($rsSkin['Home_Json'],true);
-for($no=1;$no<=6;$no++){
+for($no=1;$no<=count($Home_Json);$no++){
 	$json[$no-1]=array(
 		"ContentsType"=>$no==1?"1":"0",
 		"Title"=>$no==1?json_encode($Home_Json[$no-1]['Title']):$Home_Json[$no-1]['Title'],

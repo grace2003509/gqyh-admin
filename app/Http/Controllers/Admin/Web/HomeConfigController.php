@@ -46,6 +46,7 @@ class HomeConfigController extends Controller
 
         $rsConfig = $wc_obj->find(USERSID);
 
+        //自定义模版保存
         if ($input['do_action'] == 'home_diy') {
             $data = [
                 'Home_Json' => str_replace('undefined', '', $input["gruopPackage"])
@@ -126,15 +127,13 @@ class HomeConfigController extends Controller
         $html = '<option value="">--请选择--</option>';
 
         $html .= '<optgroup label="------------------微官网二级页面------------------"></optgroup>';
-
         $rsColumn = $wc_obj->orderBy('Column_Index', 'asc')->get();
         foreach ($rsColumn as $key => $value) {
             $html .= '<option value="/">' . $value['Column_Name'] . '</option>';
         }
-
         $html .= '<option value="/">一键导航(LBS)</option>';
-        $html .= '<optgroup label="------------------微商城产品分类页面------------------"></optgroup>';
 
+        $html .= '<optgroup label="------------------微商城产品分类页面------------------"></optgroup>';
         $ParentCategory = $sc_obj->where('Category_ParentID', 0)
             ->orderBy('Category_Index', 'asc')->get();
         foreach ($ParentCategory as $key => $value) {

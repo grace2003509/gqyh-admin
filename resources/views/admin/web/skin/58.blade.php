@@ -8,7 +8,6 @@
 $Dwidth = array('640');
 $DHeight = array('320');
 
-$Home_Json=json_decode($rsSkin['Home_Json'],true);
 for($no=1;$no<=1;$no++){
 	$json[$no-1]=array(
 		"ContentsType"=>$no==1?"1":"0",

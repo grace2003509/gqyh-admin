@@ -1,8 +1,13 @@
+@extends('admin.layouts.main')
+@section('ancestors')
+  <li>微官网</li>
+@endsection
+@section('page', '首页设置')
+@section('subcontent')
 <?php
 $Dwidth = array('640');
 $DHeight = array('410');
 
-$Home_Json=json_decode($rsSkin['Home_Json'],true);
 for($no=1;$no<=1;$no++){
 	$json[$no-1]=array(
 		"ContentsType"=>$no==1?"1":"0",
@@ -15,87 +20,34 @@ for($no=1;$no<=1;$no++){
 		"NeedLink"=>"1"
 	);
 }
-
-if($_POST){
-	$no=intval($_POST["no"])+1;
-	if(empty($_POST["ImgPath"])){
-		$_POST["TitleList"]=array();
-		foreach($_POST["ImgPathList"] as $key=>$value){
-			$_POST["TitleList"][$key]="";
-			if(empty($value)){
-				unset($_POST["TitleList"][$key]);
-				unset($_POST["ImgPathList"][$key]);
-				unset($_POST["UrlList"][$key]);
-			}
-		}
-	}
-	$Home_Json[$no-1]=array(
-		"ContentsType"=>$no==1?"1":"0",
-		"Title"=>$no==1?array_merge($_POST["TitleList"]):$_POST['Title'],
-		"ImgPath"=>$no==1?array_merge($_POST["ImgPathList"]):$_POST["ImgPath"],
-		"Url"=>$no==1?array_merge($_POST["UrlList"]):$_POST['Url'],
-		"Postion"=>$no>9 ? "t".$no : "t0".$no,
-		"Width"=>$Dwidth[$no-1],
-		"Height"=>$DHeight[$no-1],
-		"NeedLink"=>"1"
-	);
-	$Data=array(
-		"Home_Json"=>json_encode($Home_Json,JSON_UNESCAPED_UNICODE),
-	);
-	$Flag=$DB->Set("web_home",$Data,"where Users_ID='".$_SESSION["Users_ID"]."' and Skin_ID=".$rsConfig['Skin_ID']);
-	if($Flag){
-		$json=array(
-			"Title"=>$no==1?json_encode(array_merge($_POST["TitleList"])):$_POST['Title'],
-			"ImgPath"=>$no==1?json_encode(array_merge($_POST["ImgPathList"])):$_POST["ImgPath"],
-			"Url"=>$no==1?json_encode(array_merge($_POST["UrlList"])):$_POST['Url'],
-			"status"=>"1"
-		);
-		echo json_encode($json);
-	}else{
-		$json=array(
-			"status"=>"0"
-		);
-		echo json_encode($json);
-	}
-	exit;
-}
+$json = json_encode($json);
 ?>
-<!DOCTYPE HTML>
-<html>
-<head>
-<meta charset="utf-8">
-<title><?php echo $SiteName;?></title>
-<link href='/static/css/global.css' rel='stylesheet' type='text/css' />
-<link href='/static/member/css/main.css?t=<?php echo time() ?>' rel='stylesheet' type='text/css' />
-<script type='text/javascript' src='/static/js/jquery-1.7.2.min.js'></script>
-<script type='text/javascript' src='/static/member/js/global.js?t=<?php echo time() ?>'></script>
-<script src="/third_party/uploadify/jquery.uploadify.min.js" type="text/javascript"></script>
-<link href="/third_party/uploadify/uploadify.css" rel="stylesheet" type="text/css">
-</head>
+<link href='/admin/css/global.css' rel='stylesheet' type='text/css' />
+<link href='/admin/css/main.css' rel='stylesheet' type='text/css' />
+<link href='/admin/css/web.css' rel='stylesheet' type='text/css' />
+<link href="/admin/js/uploadify/uploadify.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="/admin/js/kindeditor/themes/default/default.css" />
+<link href='/static/js/plugins/lean-modal/style.css' rel='stylesheet' type='text/css' />
+<link href='/static/api/web/skin/{{$rsConfig['Skin_ID']}}/page.css' rel='stylesheet' type='text/css' />
 
-<body>
-<!--[if lte IE 9]><script type='text/javascript' src='/static/js/plugin/jquery/jquery.watermark-1.3.js'></script>
-<![endif]-->
+<script src="/static/js/plugins/jQuery/jQuery-2.2.0.min.js"></script>
+<script type='text/javascript' src='/admin/js/global.js'></script>
+<script type='text/javascript' src='/admin/js/uploadify/jquery.uploadify.min.js'></script>
+<script type='text/javascript' src="/admin/js/kindeditor/kindeditor-diy.js"></script>
+<script type='text/javascript' src="/admin/js/kindeditor/lang/zh_CN.js"></script>
+<script type='text/javascript' src='/static/js/plugins/lean-modal/lean-modal.min.js'></script>
+<script type='text/javascript' src='/admin/js/web.js'></script>
+<script language="javascript">
+    var web_skin_data = {!! $json !!};
+    var Dwidth = <?php echo json_encode($Dwidth);?>;
+    var DHeight = <?php echo json_encode($DHeight)?>;
+    $(document).ready(web_obj.home_init);
+</script>
+
+<div class="box">
 <div id="iframe_page">
   <div class="iframe_content">
-    <link href='/static/member/css/web.css?t=<?php echo time() ?>' rel='stylesheet' type='text/css' />
-    <script type='text/javascript' src='/static/member/js/web.js?t=<?php echo time() ?>'></script>
-    <div class="r_nav">
-      <ul>
-        <li class=""><a href="./config.php">基本设置</a></li>
-        <li class=""><a href="./skin.php">风格设置</a></li>
-        <li class="cur"><a href="./home.php">首页设置</a></li>
-        <li class=""><a href="./column.php">栏目管理</a></li>
-        <li class=""><a href="./article.php">一键导航</a></li>
-      </ul>
-    </div>
-    <link href='/static/js/plugin/lean-modal/style.css' rel='stylesheet' type='text/css' />
-    <link href='/static/js/plugin/operamasks/operamasks-ui.css' rel='stylesheet' type='text/css' />
-    <script type='text/javascript' src='/static/js/plugin/lean-modal/lean-modal.min.js'></script> 
-    <script type='text/javascript' src='/static/js/plugin/operamasks/operamasks-ui.min.js'></script>
-    <link href='/static/api/web/skin/<?php echo $rsConfig['Skin_ID'];?>/page.css' rel='stylesheet' type='text/css' />
-    <script language="javascript">var web_skin_data=<?php echo json_encode($json) ?>;</script>
-    <script language="javascript">$(document).ready(web_obj.home_init);</script>
+
     <div id="home" class="r_con_wrap">
       <div class="m_lefter">
 <div id="web_skin_index">
@@ -111,7 +63,7 @@ if($_POST){
               <div class="rows">
                 <div class="b_l"> <strong>图片(1)</strong><span class="tips">大图建议尺寸：
                   <label></label>
-                  px</span><a href="#web_home_img_del" value="0"><img src="/static/member/images/ico/del.gif" align="absmiddle" /></a><br />
+                  px</span><a href="#web_home_img_del" value="0"><img src="/admin/images/ico/del.gif" align="absmiddle" /></a><br />
                   <div class="blank6"></div>
                   <input type="hidden" name="Title[]" value="" />
                   <div>
@@ -126,7 +78,7 @@ if($_POST){
                 <div class="u_l">链接页面</div>
                 <div class="u_r">
                   <select name='UrlList[]'>
-                    <?php UrlList(); ?>
+                    {!! $url_list !!}
                   </select>
                 </div>
               </div>
@@ -135,7 +87,7 @@ if($_POST){
               <div class="rows">
                 <div class="b_l"> <strong>图片(2)</strong><span class="tips">大图建议尺寸：
                   <label></label>
-                  px</span><a href="#web_home_img_del" value="1"><img src="/static/member/images/ico/del.gif" align="absmiddle" /></a><br />
+                  px</span><a href="#web_home_img_del" value="1"><img src="/admin/images/ico/del.gif" align="absmiddle" /></a><br />
                   <div class="blank6"></div>
                   <input type="hidden" name="Title[]" value="" />
                   <div>
@@ -150,7 +102,7 @@ if($_POST){
                 <div class="u_l">链接页面</div>
                 <div class="u_r">
                   <select name='UrlList[]'>
-                    <?php UrlList(); ?>
+                    {!! $url_list !!}
                   </select>
                 </div>
               </div>
@@ -159,7 +111,7 @@ if($_POST){
               <div class="rows">
                 <div class="b_l"> <strong>图片(3)</strong><span class="tips">大图建议尺寸：
                   <label></label>
-                  px</span><a href="#web_home_img_del" value="2"><img src="/static/member/images/ico/del.gif" align="absmiddle" /></a><br />
+                  px</span><a href="#web_home_img_del" value="2"><img src="/admin/images/ico/del.gif" align="absmiddle" /></a><br />
                   <div class="blank6"></div>
                   <input type="hidden" name="Title[]" value="" />
                   <div>
@@ -174,7 +126,7 @@ if($_POST){
                 <div class="u_l">链接页面</div>
                 <div class="u_r">
                   <select name='UrlList[]'>
-                    <?php UrlList(); ?>
+                    {!! $url_list !!}
                   </select>
                 </div>
               </div>
@@ -183,7 +135,7 @@ if($_POST){
               <div class="rows">
                 <div class="b_l"> <strong>图片(4)</strong><span class="tips">大图建议尺寸：
                   <label></label>
-                  px</span><a href="#web_home_img_del" value="3"><img src="/static/member/images/ico/del.gif" align="absmiddle" /></a><br />
+                  px</span><a href="#web_home_img_del" value="3"><img src="/admin/images/ico/del.gif" align="absmiddle" /></a><br />
                   <div class="blank6"></div>
                   <input type="hidden" name="Title[]" value="" />
                   <div>
@@ -198,7 +150,7 @@ if($_POST){
                 <div class="u_l">链接页面</div>
                 <div class="u_r">
                   <select name='UrlList[]'>
-                    <?php UrlList(); ?>
+                    {!! $url_list !!}
                   </select>
                 </div>
               </div>
@@ -207,7 +159,7 @@ if($_POST){
               <div class="rows">
                 <div class="b_l"> <strong>图片(5)</strong><span class="tips">大图建议尺寸：
                   <label></label>
-                  px</span><a href="#web_home_img_del" value="4"><img src="/static/member/images/ico/del.gif" align="absmiddle" /></a><br />
+                  px</span><a href="#web_home_img_del" value="4"><img src="/admin/images/ico/del.gif" align="absmiddle" /></a><br />
                   <div class="blank6"></div>
                   <input type="hidden" name="Title[]" value="" />
                   <div>
@@ -222,7 +174,7 @@ if($_POST){
                 <div class="u_l">链接页面</div>
                 <div class="u_r">
                   <select name='UrlList[]'>
-                    <?php UrlList(); ?>
+                    {!! $url_list !!}
                   </select>
                 </div>
               </div>
@@ -248,7 +200,7 @@ if($_POST){
               <div class="url_select"> <span class="fc_red">*</span> 链接页面<br />
                 <div class="input">
                   <select name='Url'>
-                    <?php UrlList(); ?>
+                    {!! $url_list !!}
                   </select>
                 </div>
               </div>
@@ -272,5 +224,5 @@ if($_POST){
     </div>
   </div>
 </div>
-</body>
-</html>
+</div>
+@endsection
