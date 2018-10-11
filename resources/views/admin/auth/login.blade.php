@@ -66,16 +66,16 @@
             <div class="row">
                 <!-- /.col -->
                 <div>
-                    <div class="checkbox icheck pull-left">
+                    {{--<div class="checkbox icheck pull-left">
                         <label>
                             <input type="checkbox"> 记住账号
                         </label>
-                    </div>
+                    </div>--}}
                     <button type="submit" class="btn btn-block btn-flat btn-lg">登录</button>
                 </div>
-                <div class="col-xs-12">
+                {{--<div class="col-xs-12">
                     <div class="pull-right links"><a href="{{ url('/admin/password/email') }}">忘记密码?</a></div>
-                </div>
+                </div>--}}
             </div>
             <div>
 

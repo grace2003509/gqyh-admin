@@ -39,8 +39,8 @@ class UserController extends Controller
         $input = $request->all();
 
         $rules = [
-            'name' => 'alpha_dash|max:20|unique:users',
-            'email' => 'required|email|unique:users',
+            'name' => 'alpha_dash|max:20|unique:admins',
+            'email' => 'required|email|unique:admins',
             'password' => 'required|min:6|max:60',
             'password_confirm' => 'required|same:password',
         ];
@@ -96,8 +96,8 @@ class UserController extends Controller
         $input = $request->all();
 
         $rules = [
-            'name' => 'required|alpha_dash|max:20|unique:users,name,' . $id . '',
-            'email' => 'required|email|unique:users,email,' . $id . '',
+            'name' => 'required|alpha_dash|max:20|unique:admins,name,' . $id . '',
+            'email' => 'required|email|unique:admins,email,' . $id . '',
             'password' => 'required|min:6|max:60',
             'password_confirm' => 'required|same:password',
         ];

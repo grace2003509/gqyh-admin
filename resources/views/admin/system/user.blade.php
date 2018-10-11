@@ -40,7 +40,9 @@
                                     <button class="btn btn-sm btn-primary"><i class="fa fa-edit"></i> 编辑</button>
                                 </a> &emsp;
                                 <input type="hidden" value="{{ $user->id }}">
+                                @if($user->id != 1)
                                 <button class="del btn btn-sm btn-danger"><i class="fa fa-trash-o"></i> 删除</button>&emsp;
+                                @endif
                                 <a href="{{ Route('assignrole.edit',$user->id) }}">
                                     <button class="btn btn-sm btn-warning"><i class="fa fa-users"></i> 分配角色</button>
                                 </a>

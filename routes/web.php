@@ -19,10 +19,10 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin\Auth'], function ($rout
     $route->get('/logout', 'LoginController@logout')->name('admin.user.logout');
 
     //忘记密码重置
-    $route->get('/password/email', 'ForgotPasswordController@showLinkRequestForm')->name('admin.password.email');
+    $route->get('/password/email', 'ForgotPasswordController@showLinkRequestForm')->name('password.email');
     $route->post('/password/email', 'ForgotPasswordController@sendResetLinkEmail');
-    $route->get('/password/reset/{token}', 'ResetPasswordController@showResetForm');
-    $route->post('/password/reset', 'ResetPasswordController@reset')->name('admin.password.reset');
+    $route->get('/password/reset/{token}', 'ResetPasswordController@showResetForm')->name('password.reset');
+    $route->post('/password/reset', 'ResetPasswordController@reset')->name('password.reset_save');
 });
 
 Route::group(['prefix' => 'admin/system', 'middleware' => ['auth', 'role:administrator']], function ($route) {

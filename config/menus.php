@@ -10,13 +10,13 @@ return json_encode([                                    // modules
                 'name' => '系统设置',
                 'route' => 'admin.base.sys_index',
                 'description' => null,
-                'items' => []
+                'items' => null,
             ],
             [
                 'name' => '在线客服设置',
                 'route' => 'admin.base.kf_index',
                 'description' => null,
-                'items' => []
+                'items' => null,
             ],
             [
                 'name' => '支付设置',
@@ -218,6 +218,12 @@ return json_encode([                                    // modules
                     [
                         'name' => '区域代理申请列表',
                         'route' => 'admin.distribute.agent_apply',
+                        'description' => null,
+                        'items' => null,
+                    ],
+                    [
+                        'name' => '区域代理列表',
+                        'route' => 'admin.distribute.agent_index',
                         'description' => null,
                         'items' => null,
                     ],
