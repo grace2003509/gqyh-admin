@@ -204,8 +204,24 @@ class ActiveController extends Controller
      * @param $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function biz_actives($id)
+    public function biz_actives(Request $request, $id)
     {
+        $input = $request->input();
+        $ba_obj = New Biz_Active();
+
+        //审核
+        if(isset($input['action']) && $input['action'] == 'audit'){
+            $rsBizActive = $ba_obj->find($id);
+            $status = $rsBizActive['Status'] == 1 ? 2 : ($rsBizActive['Status'] == 2 ? 3 : 2);
+            $rsBizActive->Status = $status;
+            $flag = $rsBizActive->save();
+            if($flag){
+                return redirect()->back()->with('success', '审核成功');
+            }else{
+                return redirect()->back()->with('errors', '审核失败');
+            }
+        }
+
         $status = [
             '未开始',
             '申请中',
@@ -215,7 +231,6 @@ class ActiveController extends Controller
         ];
         $typelist = self::TYPE;;
 
-        $ba_obj = New Biz_Active();
         $actives = $ba_obj->where('Active_ID', $id)->paginate(15);
 
         return view('admin.active.biz_actives', compact('actives', 'status', 'typelist'));

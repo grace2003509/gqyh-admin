@@ -20,12 +20,13 @@
                     <table width="100%" align="center" border="0" cellpadding="5" cellspacing="0" class="r_con_table">
                         <thead>
                             <tr>
-                                <td width="48px" align="center"><strong>ID</strong></td>
-                                <td width="48px" align="center"><strong>活动名称</strong></td>
-                                <td align="center" width="66px"><strong>活动类型</strong></td>
-                                <td align="center" width="66px"><strong>商家</strong></td>
-                                <td align="center" width="66px"><strong>审核推荐产品</strong></td>
-                                <td align="center" width="66px"><strong>申请时间</strong></td>
+                                <td align="center" width="5%"><strong>ID</strong></td>
+                                <td align="center" width="10%"><strong>活动名称</strong></td>
+                                <td align="center" width="8%"><strong>活动类型</strong></td>
+                                <td align="center" width="12%"><strong>商家</strong></td>
+                                <td align="center" ><strong>推荐产品</strong></td>
+                                <td align="center" width="10%"><strong>审核</strong></td>
+                                <td align="center" width="10%"><strong>申请时间</strong></td>
                             </tr>
                         </thead>
                         <tbody>
@@ -35,7 +36,10 @@
                                 <td nowrap="nowrap" class="id">{{$v->active->Active_Name}}</td>
                                 <td nowrap="nowrap">{{$typelist[$v->active->Type_ID]}}</td>
                                 <td nowrap="nowrap">{{$v->biz->Biz_Name}}</td>
-                                <td><a href="#">审核</a></td>
+                                <td nowrap="nowrap">product_list</td>
+                                <td>
+                                    <a href="{{route('admin.active.biz_active', ['id' => $v['Active_ID'], 'action' => 'audit'])}}">审核</a>({{$status[$v['Status']]}})
+                                </td>
                                 <td nowrap="nowrap">{{date("Y-m-d",$v["starttime"])}}</td>
                             </tr>
                         @endforeach
