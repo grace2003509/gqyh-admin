@@ -30,11 +30,7 @@
                                         </span>
                                     </h4>
                                     <dl id="pay_0" style="display:block">
-                                        <dd>
-                                            <input type="radio" name="PaymentWxpayType" value="0" @if($rsConfig["PaymentWxpayType"] == 0) checked @endif id="type_0" onClick="document.getElementById('paysignkey').style.display='block';" style="width:25px; height:10px"/>
-                                            <label for="type_0">旧版本</label>&nbsp;&nbsp;
-                                            <input type="radio" name="PaymentWxpayType" value="1" @if($rsConfig["PaymentWxpayType"] == 1) checked @endif id="type_1" onClick="document.getElementById('paysignkey').style.display='none';" style="width:25px; height:10px"/>
-                                            <label for="type_1">新版本</label></dd>
+                                        <input type="hidden" name="PaymentWxpayType" value="1">
                                         <dd>
                                             商户号PartnerId：
                                             <input type="text" name="PaymentWxpayPartnerId" value="{{$rsConfig["PaymentWxpayPartnerId"]}}" maxlength="10"/>
@@ -61,10 +57,10 @@
                                                 <input name="PaymentWxpayKeyUpload" id="PaymentWxpayKeyUpload" type="button" style="width:120px" value="上传图片" />
                                             </div>
                                         </dd>
-                                        <dd style="margin-top:3px; color:#999">
+                                        {{--<dd style="margin-top:3px; color:#999">
                                             微信支付商户证书、微信支付证书密钥主要适用于分销商试用
                                             <span style="color:#F00"> 微信红包提现 </span>和<span style="color:#F00"> 抢红包 </span>功能
-                                        </dd>
+                                        </dd>--}}
                                         <dd>
                                             还需到“<a href="{{route('admin.base.wechat_set')}}">微信授权配置</a>”设置“AppId”和“AppSecret”
                                         </dd>
@@ -98,7 +94,7 @@
                                     </dl>
                                 </li>
                                 <?php } ?>
-                                <li>
+                                {{--<li>
                                     <h4>易宝支付<span>
                                     <input type="checkbox" value="1" id="check_1" name="PaymentYeepayEnabled" @if($rsConfig["PaymentYeepayEnabled"] == 1) checked @endif onClick="show_pay_ment(1);"/>
                                      启用</span></h4>
@@ -109,7 +105,7 @@
                                         <dd>&nbsp;&nbsp;易宝公钥：<input type="text" name="PaymentYeepayYeepayPublicKey" value="{{$rsConfig["PaymentYeepayYeepayPublicKey"]}}"/></dd>
                                         <dd>商品类别码：<input type="text" name="PaymentYeepayProductCatalog" value="{{$rsConfig["PaymentYeepayProductCatalog"]}}"/></dd>
                                     </dl>
-                                </li>
+                                </li>--}}
                                 <li>
                                     <h4>支付宝<span>
                                     <input type="checkbox" value="1" id="check_2" name="AlipayEnabled" @if($rsConfig["Payment_AlipayEnabled"]) checked @endif onclick="show_pay_ment(2);"/>
@@ -126,7 +122,7 @@
                                         </dd>
                                     </dl>
                                 </li>
-                                <li>
+                                {{--<li>
                                     <h4>银联支付<span>
                                     <input type="checkbox" value="1" id="check_3" name="UnionpayEnabled" @if($rsConfig["Payment_UnionpayEnabled"] == 1) checked @endif onclick="show_pay_ment(3);"/>
                                     启用</span></h4>
@@ -148,13 +144,13 @@
                                             </div>
                                         </dd>
                                     </dl>
-                                </li>
+                                </li>--}}
                                 <li>
                                     <h4>余额支付<span>
                                     <input type="checkbox" value="1" name="RemainderEnabled" @if($rsConfig["Payment_RmainderEnabled"] == 1) checked @endif />
                                     启用</span></h4>
                                 </li>
-                                <li>
+                                {{--<li>
                                     <h4>线下支付<span>
                                     <input type="checkbox" value="1" id="check_3" name="OfflineEnabled" @if($rsConfig["Payment_OfflineEnabled"] == 1) checked @endif onClick="show_pay_ment(3);"/>
                                     启用（填写收款账号信息）</span></h4>
@@ -163,7 +159,7 @@
                                             <textarea name="OfflineInfo">{{$rsConfig["Payment_OfflineInfo"]}}</textarea>
                                         </dd>
                                     </dl>
-                                </li>
+                                </li>--}}
                             </ul>
                             <div>
                                 <input type="submit" name="submit_button" value="提交保存"/>

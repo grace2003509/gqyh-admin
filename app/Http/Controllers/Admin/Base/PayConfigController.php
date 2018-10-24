@@ -31,14 +31,14 @@ class PayConfigController extends Controller
             "Payment_AlipayPartner" => $input["AlipayPartner"],
             "Payment_AlipayKey" => $input["AlipayKey"],
             "Payment_AlipayAccount" => $input["AlipayAccount"],
-            "Payment_UnionpayEnabled" => isset($input["UnionpayEnabled"]) ? $input["UnionpayEnabled"] : 0,
+            /*"Payment_UnionpayEnabled" => isset($input["UnionpayEnabled"]) ? $input["UnionpayEnabled"] : 0,
             "Payment_UnionpayAccount" => $input["Unionum"],
             "PaymentUnionpayPfx" => $input["PfxPath"],
             "PaymentUnionpayPfxpwd" => $input["Pfxpwd"],
-            "PaymentUnionpayCer" => $input["CerPath"],
-            "Payment_OfflineEnabled" => isset($input["OfflineEnabled"]) ? $input["OfflineEnabled"] : 0,
+            "PaymentUnionpayCer" => $input["CerPath"],*/
+//            "Payment_OfflineEnabled" => isset($input["OfflineEnabled"]) ? $input["OfflineEnabled"] : 0,
             "Payment_RmainderEnabled" => isset($input["RemainderEnabled"]) ? $input["RemainderEnabled"] : 0,
-            "Payment_OfflineInfo" => $input["OfflineInfo"],
+//            "Payment_OfflineInfo" => $input["OfflineInfo"],
             "PaymentWxpayEnabled" => isset($_POST["PaymentWxpayEnabled"]) ? $input["PaymentWxpayEnabled"] : 0,
             "PaymentWxpayType" => $input["PaymentWxpayType"],
             "PaymentWxpayPartnerId" => $input["PaymentWxpayPartnerId"],
@@ -46,13 +46,13 @@ class PayConfigController extends Controller
             "PaymentWxpayPaySignKey" => $input["PaymentWxpayPaySignKey"],
             "PaymentWxpayCert" => $input["CertPath"],
             "PaymentWxpayKey" => $input["KeyPath"],
-            "PaymentYeepayEnabled" => isset($input["PaymentYeepayEnabled"]) ? $input["PaymentYeepayEnabled"] : 0,
+           /*"PaymentYeepayEnabled" => isset($input["PaymentYeepayEnabled"]) ? $input["PaymentYeepayEnabled"] : 0,
             "PaymentYeepayEnabled" => isset($input["PaymentYeepayEnabled"]) ? $input["PaymentYeepayEnabled"] : 0,
             "PaymentYeepayAccount" => $input["PaymentYeepayAccount"],
             "PaymentYeepayPrivateKey" => $input["PaymentYeepayPrivateKey"],
             "PaymentYeepayPublicKey" => $input["PaymentYeepayPublicKey"],
             "PaymentYeepayYeepayPublicKey" => $input["PaymentYeepayYeepayPublicKey"],
-            "PaymentYeepayProductCatalog" => !empty($input["PaymentYeepayProductCatalog"]) ? $input["PaymentYeepayProductCatalog"] : 0,
+            "PaymentYeepayProductCatalog" => !empty($input["PaymentYeepayProductCatalog"]) ? $input["PaymentYeepayProductCatalog"] : 0,*/
         );
         if (isset($appwitch20180321) && $appwitch20180321) {
             $Data["PaymentAppWxpayCert"] = !empty($input["CertAppPath"]) ? $input["CertAppPath"] : '';
@@ -65,11 +65,7 @@ class PayConfigController extends Controller
 
         $Set = UsersPayConfig::where('Users_ID', USERSID)->update($Data);
 
-        if ($Set) {
-            return redirect()->route('admin.base.pay_index')->with('success', '设置成功！');
-        } else {
-            return redirect()->route('admin.base.pay_index')->with('errors', '设置失败！');
-        }
+        return redirect()->route('admin.base.pay_index')->with('success', '设置成功！');
     }
 
 
