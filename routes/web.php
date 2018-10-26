@@ -146,6 +146,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
         $route->get('/back_index', 'ProductOrderBackController@index')->name('admin.product.back_index');
         $route->get('/back_show/{id}', 'ProductOrderBackController@show')->name('admin.product.back_show');
         $route->get('/back_update/{id}', 'ProductOrderBackController@update')->name('admin.product.back_update');
+        $route->get('/back_update/{id}', 'ProductOrderBackController@update')->name('admin.product.back_update');
+        $route->get('/refund_notify/{id}', 'ProductOrderBackController@refund_notify')->name('admin.product.refund_notify');
     });
 
     //分销管理

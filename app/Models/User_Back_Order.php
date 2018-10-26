@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class User_Back_Order extends Model
 {
     protected $table = 'user_back_order';
-    protected $primaryKey = 'Shipping_ID';
+    protected $primaryKey = 'Back_ID';
     public $timestamps = false;
 
     protected $fillable = [

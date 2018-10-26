@@ -7,9 +7,12 @@ use App\Models\Biz;
 use App\Models\ShopProduct;
 use App\Models\User_Back_Order;
 use App\Models\User_Back_Order_Detail;
+use App\Models\UserOrder;
 use App\Services\ServiceOrder;
+use App\Services\ServicePay;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Yansongda\Pay\Pay;
 
 class ProductOrderBackController extends Controller
 {
@@ -86,11 +89,17 @@ class ProductOrderBackController extends Controller
         if($rsBack["Biz_ID"]==0){
             $rsBack["Biz_Name"] = "本站供货";
         }else{
-            $item = $b_obj->select('Biz_Name')->find($rsBack["Biz_ID"]);
+            $item = $b_obj->select('Biz_Name','Biz_RecieveAddress','Biz_RecieveName','Biz_RecieveMobile')->find($rsBack["Biz_ID"]);
             if($item){
                 $rsBack["Biz_Name"] = $item["Biz_Name"];
+                $rsBack["Biz_RecieveAddress"] = $item["Biz_RecieveAddress"];
+                $rsBack["Biz_RecieveName"] = $item["Biz_RecieveName"];
+                $rsBack["Biz_RecieveMobile"] = $item["Biz_RecieveMobile"];
             }else{
                 $rsBack["Biz_Name"] = "已被删除";
+                $rsBack["Biz_RecieveAddress"] = "";
+                $rsBack["Biz_RecieveName"] = "";
+                $rsBack["Biz_RecieveMobile"] = "";
             }
         }
 
@@ -170,8 +179,6 @@ class ProductOrderBackController extends Controller
             if(in_array($rsBack['order']['Order_PaymentMethod'], ['支付宝','APP支付宝','微支付'])){
                 if ($rsBack['Back_Status'] == 3 || $rsBack['Back_Status'] == 1) {
                     $backup->update_backup("admin_backmoney", $id);
-                    //todo 用状态返回值判断是否，对接支付接口后确定
-//                    return redirect()->back()->with('success', '操作成功');
                 } else {
                     return redirect()->back()->with('errors', '操作错误');
                 }
@@ -209,6 +216,48 @@ class ProductOrderBackController extends Controller
             }else{
                 return redirect()->back()->with('success', '操作错误');
             }
+        }
+    }
+
+    //退款回调
+    public function refund_notify(Request $request, $backid)
+    {
+        $ubo_obj = new User_Back_Order();
+        $back = $ubo_obj->find($backid);
+
+        $wxp_obj = new ServicePay();
+
+        $notify_url = $_SERVER['HTTP_HOST'] . "/admin/product/refund_notify/{$backid}";
+        if($back['order']['Order_PaymentMethod'] == '微支付'){
+            $config = $wxp_obj->wx_config($notify_url);
+            $pay = new Pay($config);
+            $verify = $pay->driver('wechat')->gateway('web')->verify($request->getContent());
+        }
+        if($back['order']['Order_PaymentMethod'] == '支付宝'){
+            $config = $wxp_obj->ali_config($notify_url, '');
+            $pay = new Pay($config);
+            $verify = $pay->driver('alipay')->gateway()->verify($request->all());
+        }
+
+        if($verify){
+            //更新退款单
+            $Data = array(
+                "Back_Status"=>4,
+                "Buyer_IsRead"=>0,
+                "Back_IsCheck"=>1,
+                "Back_UpdateTime"=>time()
+            );
+            $ubo_obj->where('Back_ID', $backid)->update($Data);
+
+            $uo_obj = new UserOrder();
+            $Order_CartList = json_decode($back['order']['Order_CartList'],true);
+            if(empty($Order_CartList)){
+                $uo_obj->where("Order_ID", $back['Order_ID'])->update(['Order_Status' => 4]);
+            }
+
+            return redirect()->back()->with('success', '执行成功');
+        }else{
+            return redirect()->back()->with('errors', '执行失败');
         }
     }
 }

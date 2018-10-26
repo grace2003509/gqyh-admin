@@ -29,52 +29,54 @@
                 <div class="detail_card">
                     <table width="100%" border="0" cellspacing="0" cellpadding="0" class="order_info">
                         <tr>
-                            <td width="8%" nowrap>退货单编号：</td>
-                            <td width="92%">{{$rsBack["Back_Sn"]}}</td>
+                            <td width="7%" nowrap  style="text-align: right">退货单编号：</td>
+                            <td width="93%" style="text-align: left">{{$rsBack["Back_Sn"]}}</td>
                         </tr>
                         <tr>
-                            <td width="8%" nowrap>所属商家：</td>
-                            <td width="92%">{{$rsBack["Biz_Name"]}}</td>
+                            <td nowrap  style="text-align: right">所属商家：</td>
+                            <td style="text-align: left">{{$rsBack["Biz_Name"]}}</td>
                         </tr>
                         <tr>
-                            <td nowrap>退货单时间：</td>
-                            <td>{{date("Y-m-d H:i:s",$rsBack["Back_CreateTime"])}}</td>
+                            <td nowrap  style="text-align: right">退货单时间：</td>
+                            <td style="text-align: left">{{date("Y-m-d H:i:s",$rsBack["Back_CreateTime"])}}</td>
                         </tr>
                         <tr>
-                            <td nowrap>退款数量：</td>
-                            <td>{{$rsBack["Back_Qty"]}}</td>
+                            <td nowrap  style="text-align: right">退款数量：</td>
+                            <td style="text-align: left">{{$rsBack["Back_Qty"]}}</td>
                         </tr>
                         <tr>
-                            <td nowrap>退款总价：</td>
-                            <td><span style="color:red">{{$rsBack["Back_Amount"]}}</span></td>
+                            <td nowrap  style="text-align: right">退款总价：</td>
+                            <td style="text-align: left"><span style="color:red">{{$rsBack["Back_Amount"]}}</span></td>
                         </tr>
                         <tr>
-                            <td nowrap>退款账号：</td>
-                            <td>{{$rsBack["Back_Account"]}}</td>
+                            <td nowrap  style="text-align: right">退款账号：</td>
+                            <td style="text-align: left">{{$rsBack["Back_Account"]}}</td>
                         </tr>
                         <tr>
-                            <td nowrap>商家收货地址：</td>
-                            <td>{{$address}} 【{{$rsBiz["Biz_RecieveAddress"]}}，{{$rsBiz["Biz_RecieveName"]}}，{{$rsBiz["Biz_RecieveMobile"]}}】</td>
+                            <td nowrap  style="text-align: right">商家收货地址：</td>
+                            <td style="text-align: left">{{$address}} 【{{$rsBack["Biz_RecieveAddress"]}}，{{$rsBack["Biz_RecieveName"]}}，{{$rsBack["Biz_RecieveMobile"]}}】</td>
                         </tr>
                         <tr>
-                            <td nowrap>退货单状态：</td>
-                            <td>{{$status[$rsBack["Back_Status"]]}}</td>
+                            <td nowrap  style="text-align: right">退货单状态：</td>
+                            <td style="text-align: left">{{$status[$rsBack["Back_Status"]]}}</td>
                         </tr>
                         <tr>
-                            <td nowrap>网站是否退款：</td>
-                            <td>{{$tuikuan[$rsBack["Back_IsCheck"]]}}</td>
+                            <td nowrap  style="text-align: right">网站是否退款：</td>
+                            <td style="text-align: left">{{$tuikuan[$rsBack["Back_IsCheck"]]}}</td>
                         </tr>
                         <tbody id="btns">
                         <tr>
-                            <td nowrap>&nbsp;</td>
-                            <td>
+                            <td nowrap  style="text-align: right">&nbsp;</td>
+                            <td style="text-align: left">
                                 @if($rsBack["Back_Status"]==0)
                                     @if ($rsBack['allow_back_money'])
                                         <a href="/admin/product/back_update/{{$rsBack["Back_ID"]}}?action=agree" class="back_btn_blue">同意</a>&nbsp;&nbsp;
-                                        @else
-                                        <a href="/admin/product/back_update/{{$rsBack["Back_ID"]}}?action=recieve" class="back_btn_blue">同意</a>&nbsp;&nbsp;
                                     @endif
                                     <a href="/admin/product/back_update/{{$rsBack["Back_ID"]}}?action=reject" id="reject_btn" class="back_btn_grey">驳回</a>
+                                @endif
+
+                                @if ($rsBack["Back_Status"]==2 && $rsBack['allow_back_money'])
+                                    <a href="/admin/product/back_update/{{$rsBack["Back_ID"]}}?action=recieve" class="back_btn_blue">收货</a>&nbsp;&nbsp;
                                 @endif
 
                                 @if ($rsBack["Back_Status"]==3)
@@ -90,8 +92,8 @@
                     <table width="100%" border="0" cellspacing="0" cellpadding="0" class="order_info">
                         @foreach($rsBack['detail'] as $r)
                             <tr>
-                                <td width="150">{{date("Y-m-d H:i:s",$r["createtime"])}}</td>
-                                <td style="color:#777">{{$r["detail"]}}</td>
+                                <td width="150"  style="text-align: right">{{date("Y-m-d H:i:s",$r["createtime"])}}</td>
+                                <td style="color:#777; text-align: left">{{$r["detail"]}}</td>
                             </tr>
                         @endforeach
                     </table>
