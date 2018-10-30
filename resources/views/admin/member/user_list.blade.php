@@ -88,7 +88,7 @@
                         </td>
                         <td nowrap="nowrap">&yen;&nbsp;{{$rsUser['User_Cost']}}</td>
                         <td nowrap="nowrap" class="upd_select" field="5">
-                            <span class="upd_txt">{{$UserLevel[$rsUser["Dis_Level"]]}}</span>
+                            <span class="upd_txt">{{@$UserLevel[$rsUser["Dis_Level"]]}}</span>
                         </td>
 {{--                        <td nowrap="nowrap">{{$UserLevel[$rsUser["Dis_Level"]]}}</td>--}}
                         <td nowrap="nowrap" class="upd_points" field="3"><span class="upd_txt">{{$rsUser['User_Integral']}}</span></td>

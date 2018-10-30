@@ -161,8 +161,8 @@ return json_encode([                                    // modules
                         'items' => null,
                     ],
                     [
-                        'name' => '分销首页设置',
-                        'route' => 'admin.distribute.home_config_index',
+                        'name' => '团队设置',
+                        'route' => 'admin.distribute.group_config_index',
                         'description' => null,
                         'items' => null,
                     ],

@@ -2,7 +2,7 @@
 @section('ancestors')
     <li>分销管理</li>
 @endsection
-@section('page', '分销首页设置')
+@section('page', '团队设置')
 @section('subcontent')
 
     <link href='/admin/css/global.css' rel='stylesheet' type='text/css' />
@@ -16,15 +16,8 @@
             <div class="iframe_content">
 
                 <div class="r_con_wrap">
-                    <div class="control_btn">
-                        <a href="{{route('admin.distribute.base_config_index')}}" class="btn_green btn_w_120">基础设置</a>
-                        <a href="{{route('admin.distribute.home_config_index')}}" class="btn_green btn_w_120">分销首页设置</a>
-                        <a href="{{route('admin.distribute.withdraw_config_index')}}" class="btn_green btn_w_120">提现设置</a>
-                        <a href="{{route('admin.distribute.protitle_config_index')}}" class="btn_green btn_w_120">爵位设置</a>
-                        <a href="{{route('admin.distribute.agent_config_index')}}" class="btn_green btn_w_120">区域代理设置</a>
-                        <a href="{{route('admin.distribute.other_config_index')}}" class="btn_green btn_w_120">其他设置</a>
-                    </div>
-                    <form id="distribute_config_form" class="r_con_form" method="post" action="{{route('admin.distribute.home_config_update')}}">
+                    @include('admin.distribute.top_menu')
+                    <form id="distribute_config_form" class="r_con_form" method="post" action="{{route('admin.distribute.group_config_update')}}">
                         {{csrf_field()}}
                         <input type="hidden" id="level_has" value="">
                         <input type="hidden" id="level" value="">

@@ -6,7 +6,7 @@ use App\Models\Dis_Config;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class HomeConfigController extends Controller
+class GroupConfigController extends Controller
 {
     //分销首页设置展示页面
     public function index()
@@ -27,7 +27,7 @@ class HomeConfigController extends Controller
         }
         $level_name_list = config('level.dis_level');
 
-        return view('admin.distribute.home_config', compact(
+        return view('admin.distribute.group_config', compact(
             'rsAccount', 'Index_Professional_Json', 'level_name_list'));
 
     }
@@ -52,6 +52,6 @@ class HomeConfigController extends Controller
 
         $dc_obj->where('id', 1)->update(['Index_Professional_Json' => $s]);
 
-        return redirect()->route('admin.distribute.home_config_index')->with('success', '设置成功');
+        return redirect()->route('admin.distribute.group_config_index')->with('success', '设置成功');
     }
 }

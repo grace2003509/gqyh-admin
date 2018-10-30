@@ -165,9 +165,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
         $route->get('/level_del/{id}', 'BaseConfigController@level_del')->name('admin.distribute.level_del');
         //搜索获取商品信息
         $route->get('/get_product', 'BaseConfigController@get_product')->name('admin.distribute.get_product');
-        //首页设置
-        $route->get('/home_config_index', 'HomeConfigController@index')->name('admin.distribute.home_config_index');
-        $route->post('/home_config_update', 'HomeConfigController@update')->name('admin.distribute.home_config_update');
+        //团队设置
+        $route->get('/group_config_index', 'GroupConfigController@index')->name('admin.distribute.group_config_index');
+        $route->post('/group_config_update', 'GroupConfigController@update')->name('admin.distribute.group_config_update');
         //提现设置
         $route->get('/withdraw_config_index', 'WithdrawConfigController@index')->name('admin.distribute.withdraw_config_index');
         $route->post('/withdraw_config_update', 'WithdrawConfigController@update')->name('admin.distribute.withdraw_config_update');
@@ -333,8 +333,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
         //风格设置
         $route->get('/skin_config', 'SkinConfigController@index')->name('admin.web.skin_config');
         //首页设置
-        $route->get('/home_config', 'HomeConfigController@index')->name('admin.web.home_config');
-        $route->post('/home_config_update', 'HomeConfigController@update')->name('admin.web.home_config_update');
+        $route->get('/home_config', 'GroupConfigController@index')->name('admin.web.home_config');
+        $route->post('/home_config_update', 'GroupConfigController@update')->name('admin.web.home_config_update');
         //栏目管理
         $route->get('/column_index', 'ColumnController@index')->name('admin.web.column_index');
         $route->get('/column_create', 'ColumnController@create')->name('admin.web.column_create');
